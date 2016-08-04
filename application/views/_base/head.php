@@ -1,7 +1,7 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+	/* defined('BASEPATH') OR exit('No direct script access allowed');
 	//Debug SQL
-	$this->output->enable_profiler(TRUE);
+	$this->output->enable_profiler(TRUE); */
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
 <div id="wrapper">
 	<div id="header">
 		<div class="logo">
-			<img height="70px;" src="<?php echo  site_url(); ?>/static/images/logo.png" />
+			<img src="<?php echo  site_url(); ?>/static/images/logo.png" />
 		</div>
 		<?php
 			//echo $sessiondata;
@@ -50,8 +50,8 @@
 			$currentUser=vst_getCurrentUser();
 			?>
 				<div class="user_info">
-					<h2><span class="lightgreen">Chào bạn.</span> <?php echo $currentUser['username']; ?> [<a href="<?php echo site_url('auth/loggout'); ?>">Thoát</a>]</h2>
-					<p class="bold">Quyền thao tác / <span class="green">( <?php echo $currentUser['roleText']; ?> )</span></p>
+					<h2><span class="lightgreen">Chào bạn.</span> <?php echo vst_getCurrentUser(); ?> [<a href="<?php echo site_url('auth/logout'); ?>">Thoát</a>]</h2>
+					<p class="bold">Quyền thao tác / <span class="green">( Admin )</span></p>
 					<!--<p class="bold">Tổng số khách hàng: <span class="red">444</span></p>-->
 					<!--<p class="bold">Khách có giao dịch: <span class="green">222 / 25%</span></p>-->
 				</div>

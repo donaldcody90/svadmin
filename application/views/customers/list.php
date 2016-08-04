@@ -36,113 +36,22 @@
     </div>
     <div class="gridtable">
         <table>
-            <tbody>
-                <tr>
-                    <td>
-                        STT
-                    </td>
-                    <td>
-                        Thông tin cá nhân
-                    </td>
-                    <td>
-                        Đăng ký nhận<br>hàng tại kho
-                    </td>
-                    <td>
-                        Ngày GD đầu <br> Ngày GD cuối
-                    </td>
-                    <td>
-                        Tiền hàng
-                    </td>
-                    <td>
-                        Thiếu tiền hàng
-                    </td>
-                    <td>
-                        Tiền vận đơn
-                    </td>
-                    <td>
-                        Thiếu vận đơn
-                    </td>
-                    <td>
-                        Tư vấn
-                    </td>
-                    <td>
-                        Thao tác
-                    </td>
-                </tr>
-        <?php
-            if( isset($data) && count($data)>0 ){
-
-                $stt = $this->input->get('page');
-                if( $stt==NULL){
-                    $stt = 1;
-                }else{
-                    $stt = $this->input->get('page') +1;
-                }
-
-                foreach ($data as $key => $value) {
-        ?>   
-                <tr>
-                    <td class="align-center">
-                       <span class="bold green"><?php echo $stt; ?></span>
-						<?php if($value['onlyship']){
-							echo '<p class="bold red"><b>SHIP HỘ</b></p>';
-						} ?>
-                    </td>
-                    <td>
-                        <p><strong>Username:</strong><?php echo $value['c_username']; ?></p>
-                        <p><strong>Họ tên:</strong><?php echo $value['c_fullname']; ?></p>
-                        <p><strong>Email:</strong><?php echo $value['c_email']; ?> </p>
-                        <p><strong>Phone:</strong><?php echo $value['c_phone']; ?> </p>
-                        <p><strong>Yahoo:</strong><?php echo $value['yahoo']; ?> </p>
-                        <p><strong>Skype:</strong><?php echo $value['skype']; ?> </p>
-                        <p><strong>Địa chỉ:</strong><?php echo $value['address']; ?> </p>
-                    </td>
-                    <td>
-						<?php
-						  echo getStoreText($value['store']);
-						?>                  
-					</td>
-                    <td>
-                        <p><strong>Đầu: <?php echo $value['first_order_date']; ?></strong> </p>
-                        <p><strong>Cuối: <?php echo $value['last_order_date']; ?></strong></p>
-                    </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-
-                            <?php echo $value['advisori_username']; ?>
-
-                    </td>
-                    <td>
-						<a href="<?php echo site_url('customers/edit/'.$value['cid']); ?>" >Sửa</a> 
-						|
-                        <a href="<?php echo site_url('customers/delete/'.$value['cid']); ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa ?')">Xóa</a> 
-						|
-						<button class="link_ajax" onclick="openPopup('<?php echo site_url('customers/changepassword'); ?>',{cid:<?php echo $value['cid']; ?>},600,500)">
- Đổi mật khẩu</button>
-                        |
-                        <button class="link_ajax" onclick="openPopup('<?php echo site_url('customers/support'); ?>',{cid:<?php echo $value['cid']; ?>},600,500)">
- Chọn tư vấn</button>
-                    </td>
-                </tr>
-        <?php
-
-                $stt++;
-
-                }
-            }
-        ?>
-            </tbody>
+            <tr>
+				<td>ID</td>
+				<td>Customer Name</td>
+				<td>Title</td>
+				<td>Last reply</td>
+				<td>Status</td>
+			</tr>
+			<?php foreach($data as $key => $row){ ?>
+			<tr>
+				<td><?php echo $row->; ?></td>
+				<td><?php echo $row->username; ?></td>
+				<td><?php echo $row->username; ?></td>
+				<td><?php echo $row->username; ?></td>
+				<td><?php echo $row->username; ?></td>
+			</tr>
+			<?php } ?>
         </table>
     </div>
     <?php echo $this->pagination->create_links(); ?>

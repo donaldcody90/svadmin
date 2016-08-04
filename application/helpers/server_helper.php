@@ -8,7 +8,7 @@ if ( ! function_exists('is_logged_in'))
 	function is_logged_in() {
 	
 	    $CI =& get_instance();
-	    $user = $CI->session->userdata('vkt_currentUser');
+	    $user = $CI->session->userdata('logged_in');
 		if($user){
 			return true;
 		}else{
@@ -21,18 +21,18 @@ if ( ! function_exists('vkt_checkAuth'))
 {
 	function vkt_checkAuth() {
 	    $CI =& get_instance();
-	    $user = $CI->session->userdata('vkt_currentUser');
+	    $user = $CI->session->userdata('logged_in');
 		if(!$user){
 			$CI->load->helper('url');
 			redirect('auth/login');
-		}else{
+		}/*else{
 			$cController=vst_getController();
 			$configs=$CI->config->item('site');
 			if(!in_array($cController,$configs['role_auth'][$user['role']]))
 			{
 				die("Access denied");
 			}
-		}
+		} */
 	}
 }
 
@@ -40,7 +40,7 @@ if ( ! function_exists('vst_getCurrentUser'))
 {
 	function vst_getCurrentUser() {
 	    $CI =& get_instance();
-	    $user = $CI->session->userdata('vkt_currentUser');
+	    $user = $CI->session->userdata('username');
 		return $user;
 	}
 }
@@ -190,7 +190,7 @@ if(!function_exists('message_flash')){
 
 if(!function_exists('vst_password')){
 	function vst_password($msg){
-		return md5($msg);
+		return hash('sha512', $msg);
 	}
 }
 

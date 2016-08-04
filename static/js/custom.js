@@ -29,6 +29,12 @@ jQuery(document).ready(function($){
 		return false;
 	});
 	
+	$("#button").click(function() {
+		$('html, body').animate({
+			scrollTop: $("#elementtoScrollToID").offset().top
+		}, 2000);
+	});
+	
 	
 });
 function openPopup(URL,data,width,height){
@@ -56,3 +62,4 @@ function openPopup(URL,data,width,height){
     });
 	return false;
 }
+

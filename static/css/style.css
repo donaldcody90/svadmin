@@ -462,3 +462,106 @@ text-align:center;
 .ajax_response{
 	display:none;
 }
+
+/*---------------------Support-------------------------*/
+
+
+.ticket_page{
+	background: white;
+	width: 100%;
+	height: 420px;
+}
+
+.ticket_title .title span{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.ticket_title .title{
+	margin: 10px 0 0 15px;
+}
+
+.ticket_title textarea{
+	width: 400px;
+	height: 250px;
+	padding: 15px 20px;
+	margin: 50px 0 0 15px;
+	border-radius: 3px;
+	resize: vertical;
+}
+
+.ticket_title .reply, .close-ticket button{
+	float:left;
+}
+
+.ticket_title .reply{
+	background: #28AADC;
+	color: white;
+	font-weight: bold;
+	padding: 10px 15px;
+	border: 0px;
+	border-radius: 3px;
+	margin: 20px 0 0 80px;
+	cursor: pointer;
+}
+
+.close-ticket button{
+	background: red;
+	color: white;
+	font-weight: bold;
+	padding: 10px 15px;
+	border: 0px;
+	border-radius: 3px;
+	margin: 20px 0 0 60px;
+	cursor: pointer;
+}
+
+.ticket_title, .ticketcontent{
+	float: left;
+}
+
+.ticket_title{
+	background: white;
+	width: 420px;
+}
+
+.ticketcontent{
+	background: #ECECEC;
+	width: 850px;
+	height: 390px;
+	overflow: auto;
+	border-radius: 3px;
+	margin: 15px 0 0 30px
+}
+
+.ticketcontent .message1{
+	background: #A4CEDF;
+	/*7FF2AD*/
+	margin: 10px;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+.ticketcontent .message2{
+	background: #28AADC;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

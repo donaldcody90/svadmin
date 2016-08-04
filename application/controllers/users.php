@@ -1,141 +1,199 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends CI_Controller {
+class Users extends CI_Controller
+{
 	
-	function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
-		vkt_checkAuth();		
+		vkt_checkAuth();
 		$this->load->model('users_model');
-	}
-
-	public function index(){
-		redirect(site_url('users/lists'));
-	}
-
-	public function lists(){
-		$filter=vst_filterData(array('filter_fullname','filter_phone','filter_email','filter_username'));
-		$config = vst_pagination();
-		
-		$arr = array();
-        $arr['total_rows'] = $config['total_rows'] = $this->users_model->totalUser($filter);
-		
-        $this->pagination->initialize($config);
-        $start = $this->input->get('page');
-		$arr['data'] =  $this->users_model->listUser($filter,$config['per_page'], $start);
-		$this->load->view('users/list',$arr);
-	}
-
-	public function edit($id){
-		$id = (int)($id);
-		$arr['data'] = $this->users_model->findUser(array("uid"=>$id));
-		$data = vst_postData();
-		if($this->input->post('save')){
-			$params_where = array('uid'=>$id);
-			$flag = $this->users_model->updateUser($data,$params_where);
-			if($flag >= 1){
-				message_flash('Thay đổi thông tin tài khoản  thành công');
-			}
-		}
-		$this->load->view('users/edit', $arr);
-	}
-
-	public function add(){
-		$this->load->view('users/add');
-		if ($this->input->post('save')){
-			$data = array(
-				'username' => $this->input->post("username"),
-				'password' => vst_password($this->input->post("password")),
-				'fullname' => $this->input->post("fullname"),
-				'phone' => $this->input->post("phone"),
-				'email' => $this->input->post("email"),
-				'location' => $this->input->post("location"),
-				'role' => $this->input->post("role"),
-			);
-			$check  = $this->users_model->findUser( array('username'=> $this->input->post("username")) );
-			if ( $check == 0 ){
-				$res = $this->users_model->insertUser($data);
-				if( $res==1 ){
-					message_flash('Bạn đã thêm người dùng thành công !');
-				}
-			}else{
-				message_flash('Tên nhân viên đã tồn tại . Xin vui lòng nhập tên khác','error');
-			}
-			redirect(site_url('users/add'));
-		}
-	}
-
-	public function delete($uid){
-		$data = array( 'uid'=>$uid );
-		$result = $this->users_model->deleteUser($data);
-		if( $result==1 ){
-			message_flash('Bạn đã xóa thành công !');
-			redirect(site_url('users/lists'));
-		}
-	}
-	/*
-		Func Change Password
-		Ajax Post
-		
-	*/
-	public function changepassword()
-	{
-		vst_authAjaxPost();
-		$uid=$this->input->post('uid');
-		if(!isset($uid))
-			redirect(site_url('404'));
-		if(empty($uid) || $uid <=0)
-		{
-			$res=array('Response'=>"Error","Error"=>"Không tìm thấy nhân viên.");
-		}else{
-			
-			//$this->load->model("users_model");
-			$userInfo=$this->users_model->findUser(array('uid'=>$uid));
-			if($userInfo){
-				$data['user']=$userInfo;
-				$content=$this->load->view('users/ajax_changepassword',$data,true);
-				$res=array('Response'=>"Success","Message"=>$content);
-			}else{
-				$res=array('Response'=>"Error","Error"=>"Không tìm thấy nhân viên.");
-			}
-		}
-		echo json_encode($res); 
+		$this->load->helper('server_helper');
 	}
 	
-	/*
-		Func Change Password
-		Ajax Post
-		
-	*/
-	function resetpassword()
+	
+	function index()
 	{
-		vst_authAjaxPost();
-		
-		$uid = $this->input->post('uid');
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		$confirmspassword = $this->input->post('confirmspassword');
-		if( empty($uid) || empty($username) || empty($password) || empty($confirmspassword) )
-		{
-			$res=array('Response'=>"Error","Error"=>"Dữ liệu không hợp lệ.");
-		}else if( $password != $confirmspassword ){
-			$res=array('Response'=>"Error","Error"=>"Xác nhận mật khẩu không đúng.");
-		}else{
-			$pass = vst_password($this->input->post('password'));
-			$params_where = array('uid'=>$uid);
-			$new_pass = array('password'=> $pass );
 
-			$this->load->model("users_model");
-			$result = $this->users_model->updateUser($new_pass,$params_where);
-			if($result)
+		redirect('users/list_user');
+	}
+	
+	function list_user()
+	{
+		
+		
+		$role= $this->session->userdata('role');
+		if ($role == 'Administrator')
+		{
+			$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_firstname', 'filter_lastname', 'filter_email', 'filter_role'));
+			//print_r($filterData);die;
+			
+			// $this->load->library('pagination');
+			// $total= $this->users_model->totalUser($filterData);
+			
+			// $config= vst_Pagination($total);
+			// $this->pagination->initialize($config);
+			
+			// $start = $this->input->get('page');
+			// $limit= $config['per_page'];
+			
+			$data['result']= $this->users_model->listUser($filterData);
+			//print_r($data['result']); die;
+			// $data['link']= $this->pagination->create_links();
+			$this->load->view('users/list_user_view', $data);
+		}
+		
+		
+	}
+	
+	function profile($uid)
+	{
+		
+		if ($this->session->userdata('access') == 'Customer' && $uid != $this->session->userdata('user_id'))
+		{
+			redirect('auth/login');
+		}
+		else
+		{
+			$params_where= array('id'=> $uid);
+			$data['row']= $this->users_model->findUser($params_where);
+					
+			$this->load->view('users/profile_view', $data);
+		}
+	
+	}
+	
+	
+	function update($uid)
+	{
+		
+		if ($this->session->userdata('role') == 'Administrator')
+		{
+			$params_where= array('id'=> $uid);
+			$data['data']= $this->users_model->findUser($params_where);
+			//print_r($data['data']['0']);die;
+			$this->load->view('users/edit_view', $data);
+
+			
+			$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim');
+			$this->form_validation->set_rules('firstname', 'First name', 'min_length[2]|max_length[20]|trim');
+			$this->form_validation->set_rules('lastname', 'Last name', 'min_length[2]|max_length[20]|trim');
+			$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
+			$this->form_validation->set_rules('email', 'Email', 'valid_email|trim');
+			
+			if ($this->form_validation->run() == true)
 			{
-				$res=array('Response'=>"Success","Message"=>"Thay đổi mật khẩu thành công.");	
-			}else{
-				$res=array('Response'=>"Error","Error"=>"Thay đổi mật khẩu không thành công.");	
+				$params_where= array('id' => $uid);
+				$data = array();
+				$username = $this->input->post('username');
+				if($username!='' ){
+					$data['username'] = $this->input->post('username');
+				}
+				$firstname = $this->input->post('firstname');
+				if($firstname!='' ){
+					$data['firstname'] = $this->input->post('firstname');
+				}
+				$lastname = $this->input->post('lastname');
+				if($lastname!=''){
+					$data['lastname'] = $this->input->post('lastname');
+				}
+				$password = $this->input->post('password');
+				if($password!=''){
+					$data['password'] = hash('sha512', $this->input->post('password'));
+				}
+				$email = $this->input->post('email');
+				if($email!=''){
+					$data['email'] = $this->input->post('email');
+				}
+				//$data['role']= $this->input->post('role');
+				
+				if(count($data)>0 ){
+					$success= $this->users_model->updateUser($data, $params_where);
+					if ($success == TRUE)
+					{
+						$this->session->set_flashdata('success', TRUE);
+					}
+					else
+					{
+						$this->session->set_flashdata('error', TRUE);
+					}
+					redirect("users/update/$uid");
+				}
 			}
 		}
-		echo json_encode($res);
+		else
+		{
+			redirect('auth/login');
+		}
+		
+	}
+	
+	
+	function add()
+	{
+		$this->form_validation->set_rules('firstname', 'First name', 'required|min_length[2]|max_length[20]|trim');
+		$this->form_validation->set_rules('lastname', 'Last name', 'required|min_length[2]|max_length[20]|trim');
+		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[3]|max_length[20]|trim');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
+		
+		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
+		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
+		
+		if ($this->form_validation->run() == false)
+		{
+			$this->load->view('users/add_user_view');
+		}
+		else
+		{
+			$data['firstname']= $_POST['firstname'];
+			$data['lastname']= $_POST['lastname'];
+			$data['username']= $_POST['username'];
+			$data['password']= hash('sha512', $_POST['password']);
+			$data['email']= $_POST['email'];
+			$data['role']= $_POST['role'];
+			
+			if($_POST['role'] == 'Administrator')
+			{
+				$result= $this->users_model->add_admin($data);
+			}
+			
+			if($_POST['role'] == 'Customer')
+			{
+				$result= $this->users_model->add_customer($data);
+			}
+			
+			if ($result == TRUE)
+			{
+				$this->session->set_flashdata('success', true);
+				redirect('users/list_user');
+			}
+			if($result == FALSE)
+			{
+				$this->session->set_flashdata('error', true);
+				redirect('users/add');
+			}
+		}
+		
+		
+	}
+	
+	
+	function delete_user($uid)
+	{
+		$params_where= array('id'=> $uid);
+		$result= $this->users_model->deleteUser($params_where);
+		if ($result == true)
+		{
+			$this->session->set_flashdata('success', true);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', true);
+		}
+		redirect('users/list_user');
+		
 	}
 }
 
-?>

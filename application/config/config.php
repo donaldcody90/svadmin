@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 switch (ENVIRONMENT)
 {
 	case 'development':
-		$config['base_url'] = 'http://localhost/dhqc/admin/';
+		$config['base_url'] = 'http://localhost/server/svadmin/';
 		break;
 	case 'testing';
 		$config['base_url'] = '';
