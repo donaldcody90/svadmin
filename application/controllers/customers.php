@@ -1,14 +1,14 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends CI_Controller
+class Customers extends CI_Controller
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
 		vkt_checkAuth();
-		$this->load->model('users_model');
+		$this->load->model('customers_model');
 		$this->load->helper('server_helper');
 	}
 	
@@ -16,7 +16,7 @@ class Users extends CI_Controller
 	function index()
 	{
 
-		redirect('users/lists');
+		redirect('customers/lists');
 	}
 	
 	function lists()
@@ -25,7 +25,7 @@ class Users extends CI_Controller
 		$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_firstname', 'filter_lastname', 'filter_email'));
 		
 		$this->load->library('pagination');
-		$total= $this->users_model->totalUser($filterData);
+		$total= $this->customers_model->totalCustomer($filterData);
 		
 		$config= vst_Pagination($total);
 		$this->pagination->initialize($config);
@@ -33,9 +33,9 @@ class Users extends CI_Controller
 		$start = $this->input->get('page');
 		$limit= $config['per_page'];
 		
-		$data['result']= $this->users_model->listUser($filterData, $limit, $start);
+		$data['result']= $this->customers_model->listCustomer($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
-		$this->load->view('users/list_user_view', $data);
+		$this->load->view('customers/list_view', $data);
 	
 		
 	}
@@ -50,9 +50,9 @@ class Users extends CI_Controller
 		else
 		{
 			$params_where= array('id'=> $uid);
-			$data['row']= $this->users_model->findUser($params_where);
+			$data['row']= $this->customers_model->findUser($params_where);
 					
-			$this->load->view('users/profile_view', $data);
+			$this->load->view('customers/profile_view', $data);
 		}
 	
 	}
@@ -62,8 +62,8 @@ class Users extends CI_Controller
 	{
 		
 		$params_where= array('id'=> $uid);
-		$data['data']= $this->users_model->findUser($params_where);
-		$this->load->view('users/edit_view', $data);
+		$data['data']= $this->customers_model->findCustomer($params_where);
+		$this->load->view('customers/edit_view', $data);
 
 		
 		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
@@ -99,7 +99,7 @@ class Users extends CI_Controller
 			//$data['role']= $this->input->post('role');
 			
 			if(count($data)>0 ){
-				$success= $this->users_model->updateUser($data, $params_where);
+				$success= $this->customers_model->updateCustomer($data, $params_where);
 				if ($success == TRUE)
 				{
 					$this->session->set_flashdata('success', TRUE);
@@ -108,7 +108,7 @@ class Users extends CI_Controller
 				{
 					$this->session->set_flashdata('error', TRUE);
 				}
-				redirect('users/lists');
+				redirect('customers/lists');
 			}
 		}
 		
@@ -129,7 +129,7 @@ class Users extends CI_Controller
 		
 		if ($this->form_validation->run() == false)
 		{
-			$this->load->view('users/add_user_view');
+			$this->load->view('customers/add_view');
 		}
 		else
 		{
@@ -139,18 +139,18 @@ class Users extends CI_Controller
 			$data['password']= hash('sha512', $_POST['password']);
 			$data['email']= $_POST['email'];
 			
-			$result= $this->users_model->add_admin($data);
+			$result= $this->customers_model->add_customer($data);
 			
 			
 			if ($result == TRUE)
 			{
 				$this->session->set_flashdata('success', true);
-				redirect('users/lists');
+				redirect('customers/lists');
 			}
 			if($result == FALSE)
 			{
 				$this->session->set_flashdata('error', true);
-				redirect('users/add');
+				redirect('customers/add');
 			}
 		}
 		
@@ -161,7 +161,7 @@ class Users extends CI_Controller
 	function delete_user($uid)
 	{
 		$params_where= array('id'=> $uid);
-		$result= $this->users_model->deleteUser($params_where);
+		$result= $this->customers_model->findCustomer($params_where);
 		if ($result == true)
 		{
 			$this->session->set_flashdata('success', true);
@@ -170,7 +170,7 @@ class Users extends CI_Controller
 		{
 			$this->session->set_flashdata('error', true);
 		}
-		redirect('users/lists');
+		redirect('customers/lists');
 		
 	}
 }

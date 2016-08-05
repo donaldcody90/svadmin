@@ -20,7 +20,7 @@ class Datacenters extends CI_Controller
 	function lists()
 	{	
 		
-		$filterData= vst_filterData(array('filter_id', 'filter_ip', 'filter_sv_key', 'sv_pass'));
+		$filterData= vst_filterData(array('filter_id', 'filter_ip', 'filter_sv_key', 'filter_sv_pass'));
 			
 				
 		$this->load->library('pagination');

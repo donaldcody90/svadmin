@@ -16,13 +16,15 @@ class Support_model extends My_Model
 	
 	function listTicket($filterData, $limit, $start, $param)
 	{
-		$this->db->select('c.c_id, c.c_title, cu.username, c.c_status, m.m_content');
+		$this->db->select('c.c_id, c.c_type, c.c_title, cu.username, c.c_status, m.m_content');
 		$this->db->from('conversation as c');
 		$this->db->join('customers as cu', 'c.u_id = cu.id');
 		$this->db->join('message as m', 'c.c_id = m.c_id');
 		$this->db->join('message as m2', 'm.c_id = m2.c_id AND m.m_id < m2.m_id', 'left');
 		$this->db->where('m2.m_id', NULL);
+		vst_buildFilter($filterData);
 		$this->db->order_by('m.m_date', 'DESC');
+		$this->db->limit($limit, $start);
 		
 		$result= $this->db->get();
 				
@@ -31,13 +33,14 @@ class Support_model extends My_Model
 	
 	function totalTicket($filterData, $param)
 	{
-		$this->db->select('c.c_id, c.c_title, u.username, c.c_status');
-		$this->db->from("$this->table_mess as m");
-		$this->db->join("$this->table_conv as c", 'c.c_id = m.c_id', 'inner');
-		$this->db->join("$this->table_users as u", 'm.u_id = u.id', 'inner');
-		// $this->db->join("$this->table_mess as m2", "m.c_id = m2.c_id && m.m_id < m2.m_id", 'left');
-		// $this->db->where('m2.m_id', NULL);
+		$this->db->select('c.c_id, c.c_type, c.c_title, cu.username, c.c_status, m.m_content');
+		$this->db->from('conversation as c');
+		$this->db->join('customers as cu', 'c.u_id = cu.id');
+		$this->db->join('message as m', 'c.c_id = m.c_id');
+		$this->db->join('message as m2', 'm.c_id = m2.c_id AND m.m_id < m2.m_id', 'left');
+		$this->db->where('m2.m_id', NULL);
 		vst_buildFilter($filterData);
+		$this->db->order_by('m.m_date', 'DESC');
 		
 		$result= $this->db->get();
 		return $result->num_rows();

@@ -195,7 +195,7 @@ if(!function_exists('vst_password')){
 }
 
 if(!function_exists('vst_pagination')){
-	function vst_Pagination(){
+	function vst_Pagination($total){
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link'] = '&laquo; ';
@@ -217,9 +217,33 @@ if(!function_exists('vst_pagination')){
         $config['page_query_string'] =true;
         $config['query_string_segment'] ="page";
 		$config['base_url'] =vst_currentUrl();
+		$config['total_rows']= $total;
 		return $config;
 	}
 }
+
+/*if(!function_exists('vst_currentUrl')){
+	function vst_currentUrl($withoutPage=true)
+	{
+		$CI =& get_instance();
+		$url = $CI->config->site_url($CI->uri->uri_string());
+		$params=$CI->input->get();
+		if(isset($params) and $params != '')
+		{
+			if(isset($params['page']) && $withoutPage)
+			{	unset($params['page']);		}
+		}
+		else{
+			$params= array(
+				'filter_' => '',
+				'page' => ''
+			);
+		}
+		$http_query=http_build_query($params, '', "&");
+		return $http_query ? $url.'?'.$http_query : $url;
+	}
+} */
+
 if(!function_exists('vst_currentUrl')){
 	function vst_currentUrl($withoutPage=true)
 	{
@@ -234,7 +258,7 @@ if(!function_exists('vst_currentUrl')){
 }
 
 if(!function_exists('vst_filterData')){
-	function vst_filterData($likeFields=array(),$whereFieldsDate=array())
+	function vst_filterData($likeFields=array(),$whereFieldsDate=array(),$tablealias=array())
 	{
 		$CI =& get_instance();
 		$params=$CI->input->get();
@@ -243,13 +267,19 @@ if(!function_exists('vst_filterData')){
 		if($params){
 			foreach($params as $key=>$value){
 				if($value!=''){
-					if(in_array($key,$likeFields))
+					$table_alias="";
+					if(isset($tablealias[str_replace('filter_','',$key)]))
 					{
-						$filterData[str_replace("filter_","",$key)]=array('value'=>trim($value),'condition'=>'like');
+						$table_alias=$tablealias[str_replace('filter_','',$key)];
+					}
+					if(in_array($key,$likeFields))
+					{	
+				
+						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'like','tbalias'=>$table_alias);
 					}elseif(in_array($key,$whereFieldsDate)){
-						$filterData[str_replace("filter_","",$key)]=array('value'=>trim($value),'condition'=>'date');
+						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'date','tbalias'=>$table_alias);
 					}else{
-						$filterData[str_replace("filter_","",$key)]=array('value'=>trim($value),'condition'=>'where');
+						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'where','tbalias'=>$table_alias);
 					}
 				}
 			}
@@ -285,7 +315,12 @@ if(!function_exists('vst_buildFilter')){
 		$CI =& get_instance();
 		if($filter){
 			foreach ($filter as $key => $value) {
+				if(!empty($value['tbalias']))
+					{
+						$key=$value['tbalias'].".".$key;
+					}
                 switch ($value['condition']) {
+					
                    case 'like':
                         $query = $CI->db->like(array($key=>$value['value']));
                         break;

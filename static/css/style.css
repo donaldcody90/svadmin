@@ -549,6 +549,16 @@ text-align:center;
 	border-radius: 3px;
 }
 
+.gridtable .delete{
+	margin-left: 10px;
+	color: red;
+}
+
+.gridtable .edit{
+	margin-left: 10px;
+	color: blue;
+}
+
 
 
 

@@ -1,12 +1,12 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>users">User List</a></li>
-    <li><a href="<?php echo site_url(); ?>users/add">Add new</a></li>
+    <li><a href="<?php echo site_url(); ?>customers">User List</a></li>
+    <li><a href="<?php echo site_url(); ?>customers/add">Add new</a></li>
 </ul>
 <div id="content" class="container fullwidth">
      <?php $this->load->view('_base/message'); ?>
-    <h2 class="title ">Edit user's information</h2>
-    <form name="edit" action="<?php echo site_url().'users/update/'.$data['0']->id; ?>" method="POST">
+    <h2 class="title ">Edit customer's information</h2>
+    <form name="edit" action="<?php echo site_url().'customers/update/'.$data['0']->id; ?>" method="POST">
 	
         <div class="group-input">
             <label class="label_input">Username <span class="red">*</span></label>

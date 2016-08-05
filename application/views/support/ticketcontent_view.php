@@ -1,7 +1,7 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>customers">Danh sách</a></li>
-    <li><a href="<?php echo site_url(); ?>customers/add">Thêm mới</a></li>
+    <li><a href="<?php echo site_url(); ?>customers">Support List</a></li>
+    <li><a href="<?php echo site_url(); ?>customers/add">Add new</a></li>
 </ul>
 <div class="ticket_page">
     <?php $this->load->view('_base/message'); ?>

@@ -23,10 +23,13 @@ class Support extends CI_Controller
 	{
 		$id= $this->session->userdata('user_id');
 		$param['c.u_id']= $id;
-		$filterData= vst_filterData(array('filter_c_title'));
-		
+		$filterData= vst_filterData(
+			array('filter_c.c_id' ,'filter_c.c_title' ,'filter_m.m_content' ,'filter_cu.username' ,'filter_c.c_status'),
+			array(),
+			array('c_id'=>'c')
+			);
+		print_r($filterData);
 		$this->load->library('pagination');
-		//echo 1; die;
 		
 		$total= $this->support_model->totalTicket($filterData, $param);
 		$config= vst_Pagination($total);

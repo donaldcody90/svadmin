@@ -29,7 +29,7 @@
 		
       <!--<input type="hidden" name="uid" value="1"> -->
         
-        <input type="submit" name="save" value="Lưu">
+        <input type="submit" name="save" value="Save">
     </form>
 </div>
 <?php $this->load->view('_base/footer'); ?>

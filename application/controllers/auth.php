@@ -13,7 +13,7 @@ class Auth extends CI_Controller
 	{
 		if(is_logged_in())
 		{
-			redirect('home');
+			redirect('users');
 		}
 		$this->login();
 	}
