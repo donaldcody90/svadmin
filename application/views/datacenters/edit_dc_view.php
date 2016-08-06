@@ -14,17 +14,20 @@
     <form name="edit" action="<?php echo site_url().'datacenters/update/'.$value->id; ?>" method="POST">
         <div class="group-input">
             <label class="label_input">IP <span class="red"></span></label>
-            <input placeholder="IP" type="text" value="<?php echo $value->ip; ?>" name="ip" required="">
+            <input type="text" placeholder="<?php echo $value->ip; ?>" name="ip">
+			<?php echo form_error('ip', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Key <span class="red"></span></label>
-            <input placeholder="Key" type="text" value="<?php echo $value->sv_key; ?>" name="key" required="">
+            <input type="text" placeholder="<?php echo $value->svkey; ?>" name="key">
+			<?php echo form_error('key', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Password <span class="red"></span></label>
-            <input placeholder="Password" type="text" value="<?php echo $value->sv_pass; ?>" name="password" required="">
+            <input type="text" placeholder="<?php echo $value->svpass; ?>" name="password">
+			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
         </div>
       <!--   <input type="hidden" name="uid" value="1"> -->
         

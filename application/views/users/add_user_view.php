@@ -10,19 +10,24 @@
 	<form action="<?php echo site_url('users/add'); ?>"  method="POST" >
 		<div class="group-input">
 			<label class="label_input">Username <span class="red">*</span></label>
-			<input placeholder="Username" type="text" value="" name="username" required /></div>
+			<input placeholder="Username" type="text" value="" name="username" required />
+			<?php echo form_error('username', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Password <span class="red">*</span></label>
-			<input placeholder="Password" type="password" name="password" required /></div>
+			<input placeholder="Password" type="password" name="password" required />
+			<?php echo form_error('password', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Firstname <span class="red">*</span></label>
-			<input placeholder="firstname" type="text" name="firstname" required /></div>
+			<input placeholder="Firstname" type="text" name="firstname" required />
+			<?php echo form_error('firstname', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Lastname <span class="red">*</span></label>
-			<input placeholder="lastname" type="text" name="lastname" required /></div>
+			<input placeholder="Lastname" type="text" name="lastname" required />
+			<?php echo form_error('lastname', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Email <span class="red">*</span></label>
-			<input placeholder="Email" type="text" name="email" required /></div>
+			<input placeholder="Email" type="text" name="email" required />
+			<?php echo form_error('email', '<div class="error">', '</div>'); ?></div>
 		
 		<input type="submit" name="save" value="Add new" />
 	</form>

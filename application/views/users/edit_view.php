@@ -10,27 +10,32 @@
 	
         <div class="group-input">
             <label class="label_input">Username <span class="red">*</span></label>
-            <input placeholder="Username" type="text" value="<?php echo $data['0']->username; ?>" name="username" required="">
+            <input type="text" placeholder="<?php echo $data['0']->username; ?>" name="username">
+			<?php echo form_error('username', '<div class="error">', '</div>'); ?>
 		</div>
         
 		<div class="group-input">
             <label class="label_input">Firstname <span class="red">*</span></label>
-            <input placeholder="Firstname" type="text" value="<?php echo $data['0']->firstname; ?>" name="firstname" required="">
+            <input type="text" placeholder="<?php echo $data['0']->firstname; ?>" name="firstname">
+			<?php echo form_error('firstname', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Lastname <span class="red">*</span></label>
-            <input placeholder="Lastname" type="text" value="<?php echo $data['0']->lastname; ?>" name="lastname" required="">
+            <input type="text" placeholder="<?php echo $data['0']->lastname; ?>" name="lastname">
+			<?php echo form_error('lastname', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Email <span class="red">*</span></label>
-            <input placeholder="Email" type="text" value="<?php echo $data['0']->email; ?>" name="email" required="">
+            <input type="text" placeholder="<?php echo $data['0']->email; ?>" name="email">
+			<?php echo form_error('email', '<div class="error">', '</div>'); ?>
 		</div>
 		
         <div class="group-input">
             <label class="label_input">Password <span class="red">*</span></label>
-            <input placeholder="Password" type="text" value="******" name="password" required="">
+            <input type="text" placeholder="******" name="password">
+			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
 		</div>
 		
         <!--<div class="group-input">

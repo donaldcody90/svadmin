@@ -15,16 +15,19 @@
         <div class="group-input">
             <label class="label_input">IP <span class="red"></span></label>
             <input placeholder="IP" type="text" value="" name="ip" required="">
+			<?php echo form_error('ip', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Key <span class="red"></span></label>
             <input placeholder="Key" type="text" value="" name="key" required="">
+			<?php echo form_error('key', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Password <span class="red"></span></label>
             <input placeholder="Password" type="text" value="" name="password" required="">
+			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
         </div>
 		
       <!--<input type="hidden" name="uid" value="1"> -->

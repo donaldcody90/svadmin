@@ -22,13 +22,13 @@ class Support extends CI_Controller
 	function lists()
 	{
 		$id= $this->session->userdata('user_id');
-		$param['c.u_id']= $id;
+		$param['c.uid']= $id;
 		$filterData= vst_filterData(
-			array('filter_c.c_id' ,'filter_c.c_title' ,'filter_m.m_content' ,'filter_cu.username' ,'filter_c.c_status'),
+			array('filter_cid' ,'filter_title' ,'filter_content' ,'filter_username' ,'filter_status' ,'filter_type'),
 			array(),
-			array('c_id'=>'c')
+			array('cid'=>'c', 'title'=>'c', 'content'=>'m', 'username'=>'cu', 'status'=>'c', 'type'=>'c')
 			);
-		print_r($filterData);
+		
 		$this->load->library('pagination');
 		
 		$total= $this->support_model->totalTicket($filterData, $param);
@@ -39,9 +39,8 @@ class Support extends CI_Controller
 		$limit= $config['per_page'];
 		
 		$data['result']= $this->support_model->listTicket($filterData, $limit, $start, $param);
-		
 		$data['link']= $this->pagination->create_links();
-		//print_r($data['result']);die;
+		$data['total_rows']= $total;
 		
 		$this->load->view('support/ticketlist_view', $data);
 	}
@@ -51,16 +50,15 @@ class Support extends CI_Controller
 	{
 		$this->form_validation->set_rules('reply', 'Reply', 'required|max_length[1000]|trim');
 		
-		
 		if ($this->form_validation->run() == true)
 		{
-			$data['u_id']= $this->session->userdata('user_id');
-			$data['c_id']= $insert_id;
-			$data['m_content']= $this->input->post('reply');
-			$data['m_date']= date('Y-m-d H:i:s');
+			$data['uid']= $this->session->userdata('user_id');
+			$data['cid']= $insert_id;
+			$data['content']= $this->input->post('reply');
+			$data['date']= date('Y-m-d H:i:s');
 			
-			$data2['c_status']= 'opening';
-			$param['c_id']= $insert_id;
+			$data2['status']= 'opening';
+			$param['cid']= $insert_id;
 		
 			$kq= $this->support_model->addnew_message($data);
 			$kq2= $this->support_model->reopen($data2, $param);
@@ -79,7 +77,7 @@ class Support extends CI_Controller
 	
 	function close_ticket($insert_id)
 	{
-		$data= array('c_id' => $insert_id);
+		$data= array('cid' => $insert_id);
 		$result= $this->support_model->close_ticket($data);
 		if ($result > 0)
 		{

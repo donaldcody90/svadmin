@@ -13,7 +13,11 @@
             Firstname:<input type="text" value="<?php echo isset($_GET['filter_firstname'])?$_GET['filter_firstname']:''; ?>" name="filter_firstname">
             Lastname:<input type="text" value="<?php echo isset($_GET['filter_lastname'])?$_GET['filter_lastname']:''; ?>" name="filter_lastname">
             Email:<input type="text" value="<?php echo isset($_GET['filter_email'])?$_GET['filter_email']:''; ?>" name="filter_email">
-            
+            Role:
+            <select name="filter_role">
+                <option value="">Choose user role</option>
+                <option value="Customer" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Customer' )?'selected':''; ?>>Customer</option>
+            </select>
             <input class="button" type="submit" value="Search">
             <input class="button" type="reset" value="Clear">
         </form> 
@@ -22,27 +26,13 @@
         <table>
             <tbody>
                 <tr>
-                    <td>
-                        ID
-                    </td>
-                    <td>
-                        Username
-                    </td>
-                    <td>
-                        Firstname
-                    </td>
-                    <td>
-                        Lastname
-                    </td>
-                    <td>
-                        Email
-                    </td>
-                    <td>
-                        Role
-                    </td>
-					<td>
-						Action
-					</td>
+                    <td>ID</td>
+                    <td>Username</td>
+                    <td>Firstname</td>
+                    <td>Lastname</td>
+                    <td>Email</td>
+                    <td>Role</td>
+					<td>Action</td>
                 </tr>
                 <?php foreach ($result as $key => $value) { ?>
 					<tr>

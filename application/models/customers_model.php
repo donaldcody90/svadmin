@@ -22,7 +22,7 @@ class Customers_model extends MY_Model
 		$this->db->where($params_where);
 		$result= $this->db->get($this->table_cust);
 		
-		return $result->result();
+		return $result->row();
 	}
 	
 	function updateCustomer($data,$params_where){

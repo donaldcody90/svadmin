@@ -1,7 +1,7 @@
 <?php
 if (!defined ('BASEPATH')) exit ('No direct script access allowed');
 
-class Datacenters_model extends CI_Model
+class Datacenters_model extends MY_Model
 {
 	private $dc= 'datacenters';
 	
@@ -64,16 +64,22 @@ class Datacenters_model extends CI_Model
 		}
      }
 	  
-	 function listDC($filter, $limit, $start){
-          vst_buildFilter($filter);
-          $query = $this->db->limit($limit, $start);
-          $query = $this->db->get($this->dc);
-          return $query->result();
-     }
+	function listDC($filterData, $limit, $start){
+		$this->db->select('*');
+		$this->db->from('customers as cu');
+		$this->db->join('datacenters as d', 'cu.id = d.cuid');
+        vst_buildFilter($filterData);
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+        return $query->result();
+	}
 	 
-	 function totalDC($filter){
-		vst_buildFilter($filter);
-		$query = $this->db->get($this->dc);
+	 function totalDC($filterData){
+		$this->db->select('*');
+		$this->db->from('customers as cu');
+		$this->db->join('datacenters as d', 'cu.id = d.cuid');
+        vst_buildFilter($filterData);
+        $query = $this->db->get();
 		return $query->num_rows();
      }
 

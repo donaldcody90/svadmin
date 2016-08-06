@@ -261,25 +261,28 @@ if(!function_exists('vst_filterData')){
 	function vst_filterData($likeFields=array(),$whereFieldsDate=array(),$tablealias=array())
 	{
 		$CI =& get_instance();
-		$params=$CI->input->get();
+		$params= $CI->input->get();
 		unset($params['page']);
-		$filterData=array();
+		$filterData= array();
 		if($params){
 			foreach($params as $key=>$value){
 				if($value!=''){
 					$table_alias="";
 					if(isset($tablealias[str_replace('filter_','',$key)]))
 					{
-						$table_alias=$tablealias[str_replace('filter_','',$key)];
+						$table_alias= $tablealias[str_replace('filter_','',$key)];
 					}
 					if(in_array($key,$likeFields))
 					{	
-				
-						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'like','tbalias'=>$table_alias);
-					}elseif(in_array($key,$whereFieldsDate)){
-						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'date','tbalias'=>$table_alias);
-					}else{
-						$filterData[str_replace('filter_','',$key)]=array('value'=>trim($value),'condition'=>'where','tbalias'=>$table_alias);
+						$filterData[str_replace('filter_','',$key)]= array('value'=>trim($value),'condition'=>'like','tbalias'=>$table_alias);
+					}
+					elseif(in_array($key,$whereFieldsDate))
+					{
+						$filterData[str_replace('filter_','',$key)]= array('value'=>trim($value),'condition'=>'date','tbalias'=>$table_alias);
+					}
+					else
+					{
+						$filterData[str_replace('filter_','',$key)]= array('value'=>trim($value),'condition'=>'where','tbalias'=>$table_alias);
 					}
 				}
 			}

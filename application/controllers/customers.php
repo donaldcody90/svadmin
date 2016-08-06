@@ -35,6 +35,7 @@ class Customers extends CI_Controller
 		
 		$data['result']= $this->customers_model->listCustomer($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
+		$data['total_rows']= $total;
 		$this->load->view('customers/list_view', $data);
 	
 		
@@ -61,9 +62,9 @@ class Customers extends CI_Controller
 	function update($uid)
 	{
 		
-		$params_where= array('id'=> $uid);
-		$data['data']= $this->customers_model->findCustomer($params_where);
-		$this->load->view('customers/edit_view', $data);
+		// $params_where= array('id'=> $uid);
+		// $data['data']= $this->customers_model->findCustomer($params_where);
+		// $this->load->view('customers/edit_view', $data);
 
 		
 		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
@@ -72,6 +73,15 @@ class Customers extends CI_Controller
 		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
 		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
 		
+		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
+		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
+		
+		if ($this->form_validation->run() == false)
+		{
+			$params_where= array('id'=> $uid);
+			$data['data']= $this->customers_model->findCustomer($params_where);
+			$this->load->view('customers/edit_view', $data);
+		}
 		if ($this->form_validation->run() == true)
 		{
 			$params_where= array('id' => $uid);
@@ -96,8 +106,6 @@ class Customers extends CI_Controller
 			if($email!=''){
 				$data['email'] = $this->input->post('email');
 			}
-			//$data['role']= $this->input->post('role');
-			
 			if(count($data)>0 ){
 				$success= $this->customers_model->updateCustomer($data, $params_where);
 				if ($success == TRUE)
@@ -138,6 +146,7 @@ class Customers extends CI_Controller
 			$data['username']= $_POST['username'];
 			$data['password']= hash('sha512', $_POST['password']);
 			$data['email']= $_POST['email'];
+			$data['role']= 'Customer';
 			
 			$result= $this->customers_model->add_customer($data);
 			
@@ -161,7 +170,7 @@ class Customers extends CI_Controller
 	function delete_user($uid)
 	{
 		$params_where= array('id'=> $uid);
-		$result= $this->customers_model->findCustomer($params_where);
+		$result= $this->customers_model->deleteCustomer($params_where);
 		if ($result == true)
 		{
 			$this->session->set_flashdata('success', true);

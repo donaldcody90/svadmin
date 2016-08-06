@@ -17,7 +17,6 @@
             <select name="filter_role">
                 <option value="">Choose user role</option>
                 <option value="Administrator" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Administrator' )?'selected':''; ?>>Administrator</option>
-                <option value="Customer" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Customer' )?'selected':''; ?>>Customer</option>
             </select>
             <input class="button" type="submit" value="Search">
             <input class="button" type="reset" value="Clear">
