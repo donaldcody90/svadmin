@@ -14,7 +14,7 @@
             $filter_svkey = $this->input->get('filter_svkey');
             $filter_svpass = $this->input->get('filter_svpass');
         ?>
-        <form name="filter_form" action="<?php echo site_url("datacenters/lists"); ?>" method="GET">
+        <form name="filter_form" action="<?php echo site_url('datacenters/lists'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_id)?$filter_id:''; ?>" name="filter_id">
             Customer:<input type="text" value="<?php echo isset($filter_username)?$filter_username:''; ?>" name="filter_username">
             IP Address:<input type="text" value="<?php echo isset($filter_ip)?$_GET['filter_ip']:''; ?>" name="filter_ip">
@@ -22,7 +22,7 @@
             Password:<input type="text" value="<?php echo isset($filter_svpass)?$_GET['filter_svpass']:''; ?>" name="filter_svpass">
             
             <input class="button" type="submit" value="Search" />
-            <input class="button" type="reset" value="Clear" />
+            <a href="<?php echo site_url('datacenters/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form>
     </div>
     <div class="gridtable">

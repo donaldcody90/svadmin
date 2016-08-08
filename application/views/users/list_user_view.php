@@ -19,7 +19,7 @@
                 <option value="Administrator" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Administrator' )?'selected':''; ?>>Administrator</option>
             </select>
             <input class="button" type="submit" value="Search">
-            <input class="button" type="reset" value="Clear">
+            <a href="<?php echo site_url('users/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form> 
     </div>
     <div class="gridtable">

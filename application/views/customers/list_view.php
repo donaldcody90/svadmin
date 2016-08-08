@@ -19,7 +19,7 @@
                 <option value="Customer" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Customer' )?'selected':''; ?>>Customer</option>
             </select>
             <input class="button" type="submit" value="Search">
-            <input class="button" type="reset" value="Clear">
+            <a href="<?php echo site_url('customers/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form> 
     </div>
     <div class="gridtable">
@@ -31,7 +31,6 @@
                     <td>Firstname</td>
                     <td>Lastname</td>
                     <td>Email</td>
-                    <td>Role</td>
 					<td>Action</td>
                 </tr>
                 <?php foreach ($result as $key => $value) { ?>
@@ -41,7 +40,6 @@
 						<td><?php echo $value->firstname ; ?></td>
 						<td><?php echo $value->lastname ; ?></td>
 						<td><?php echo $value->email ; ?></td>
-						<td><?php echo $value->role ; ?></td>
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'customers/update/' . $value->id; ?>">Edit</a>
 							<a class="delete" href="<?php echo site_url() . 'customers/delete_user/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>

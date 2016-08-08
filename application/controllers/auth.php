@@ -13,7 +13,7 @@ class Auth extends CI_Controller
 	{
 		if(is_logged_in())
 		{
-			redirect('users');
+			redirect('customers');
 		}
 		$this->login();
 	}
@@ -55,7 +55,7 @@ class Auth extends CI_Controller
 									'username' => $username,
 									'role'=> $role
 								));
-				redirect('users');
+				redirect('customers');
 			}
 		}
 	}

@@ -34,7 +34,7 @@
 				<option value="closed" <?php echo (isset($filter_status) && $filter_status=='closed' )?'selected':''; ?>>closed</option>
 			</select>
           <input class="button" type="submit" value="Search" >
-          <input class="button" type="reset" value="Clear" >
+          <a href="<?php echo site_url('support/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form> 
     </div>
     <div class="gridtable">
