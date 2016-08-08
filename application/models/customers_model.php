@@ -3,12 +3,11 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Customers_model extends MY_Model
 {
-	 private $table_users = 'users';
-	 private $table_cust = 'customers';
+	 private $customers = 'customers';
 
      function __construct()
      {
-          parent::__construct();
+        parent::__construct();
      }
 	 
 	 
@@ -16,31 +15,23 @@ class Customers_model extends MY_Model
 		Function findUser
 		param_where = array(fieldName=>fieldValue)
 	*/
+	
     function findCustomer($params_where)
 	{
 		
 		$this->db->where($params_where);
-		$result= $this->db->get($this->table_cust);
+		$result= $this->db->get($this->customers);
 		
 		return $result->row();
 	}
 	
 	function updateCustomer($data,$params_where){
-            $user = $this->_save(array(
-                                        'table'        => $this->table_cust,
+            return $this->_save(array(
+                                        'table'        => $this->customers,
                                         'data'         => $data,
                                         'param_where'  => $params_where
                                    ));
 			
-			if ($user > 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-          
        }
 	
 
@@ -52,36 +43,30 @@ class Customers_model extends MY_Model
      }*/
 
      function deleteCustomer($params_where){
-        $this->db->delete($this->table_cust, $params_where);
+        $this->db->delete($this->customers, $params_where);
 		  
-		if($this->db->affected_rows() == 1)
-		{
-			return true;
-		}	
-		else
-		{
-			return false;
-		}
+		return $this->db->affected_rows();
+		
      }
 	 
 	 function listCustomer($filter,$limit,$start){
           vst_buildFilter($filter);
-          $result = $this->db->get($this->table_cust, $limit, $start);
+          $result = $this->db->get($this->customers, $limit, $start);
 		  
           return $result->result();
      }
 	 
 	 function totalCustomer($filter){
 		vst_buildFilter($filter);
-        $result = $this->db->get($this->table_cust);
+        $result = $this->db->get($this->customers);
 		
 		return $result->num_rows();
      }
 
-	function add_customer($data)
+	function addCustomer($data)
 	{
 		return $this->_save(array(
-							'table'    => $this->table_cust,
+							'table'    => $this->customers,
 							'data'     => $data
 						   ));
 	}

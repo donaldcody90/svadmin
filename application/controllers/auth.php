@@ -37,8 +37,8 @@ class Auth extends CI_Controller
 			extract($_POST);
 			// $username= $this->input->post('username');
 			// $password= $this->input->post('password');
-			$user_id= $this->auth_model->check_login($username, $password)->id;
-			$role= $this->auth_model->check_login($username, $password)->role;
+			$user_id= $this->auth_model->checkLogin($username, $password)->id;
+			$role= $this->auth_model->checkLogin($username, $password)->role;
 			
 			if(! $user_id)
 			{
@@ -48,7 +48,7 @@ class Auth extends CI_Controller
 			}
 			else
 			{
-				//$username= $this->Auth_model->check_login($username, $password)->username;
+				//$username= $this->Auth_model->checkLogin($username, $password)->username;
 				$this->session->set_userdata(array(
 									'logged_in'=> true,
 									'user_id' => $user_id,

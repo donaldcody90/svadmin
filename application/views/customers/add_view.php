@@ -17,13 +17,9 @@
 			<input placeholder="Password" type="password" name="password" required />
 			<?php echo form_error('password', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
-			<label class="label_input">Firstname <span class="red">*</span></label>
-			<input placeholder="firstname" type="text" name="firstname" required />
-			<?php echo form_error('firstname', '<div class="error">', '</div>'); ?></div>
-		<div class="group-input">
-			<label class="label_input">Lastname <span class="red">*</span></label>
-			<input placeholder="lastname" type="text" name="lastname" required />
-			<?php echo form_error('lastname', '<div class="error">', '</div>'); ?></div>
+			<label class="label_input">Fullname <span class="red">*</span></label>
+			<input placeholder="fullname" type="text" name="fullname" required />
+			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Email <span class="red">*</span></label>
 			<input placeholder="Email" type="text" name="email" required />

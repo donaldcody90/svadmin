@@ -10,13 +10,12 @@
          <form action="<?php echo site_url('users/lists') ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($_GET['filter_id'])?$_GET['filter_id']:''; ?>" name="filter_id">
             Username:<input type="text" value="<?php echo isset($_GET['filter_username'])?$_GET['filter_username']:''; ?>" name="filter_username">
-            Firstname:<input type="text" value="<?php echo isset($_GET['filter_firstname'])?$_GET['filter_firstname']:''; ?>" name="filter_firstname">
-            Lastname:<input type="text" value="<?php echo isset($_GET['filter_lastname'])?$_GET['filter_lastname']:''; ?>" name="filter_lastname">
+            Fullname:<input type="text" value="<?php echo isset($_GET['filter_fullname'])?$_GET['filter_fullname']:''; ?>" name="filter_fullname">
             Email:<input type="text" value="<?php echo isset($_GET['filter_email'])?$_GET['filter_email']:''; ?>" name="filter_email">
             Role:
             <select name="filter_role">
                 <option value="">Choose user role</option>
-                <option value="Administrator" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Administrator' )?'selected':''; ?>>Administrator</option>
+                <option value=0 <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']==0 )?'selected':''; ?>>Administrator</option>
             </select>
             <input class="button" type="submit" value="Search">
             <a href="<?php echo site_url('users/lists') ?>"><input class="button" type="button" value="Clear"></a>
@@ -28,8 +27,7 @@
                 <tr>
                     <td>ID</td>
                     <td>Username</td>
-                    <td>Firstname</td>
-                    <td>Lastname</td>
+                    <td>Fullname</td>
                     <td>Email</td>
                     <td>Role</td>
 					<td>Action</td>
@@ -38,10 +36,9 @@
 					<tr>
 						<td><?php echo $value->id ; ?></td>
 						<td><?php echo $value->username ; ?></td>
-						<td><?php echo $value->firstname ; ?></td>
-						<td><?php echo $value->lastname ; ?></td>
+						<td><?php echo $value->fullname ; ?></td>
 						<td><?php echo $value->email ; ?></td>
-						<td><?php echo $value->role ; ?></td>
+						<td><?php echo getStatusRole($value->role); ?></td>
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'users/update/' . $value->id; ?>">Edit</a>
 							<a class="delete" href="<?php echo site_url() . 'users/delete_user/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>

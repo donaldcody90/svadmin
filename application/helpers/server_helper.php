@@ -112,6 +112,45 @@ if ( ! function_exists('getStatusOrder'))
 	}
 }
 
+if(!function_exists ('getStatusConversation'))
+{
+	function getStatusConversation($status)
+	{
+		$statusText="";
+		switch($status)
+		{
+			case 0:
+				$statusText= 'closed';
+				break;
+			case 1:
+				$statusText= 'opening';
+				break;
+			default:
+				//code
+		}
+		return $statusText;
+	}
+}
+
+if(! function_exists('getStatusRole'))
+{
+	function getStatusRole($status)
+	{
+		$statusText='';
+		switch($status)
+		{
+			case 0:
+				$statusText='Administrator';
+				break;
+			default:
+				//code
+		}
+		return $statusText;
+		
+		
+	}
+}
+
 if ( ! function_exists('getStoreText'))
 {
 	function getStoreText($store)

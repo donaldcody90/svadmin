@@ -22,7 +22,7 @@ class Customers extends CI_Controller
 	function lists()
 	{
 		
-		$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_firstname', 'filter_lastname', 'filter_email'));
+		$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_fullname', 'filter_email'));
 		
 		$this->load->library('pagination');
 		$total= $this->customers_model->totalCustomer($filterData);
@@ -51,7 +51,7 @@ class Customers extends CI_Controller
 		else
 		{
 			$params_where= array('id'=> $uid);
-			$data['row']= $this->customers_model->findUser($params_where);
+			$data['row']= $this->customers_model->findCustomer($params_where);
 					
 			$this->load->view('customers/profile_view', $data);
 		}
@@ -63,8 +63,7 @@ class Customers extends CI_Controller
 	{
 		
 		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
-		$this->form_validation->set_rules('firstname', 'First name', 'min_length[2]|max_length[20]|trim');
-		$this->form_validation->set_rules('lastname', 'Last name', 'min_length[2]|max_length[20]|trim');
+		$this->form_validation->set_rules('fullname', 'Full name', 'min_length[2]|max_length[20]|trim');
 		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
 		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
 		
@@ -85,13 +84,9 @@ class Customers extends CI_Controller
 			if($username!='' ){
 				$data['username'] = $this->input->post('username');
 			}
-			$firstname = $this->input->post('firstname');
-			if($firstname!='' ){
-				$data['firstname'] = $this->input->post('firstname');
-			}
-			$lastname = $this->input->post('lastname');
-			if($lastname!=''){
-				$data['lastname'] = $this->input->post('lastname');
+			$fullname = $this->input->post('fullname');
+			if($fullname!='' ){
+				$data['fullname'] = $this->input->post('fullname');
 			}
 			$password = $this->input->post('password');
 			if($password!=''){
@@ -103,7 +98,7 @@ class Customers extends CI_Controller
 			}
 			if(count($data)>0 ){
 				$success= $this->customers_model->updateCustomer($data, $params_where);
-				if ($success == TRUE)
+				if ($success > 0)
 				{
 					$this->session->set_flashdata('success', TRUE);
 				}
@@ -121,8 +116,7 @@ class Customers extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('firstname', 'First name', 'required|min_length[2]|max_length[20]|trim');
-		$this->form_validation->set_rules('lastname', 'Last name', 'required|min_length[2]|max_length[20]|trim');
+		$this->form_validation->set_rules('fullname', 'Full name', 'required|min_length[2]|max_length[20]|trim');
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
@@ -136,14 +130,13 @@ class Customers extends CI_Controller
 		}
 		else
 		{
-			$data['firstname']= $_POST['firstname'];
-			$data['lastname']= $_POST['lastname'];
+			$data['fullname']= $_POST['fullname'];
 			$data['username']= $_POST['username'];
 			$data['password']= hash('sha512', $_POST['password']);
 			$data['email']= $_POST['email'];
 			$data['role']= 'Customer';
 			
-			$result= $this->customers_model->add_customer($data);
+			$result= $this->customers_model->addCustomer($data);
 			
 			
 			if ($result == TRUE)
@@ -166,7 +159,7 @@ class Customers extends CI_Controller
 	{
 		$params_where= array('id'=> $uid);
 		$result= $this->customers_model->deleteCustomer($params_where);
-		if ($result == true)
+		if ($result > 0)
 		{
 			$this->session->set_flashdata('success', true);
 		}

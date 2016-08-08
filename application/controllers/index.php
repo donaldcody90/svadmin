@@ -1,1 +1,3 @@
-<?php redirect('auth/login'); ?>
+<?php //redirect('auth/login'); 
+	echo 1;
+?>

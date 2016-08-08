@@ -57,10 +57,10 @@ class Support extends CI_Controller
 			$data['content']= $this->input->post('reply');
 			$data['date']= date('Y-m-d H:i:s');
 			
-			$data2['status']= 'opening';
+			$data2['status']= 1;
 			$param['cid']= $insert_id;
 		
-			$kq= $this->support_model->addnew_message($data);
+			$kq= $this->support_model->addMessage($data);
 			$kq2= $this->support_model->reopen($data2, $param);
 			if($kq > 0)
 			{
@@ -68,17 +68,17 @@ class Support extends CI_Controller
 			}
 		}
 		
-		$message['info']= $this->support_model->conv_info($insert_id);
-		$message['result']= $this->support_model->get_message($insert_id);
+		$message['info']= $this->support_model->getConversationinfo($insert_id);
+		$message['result']= $this->support_model->getMessage($insert_id);
 		$this->load->view('support/ticketcontent_view', $message);	
 	
 	}
 	
 	
-	function close_ticket($insert_id)
+	function closeTicket($insert_id)
 	{
 		$data= array('cid' => $insert_id);
-		$result= $this->support_model->close_ticket($data);
+		$result= $this->support_model->closeTicket($data);
 		if ($result > 0)
 		{
 			redirect ('support/lists');

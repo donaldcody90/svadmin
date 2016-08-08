@@ -3,9 +3,9 @@ if ( ! defined ('BASEPATH')) exit ('No direct script access allowed');
 
 class Support_model extends My_Model
 {
-	private $table_mess= 'message';
-	private $table_conv= 'conversation';
-	private $table_users= 'users';
+	private $message= 'message';
+	private $conversation= 'conversation';
+	private $users= 'users';
 	
 	
 	public function __construct()
@@ -45,35 +45,11 @@ class Support_model extends My_Model
 		$result= $this->db->get();
 		return $result->num_rows();
 	}
-	
-	function addnew_ticket($data)
-	{
-		$lists = $this->_save(array(
-					'table'=>$this->table_conv,
-					'data' =>$data
-		));
-		$insert_id = $this->db->insert_id();
-		$result =  array('lists'=>$lists, 'insert_id'=>$insert_id);
-		return $result;
-	}
-	
-	
-	function get_adminmail($type)
-	{
-		$this->db->select('email');
-		$this->db->from($this->table_users);
-		$this->db->where('responsibility', $type);
-		$this->db->or_where('responsibility', 'All');
-		$result= $this->db->get();
-		
-		return $result->result();
-	}
-	
-	
-	function addnew_message($data)
+
+	function addMessage($data)
 	{
 		return $this->_save(array(
-						'table'=> $this->table_mess,
+						'table'=> $this->message,
 						'data'=> $data
 		));
 	}
@@ -81,16 +57,16 @@ class Support_model extends My_Model
 	function reopen($data, $param)
 	{
 		return $this->_save(array(
-						'table'=> $this->table_conv,
+						'table'=> $this->conversation,
 						'data'=> $data,
 						'param_where'=> $param
 		));
 	}
 	
-	function get_message($insert_id)
+	function getMessage($insert_id)
 	{
 		// $this->db->select('u.username, u.role, m.date, m.content');
-		// $this->db->from("$this->table_users as u, $this->table_mess as m");
+		// $this->db->from("$this->users as u, $this->message as m");
 		// $this->db->where('u.id = m.uid');
 		// $this->db->where('cid', $insert_id);
 		// $this->db->order_by('m.date', 'DESC');
@@ -113,18 +89,18 @@ class Support_model extends My_Model
 		return $result->result();
 	}
 	
-	function conv_info($insert_id)
+	function getConversationinfo($insert_id)
 	{
 		$this->db->where('cid', $insert_id);
-		$result= $this->db->get($this->table_conv);
+		$result= $this->db->get($this->conversation);
 		return $result->row();
 		
 	}
 	
-	function close_ticket($data)
+	function closeTicket($data)
 	{
 		$this->db->where($data);
-		$this->db->update("$this->table_conv", array('status'=> 'closed'));
+		$this->db->update("$this->conversation", array('status'=> 0));
 		
 		return $this->db->affected_rows();
 	}

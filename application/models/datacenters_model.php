@@ -3,7 +3,7 @@ if (!defined ('BASEPATH')) exit ('No direct script access allowed');
 
 class Datacenters_model extends MY_Model
 {
-	private $dc= 'datacenters';
+	private $datacenters= 'datacenters';
 	
 	public function __construct()
 	{
@@ -17,7 +17,7 @@ class Datacenters_model extends MY_Model
 	function findDC($params_where)
 	{
 		$this->db->where($params_where);
-		$result= $this->db->get($this->dc);
+		$result= $this->db->get($this->datacenters);
 		return $result->row();
 	}
 	
@@ -25,43 +25,22 @@ class Datacenters_model extends MY_Model
 	function updateDC($data, $params_where)
 	{
         $this->db->where($params_where);
-		$this->db->update($this->dc, $data);
+		$this->db->update($this->datacenters, $data);
 		
-		if ($this->db->affected_rows() == 1)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		return $this->db->affected_rows();
     }
 
     function addDC($data){
-        $this->db->insert($this->dc, $data);
+        $this->db->insert($this->datacenters, $data);
         
-		if($this->db->affected_rows() == 1)
-		{
-			return true;
-		}	
-		else
-		{
-			return false;
-		}
+		return $this->db->affected_rows();
     }
 	
 
     function deleteDC($params_where){
-        $this->db->delete($this->dc, $params_where);
+        $this->db->delete($this->datacenters, $params_where);
 		  
-		if($this->db->affected_rows() == 1)
-		{
-			return true;
-		}	
-		else
-		{
-			return false;
-		}
+		return $this->db->affected_rows();
      }
 	  
 	function listDC($filterData, $limit, $start){

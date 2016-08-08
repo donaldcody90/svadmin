@@ -30,8 +30,8 @@
 			Status:
 			<select name="filter_status">
 				<option value="" selected>All ticket</option>
-				<option value="opening" <?php echo (isset($filter_status) && $filter_status=='opening' )?'selected':''; ?>>opening</option>
-				<option value="closed" <?php echo (isset($filter_status) && $filter_status=='closed' )?'selected':''; ?>>closed</option>
+				<option value="1" <?php echo (isset($filter_status) && $filter_status=='1' )?'selected':''; ?>>opening</option>
+				<option value="0" <?php echo (isset($filter_status) && $filter_status=='0' )?'selected':''; ?>>closed</option>
 			</select>
           <input class="button" type="submit" value="Search" >
           <a href="<?php echo site_url('support/lists') ?>"><input class="button" type="button" value="Clear"></a>
@@ -56,7 +56,7 @@
 					<td><a href="<?php echo site_url().'support/ticket/'.$row->cid; ?>"><?php echo $row->title; ?></a></td>
 					<td><?php echo substr($row->content, 0, 30); ?></td>
 					<td><?php echo $row->username; ?></td>
-					<td><?php echo $row->status; ?></td>
+					<td><?php echo getStatusConversation($row->status); ?></td>
 				</tr>
 				<?php } ?>
 			</tbody>

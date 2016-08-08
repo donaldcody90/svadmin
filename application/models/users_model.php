@@ -3,8 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Users_model extends MY_Model
 {
-	 private $table_users = 'users';
-	 private $table_cust = 'customers';
+	 private $users = 'users';
 
      function __construct()
      {
@@ -20,115 +19,62 @@ class Users_model extends MY_Model
 	{
 		
 		$this->db->where($params_where);
-		$data1= $this->db->get($this->table_users)->result();
+		$result= $this->db->get($this->users);
 		
-		$this->db->where($params_where);
-		$data2= $this->db->get($this->table_cust)->result();
-		
-		$result= array_merge($data1, $data2);
-		return $result;
+		return $result->result();
 	}
 	
 	  
 	function updateUser($data,$params_where){
-            $user = $this->_save(array(
-                                        'table'        => $this->table_users,
+            return $this->_save(array(
+                                        'table'        => $this->users,
                                         'data'         => $data,
                                         'param_where'  => $params_where
                                    ));
 			
-			if ($user > 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
           
        }
 	  
-	function updateCustomer($data,$params_where){
-            $user = $this->_save(array(
-                                        'table'        => $this->table_cust,
-                                        'data'         => $data,
-                                        'param_where'  => $params_where
-                                   ));
-			
-			if ($user > 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-          
-       }
+
 	
 
      /*function insertUser($data){
           return $this->_save(array(
-               'table' => $this->table_users,
+               'table' => $this->users,
                'data' => $data
           ));
      }*/
 
      function deleteUser($params_where){
-        $this->db->delete($this->table_users, $params_where);
+        $this->db->delete($this->users, $params_where);
 		  
-		if($this->db->affected_rows() == 1)
-		{
-			return true;
-		}	
-		else
-		{
-			return false;
-		}
+		return $this->db->affected_rows();
      }
 	  
 	 function listUser($filter,$limit,$start){
           vst_buildFilter($filter);
-          $result = $this->db->get($this->table_users, $limit, $start);
+          $result = $this->db->get($this->users, $limit, $start);
 		  
           return $result->result();
      }
 	 
 	 function totalUser($filter){
 		vst_buildFilter($filter);
-        $result = $this->db->get($this->table_users);
-		
-		return $result->num_rows();
-     }
-	 
-	 function listCustomer($filter,$limit,$start){
-          vst_buildFilter($filter);
-          $result = $this->db->get($this->table_cust, $limit, $start);
-		  
-          return $result->result();
-     }
-	 
-	 function totalCustomer($filter){
-		vst_buildFilter($filter);
-        $result = $this->db->get($this->table_cust);
+        $result = $this->db->get($this->users);
 		
 		return $result->num_rows();
      }
 
-	function add_admin($data)
+
+
+	function addUser($data)
 	{
 		return $this->_save(array(
-							'table'    => $this->table_users,
+							'table'    => $this->users,
 							'data'     => $data
 						   ));
 	}
 	
-	function add_customer($data)
-	{
-		return $this->_save(array(
-							'table'    => $this->table_cust,
-							'data'     => $data
-						   ));
-	}
+
 }
 ?>

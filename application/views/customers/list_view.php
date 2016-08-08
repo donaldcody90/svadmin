@@ -10,8 +10,7 @@
          <form action="<?php echo site_url('customers/lists') ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($_GET['filter_id'])?$_GET['filter_id']:''; ?>" name="filter_id">
             Username:<input type="text" value="<?php echo isset($_GET['filter_username'])?$_GET['filter_username']:''; ?>" name="filter_username">
-            Firstname:<input type="text" value="<?php echo isset($_GET['filter_firstname'])?$_GET['filter_firstname']:''; ?>" name="filter_firstname">
-            Lastname:<input type="text" value="<?php echo isset($_GET['filter_lastname'])?$_GET['filter_lastname']:''; ?>" name="filter_lastname">
+            Fullname:<input type="text" value="<?php echo isset($_GET['filter_fullname'])?$_GET['filter_fullname']:''; ?>" name="filter_fullname">
             Email:<input type="text" value="<?php echo isset($_GET['filter_email'])?$_GET['filter_email']:''; ?>" name="filter_email">
             Role:
             <select name="filter_role">
@@ -28,8 +27,7 @@
                 <tr>
                     <td>ID</td>
                     <td>Username</td>
-                    <td>Firstname</td>
-                    <td>Lastname</td>
+                    <td>Fullname</td>
                     <td>Email</td>
 					<td>Action</td>
                 </tr>
@@ -37,8 +35,7 @@
 					<tr>
 						<td><?php echo $value->id ; ?></td>
 						<td><?php echo $value->username ; ?></td>
-						<td><?php echo $value->firstname ; ?></td>
-						<td><?php echo $value->lastname ; ?></td>
+						<td><?php echo $value->fullname ; ?></td>
 						<td><?php echo $value->email ; ?></td>
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'customers/update/' . $value->id; ?>">Edit</a>

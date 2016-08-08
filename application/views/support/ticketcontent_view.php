@@ -11,7 +11,7 @@
 			<p class="conv-info">
 				Ticket #<?php echo $info->cid; ?>&nbsp;&nbsp;
 				Opened <?php echo $info->openingdate; ?>&nbsp;&nbsp;
-				Status: <?php echo $info->status; ?>
+				Status: <?php echo getStatusConversation($info->status); ?>
 			</p>
 		</div>
 		
@@ -20,8 +20,8 @@
 			<button type="submit" class="reply">Post Reply</button>
 		</form>
 		
-		<?php echo form_open(base_url().'support/close_ticket/'.$info->cid, 'class="close-ticket"'); ?>
-			<?php if($info->status == 'opening'){ echo '<button>Close ticket</button>'; } ?>
+		<?php echo form_open(base_url().'support/closeTicket/'.$info->cid, 'class="close-ticket"'); ?>
+			<?php if($info->status == 1){ echo '<button>Close ticket</button>'; } ?>
 		</form>
 	</div>
 	

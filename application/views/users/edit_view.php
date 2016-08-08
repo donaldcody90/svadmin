@@ -15,15 +15,9 @@
 		</div>
         
 		<div class="group-input">
-            <label class="label_input">Firstname <span class="red">*</span></label>
-            <input type="text" placeholder="<?php echo $data['0']->firstname; ?>" name="firstname">
-			<?php echo form_error('firstname', '<div class="error">', '</div>'); ?>
-        </div>
-		
-        <div class="group-input">
-            <label class="label_input">Lastname <span class="red">*</span></label>
-            <input type="text" placeholder="<?php echo $data['0']->lastname; ?>" name="lastname">
-			<?php echo form_error('lastname', '<div class="error">', '</div>'); ?>
+            <label class="label_input">Fullname <span class="red">*</span></label>
+            <input type="text" placeholder="<?php echo $data['0']->fullname; ?>" name="fullname">
+			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
