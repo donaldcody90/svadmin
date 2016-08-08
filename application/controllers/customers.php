@@ -62,11 +62,6 @@ class Customers extends CI_Controller
 	function update($uid)
 	{
 		
-		// $params_where= array('id'=> $uid);
-		// $data['data']= $this->customers_model->findCustomer($params_where);
-		// $this->load->view('customers/edit_view', $data);
-
-		
 		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
 		$this->form_validation->set_rules('firstname', 'First name', 'min_length[2]|max_length[20]|trim');
 		$this->form_validation->set_rules('lastname', 'Last name', 'min_length[2]|max_length[20]|trim');
