@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2016 at 01:07 PM
+-- Generation Time: Aug 08, 2016 at 01:12 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -29,21 +29,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `uid` int(11) NOT NULL
+  `uid` int(11) NOT NULL,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `uid`) VALUES
-(1, 'Billing', 2),
-(2, 'Billing', 13),
-(3, 'Billing', 14),
-(4, 'Billing', 24),
-(5, 'General', 18),
-(6, 'General', 20),
-(7, 'General', 15);
+INSERT INTO `categories` (`id`, `name`, `uid`, `status`) VALUES
+(1, 'Billing', 2, 1),
+(2, 'Billing', 13, 1),
+(3, 'Billing', 14, 1),
+(4, 'Billing', 24, 1),
+(5, 'General', 18, 1),
+(6, 'General', 20, 1),
+(7, 'General', 15, 1);
 
 -- --------------------------------------------------------
 
@@ -54,7 +55,7 @@ INSERT INTO `categories` (`id`, `name`, `uid`) VALUES
 CREATE TABLE `conversation` (
   `cid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
-  `type` char(20) COLLATE utf8_unicode_ci NOT NULL,
+  `type` int(20) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `openingdate` datetime NOT NULL,
@@ -66,13 +67,13 @@ CREATE TABLE `conversation` (
 --
 
 INSERT INTO `conversation` (`cid`, `uid`, `type`, `title`, `message`, `openingdate`, `status`) VALUES
-(33, 1002, 'General', 'Day la subject', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', '2016-07-15 07:25:27', 'closed'),
-(34, 1004, 'General', 'please help me!!!!', 'aaaaaaaaaaaaaaaaaaaaa', '2016-07-15 07:25:27', 'closed'),
-(35, 1003, 'Billing', 'Hello!!!!!!!!!!!!!!!!!!!!!!!!!', 'aaaaaaaaaaaaaa', '2016-07-15 07:25:27', 'opening'),
-(36, 1001, 'General', 'cho hỏi cái', 'aaaaaaaaaaaa', '2016-08-01 04:20:11', 'opening'),
-(37, 1002, 'General', 'test lan 3:45 ', 'success', '2016-08-05 15:46:13', 'closed'),
-(38, 1002, 'General', 'test lan 3:46', 'success', '2016-08-05 15:46:39', 'opening'),
-(39, 1002, 'General', 'test 3:26 6/8', 'success', '2016-08-06 15:26:48', 'opening');
+(33, 1002, 4, 'Day la subject', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', '2016-07-15 07:25:27', '0'),
+(34, 1004, 3, 'please help me!!!!', 'aaaaaaaaaaaaaaaaaaaaa', '2016-07-15 07:25:27', '0'),
+(35, 1003, 2, 'Hello!!!!!!!!!!!!!!!!!!!!!!!!!', 'aaaaaaaaaaaaaa', '2016-07-15 07:25:27', '1'),
+(36, 1001, 1, 'cho hỏi cái', 'aaaaaaaaaaaa', '2016-08-01 04:20:11', '1'),
+(37, 1002, 5, 'test lan 3:45 ', 'success', '2016-08-05 15:46:13', '0'),
+(38, 1002, 7, 'test lan 3:46', 'success', '2016-08-05 15:46:39', '1'),
+(39, 1002, 6, 'test 3:26 6/8', 'success', '2016-08-06 15:26:48', '1');
 
 -- --------------------------------------------------------
 
@@ -82,8 +83,7 @@ INSERT INTO `conversation` (`cid`, `uid`, `type`, `title`, `message`, `openingda
 
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
-  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fullname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -93,14 +93,14 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `firstname`, `lastname`, `username`, `password`, `email`) VALUES
-(1001, 'asdfas', 'asdfs', 'name', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdf@gmail.com'),
-(1002, 'viet', 'viet', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'tran@gmail.com'),
-(1003, 'asdf', 'asdfasd', 'asdfsd', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfsdf@gmail.com'),
-(1004, 'viet', 'nam', 'vo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vo@gmail.com'),
-(1006, 'adfaaf', 'adfasf', 'customer', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'cu2@gmail.com'),
-(1007, 'vietnam', 'vietname', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com'),
-(1010, 'taasfd', 'gkljlk', 'test4', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'lkj@g.com');
+INSERT INTO `customers` (`id`, `fullname`, `username`, `password`, `email`) VALUES
+(1001, 'asdfas', 'name', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdf@gmail.com'),
+(1002, 'viet', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'tran@gmail.com'),
+(1003, 'asdf', 'asdfsd', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfsdf@gmail.com'),
+(1004, 'viet', 'vo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vo@gmail.com'),
+(1006, 'adfaaf', 'customer', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'cu2@gmail.com'),
+(1007, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com'),
+(1010, 'taasfd', 'test4', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'lkj@g.com');
 
 -- --------------------------------------------------------
 
@@ -190,8 +190,7 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fullname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -202,21 +201,21 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `password`, `email`, `role`) VALUES
-(1, 'Toan', 'Do Xuan', 'toan123', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'abdew@gmail.com', 'Administrator'),
-(2, '888888888', 'Ta', 'Toan', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'sdfgsdfg@gmail.com', 'Administrator'),
-(5, 'nam', 'vo', 'viet', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'asdftoanadfa@gmail.com', 'Administrator'),
-(11, 'Happy', 'pola', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', 'Administrator'),
-(13, 'tran', 'viet', 'tranducnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdfasf@gmail.com', 'Administrator'),
-(14, 'Leo', 'messi10', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', 'Administrator'),
-(15, 'Zlatan', 'ibara', 'ibrahimovic', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdf@asdfadl.com', 'Administrator'),
-(18, 'Toan', 'Toan', 'tienbeo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasn@asdfasdf.com', 'Administrator'),
-(19, 'conmeo', 'toan123', 'meo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'conmeo@gmail.com', 'Administrator'),
-(20, 'david', 'beckham', 'beckham', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfan@hotasdfas.csdfm.vn', 'Administrator'),
-(24, 'admin', 'admin', 'admin', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfa@hoasdfl.sdf.vn', 'Administrator'),
-(25, 'koco', 'koco', 'admin1', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'admin1@gmail.com', 'Administrator'),
-(26, 'vietnam', 'vietname', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com', 'Administrator'),
-(29, '2323', '2323', 'admin2w32', '5323b9fabdc99686c4e2e25aeaeb66bc68b64d6bc1f61f4aa0249708de7238076b883e825fb0f150383d3a263f4eee394ff07261c2db39122fd6222f5ccae1bc', 'toa23232@gmail.com', 'Administrator');
+INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) VALUES
+(1, 'Toan', 'toan123', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'abdew@gmail.com', '0'),
+(2, '888888888', 'Toan', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'sdfgsdfg@gmail.com', '0'),
+(5, 'nam', 'viet', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'asdftoanadfa@gmail.com', '0'),
+(11, 'Happy', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', '0'),
+(13, 'tran', 'tranducnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdfasf@gmail.com', '0'),
+(14, 'Leo', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', '0'),
+(15, 'Zlatan', 'ibrahimovic', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdf@asdfadl.com', '0'),
+(18, 'Toan', 'tienbeo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasn@asdfasdf.com', '0'),
+(19, 'conmeo', 'meo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'conmeo@gmail.com', '0'),
+(20, 'david', 'beckham', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfan@hotasdfas.csdfm.vn', '0'),
+(24, 'admin', 'admin', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfa@hoasdfl.sdf.vn', '0'),
+(25, 'koco', 'admin1', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'admin1@gmail.com', '0'),
+(26, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com', '0'),
+(29, '2323', 'admin2w32', '5323b9fabdc99686c4e2e25aeaeb66bc68b64d6bc1f61f4aa0249708de7238076b883e825fb0f150383d3a263f4eee394ff07261c2db39122fd6222f5ccae1bc', 'toa23232@gmail.com', '0');
 
 --
 -- Indexes for dumped tables
@@ -277,12 +276,12 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 --
 -- AUTO_INCREMENT for table `datacenters`
 --
 ALTER TABLE `datacenters`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `message`
 --
