@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2016 at 01:12 PM
+-- Generation Time: Aug 10, 2016 at 11:46 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -110,7 +110,7 @@ INSERT INTO `customers` (`id`, `fullname`, `username`, `password`, `email`) VALU
 
 CREATE TABLE `datacenters` (
   `id` bigint(20) NOT NULL,
-  `cuid` int(11) NOT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `svkey` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `svpass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
@@ -120,17 +120,17 @@ CREATE TABLE `datacenters` (
 -- Dumping data for table `datacenters`
 --
 
-INSERT INTO `datacenters` (`id`, `cuid`, `ip`, `svkey`, `svpass`) VALUES
-(1, 1001, '47.2.3.6', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc'),
-(3, 1002, '89.255.222.25', 'toanyvpucfhdfhbfgfhsga4pedom1rwte', '123456'),
-(4, 1003, '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456'),
-(5, 1004, '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456'),
-(6, 1001, '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456'),
-(7, 1006, '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456'),
-(20, 1001, '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456'),
-(22, 1007, '1.2.3.4', 'adasdkjfal', '123456'),
-(23, 1010, '123.13.13.123', 'daylakey', 'daylapass'),
-(24, 1010, '14.14.14.14', 'aldfkajs', 'sladkfjasl');
+INSERT INTO `datacenters` (`id`, `label`, `ip`, `svkey`, `svpass`) VALUES
+(1, '', '47.2.3.6', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc'),
+(3, '', '188.166.221.247', '6jktgaffibb7prf37iotrtqsn1dgmfz5', 'sygf0v1mf1meotn1qyt9uqzw3hyhft3e'),
+(4, '', '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456'),
+(5, '', '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456'),
+(6, '', '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456'),
+(7, '', '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456'),
+(20, '', '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456'),
+(22, '', '1.2.3.4', 'adasdkjfal', '123456'),
+(23, '', '123.13.13.123', 'daylakey', 'daylapass'),
+(24, '', '14.14.14.14', 'aldfkajs', 'sladkfjasl');
 
 -- --------------------------------------------------------
 
@@ -217,6 +217,36 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) 
 (26, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com', '0'),
 (29, '2323', 'admin2w32', '5323b9fabdc99686c4e2e25aeaeb66bc68b64d6bc1f61f4aa0249708de7238076b883e825fb0f150383d3a263f4eee394ff07261c2db39122fd6222f5ccae1bc', 'toa23232@gmail.com', '0');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vps`
+--
+
+CREATE TABLE `vps` (
+  `id` bigint(18) NOT NULL,
+  `cuid` bigint(18) DEFAULT NULL,
+  `svid` bigint(18) DEFAULT NULL,
+  `vps_label` varchar(255) DEFAULT NULL,
+  `vps_ip` varchar(255) DEFAULT NULL,
+  `rootpass` varchar(255) DEFAULT NULL,
+  `create_date` varchar(255) DEFAULT NULL,
+  `space` int(8) DEFAULT NULL,
+  `ram` int(8) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vps`
+--
+
+INSERT INTO `vps` (`id`, `cuid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
+(1, 1001, 1, 'asdfasdfasdfasdfsd', '1.3.2.5', 'qwertyhgfd', '2016-6-12', 5, 1024),
+(2, 1002, 1, 'hjfghjfghjfghjgghjfgh', '9.5.6.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
+(3, 1003, 2, 'fjdyeyrtyrytetertyry', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
+(4, 1001, 2, 'cbncvbnsgsddfgsdfgsdfg', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
+(5, 1001, 2, 'sdfgsdfgsdgqwerewrwrwdfsdf', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
+(11, 1002, 4, 'asdfasd', '16.2.98.35', 'xtvrlqrpzeeodbqbzowbchhapprxcc', '2016-08-10', 6, 512);
+
 --
 -- Indexes for dumped tables
 --
@@ -259,6 +289,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vps`
+--
+ALTER TABLE `vps`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -292,6 +328,11 @@ ALTER TABLE `message`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `vps`
+--
+ALTER TABLE `vps`
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
