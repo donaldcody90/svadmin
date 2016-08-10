@@ -21,9 +21,9 @@ class Datacenters extends CI_Controller
 	{	
 		
 		$filterData= vst_filterData(
-			array('filter_id', 'filter_username', 'filter_ip', 'filter_svkey', 'filter_svpass'),
+			array('filter_id', 'filter_ip', 'filter_svkey', 'filter_svpass'),
 			array(),
-			array('id'=>'d', 'username'=>'cu', 'ip'=>'d', 'svkey'=>'d', 'svpass'=>'d')
+			array()
 			);
 		
 		$this->load->library('pagination');

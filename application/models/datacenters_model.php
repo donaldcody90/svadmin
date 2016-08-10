@@ -44,21 +44,15 @@ class Datacenters_model extends MY_Model
      }
 	  
 	function listDC($filterData, $limit, $start){
-		$this->db->select('*');
-		$this->db->from('customers as cu');
-		$this->db->join('datacenters as d', 'cu.id = d.cuid');
-        vst_buildFilter($filterData);
+		vst_buildFilter($filterData);
         $this->db->limit($limit, $start);
-        $query = $this->db->get();
+        $query = $this->db->get($this->datacenters);
         return $query->result();
 	}
 	 
 	 function totalDC($filterData){
-		$this->db->select('*');
-		$this->db->from('customers as cu');
-		$this->db->join('datacenters as d', 'cu.id = d.cuid');
-        vst_buildFilter($filterData);
-        $query = $this->db->get();
+		vst_buildFilter($filterData);
+        $query = $this->db->get($this->datacenters);
 		return $query->num_rows();
      }
 

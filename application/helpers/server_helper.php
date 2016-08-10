@@ -436,3 +436,76 @@ if(!function_exists('vst_showPrice')){
 	  return number_format($price);
 	}
 }
+
+if(!function_exists('RandomString'))
+{
+	function RandomString($length) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		$stringlength= $length;
+		for ($i = 0; $i < $stringlength; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+}
+
+if(!function_exists('APIcreatevps_post'))
+{
+	function APIcreatevps_post($rootpass, $space, $ram)
+	{
+		$post = array();
+		$post['serid'] = 0;
+		$post['virt'] = 'kvm';
+		$post['user_email'] = 'test@test.com';
+		$post['user_pass'] = 'test123';
+		$post['plid'] = 0;
+		$post['osid'] = 88;
+		$post['iso'] = 0;
+		$post['hostname'] = 'test12345.com';
+		$post['rootpass'] = $rootpass;
+		$post['num_ips'] = 1;
+		$post['stid'] = 1;
+		$post['space'] = $space;
+		$post['ram'] = $ram;
+		$post['swapram'] = 1024;
+		$post['bandwidth'] = 0;
+		$post['network_speed'] = 0;
+		$post['cpu'] = 1000;
+		$post['cores'] = 4;
+		$post['cpu_percent'] = 100.00;
+		$post['vnc'] = 1;
+		$post['vncpass'] = 'test123';
+		$post['sec_iso'] = 0;
+		$post['kvm_cache'] = 0;
+		$post['io_mode'] = 0;
+		$post['vnc_keymap'] = 'en-us';
+		$post['nic_type'] = 'default';
+		$post['osreinstall_limit'] = 0; 
+		$post['admin_managed'] = 0;
+		$post['addvps'] = 1;
+
+		return $post;
+	}
+}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
