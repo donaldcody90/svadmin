@@ -564,6 +564,43 @@ text-align:center;
 	font-size: 11px;
 }
 
+/*----------------------------------------*/
+
+.overlay{
+	display: none;
+	background: black;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	opacity: 0.5;
+}
+
+.changepass-window{
+	cursor: pointer;
+}
+
+.contentPopup{
+	display: none;
+	width: 500px;
+	height: 500px;
+	background: #A4CEDF;
+	border-radius: 3px;
+	position: absolute;
+	top: 100px;
+	right: 400px;
+	z-index: 1500;
+}
+
+.popup_title{
+	font-size: 22px;
+	font-weight: bold;
+	margin: 50px 0 60px 0;
+}
 
 
 

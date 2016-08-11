@@ -18,6 +18,8 @@ class Customers extends CI_Controller
 
 		redirect('customers/lists');
 	}
+
+	
 	
 	function lists()
 	{
@@ -39,6 +41,66 @@ class Customers extends CI_Controller
 		$this->load->view('customers/list_view', $data);
 	
 		
+	}
+	
+	public function changepassword()
+	{
+		vst_authAjaxPost();
+		$cid=$this->input->post('cid');
+		if(!isset($cid))
+			redirect(site_url('404'));
+		if(empty($cid) || $cid <=0)
+		{
+			$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+		}
+		else{
+			
+			$userInfo=$this->customers_model->findCustomer(array('id'=>$cid));
+			if($userInfo){
+				$data['user']=$userInfo;
+				$content=$this->load->view('customers/ajax_changepassword',$data,true);
+				$res=array('Response'=>"Success","Message"=>$content);
+			}
+			else{
+				$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+			}
+		}
+		echo json_encode($res);
+	}
+	
+	public function resetpassword()
+	{
+		
+		vst_authAjaxPost();
+		
+		$cid = $this->input->post('cid');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$confirmspassword = $this->input->post('confirmspassword');
+		if( empty($cid) || empty($username) || empty($password) || empty($confirmspassword) )
+		{
+			$res=array('Response'=>"Error","Error"=>"Dữ liệu không hợp lệ.");
+		}
+		else if( $password != $confirmspassword )
+		{
+			$res=array('Response'=>"Error","Error"=>"Xác nhận mật khẩu không đúng.");
+		}
+		else
+		{
+			$pass = vst_password($this->input->post('password'));
+			$params_where = array('id'=>$cid);
+			$new_pass = array('password'=> $pass );
+
+			$result = $this->customers_model->updateCustomer($new_pass,$params_where);
+			if($result)
+			{
+				$res=array('Response'=>"Success","Message"=>"Thay đổi mật khẩu thành công.");	
+			}else{
+				$res=array('Response'=>"Error","Error"=>"Thay đổi mật khẩu không thành công.");	
+			}
+		
+		}
+		echo json_encode($res);
 	}
 	
 	function profile($uid)

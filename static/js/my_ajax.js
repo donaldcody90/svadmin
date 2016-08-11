@@ -1,0 +1,10 @@
+$(document).ready(function(){
+    $(".changepass-window").click(function(){
+		$(".overlay").fadeIn();
+        $(".contentPopup").fadeIn();
+    });
+	$(".overlay").click(function(){
+		$(".overlay").fadeOut();
+		$(".contentPopup").fadeOut();
+	});
+});

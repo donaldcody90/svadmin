@@ -15,7 +15,7 @@ class Users_model extends MY_Model
 		Function findUser
 		param_where = array(fieldName=>fieldValue)
 	*/
-    function findUser($params_where)
+    function findUserfindUser($params_where)
 	{
 		
 		$this->db->where($params_where);
@@ -23,6 +23,15 @@ class Users_model extends MY_Model
 		
 		return $result->result();
 	}
+	
+	function findUser($params_where,$is_list=false){
+          $user = $this->_getwhere(array(
+                         'table'        => $this->users,
+                         'param_where'  => $params_where,
+                         'list'=>$is_list
+          ));
+          return $user;
+    }
 	
 	  
 	function updateUser($data,$params_where){

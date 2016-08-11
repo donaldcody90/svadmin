@@ -42,6 +42,9 @@
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'users/update/' . $value->id; ?>">Edit</a>
 							<a class="delete" href="<?php echo site_url() . 'users/delete_user/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+							<button class="link_ajax" onclick="openPopup('<?php echo site_url('users/changepassword'); ?>',{cid:<?php echo  $value->id; ?>},600,500)">
+								Change password
+							</button>
 						</td>
 					</tr>
                 <?php } ?>

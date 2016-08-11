@@ -41,6 +41,68 @@ class Users extends CI_Controller
 		
 	}
 	
+	public function changepassword()
+	{
+		vst_authAjaxPost();
+		$cid=$this->input->post('cid');
+		if(!isset($cid))
+			redirect(site_url('404'));
+		if(empty($cid) || $cid <=0)
+		{
+			$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+		}
+		else{
+			
+			$userInfo=$this->users_model->findUser(array('id'=>$cid));
+			if($userInfo){
+				$data['user']=$userInfo;
+				$content=$this->load->view('users/ajax_changepassword',$data,true);
+				$res=array('Response'=>"Success","Message"=>$content);
+			}
+			else{
+				$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+			}
+		}
+		echo json_encode($res);
+	}
+	
+	public function resetpassword()
+	{
+		
+		vst_authAjaxPost();
+		
+		$cid = $this->input->post('uid');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$confirmspassword = $this->input->post('confirmspassword');
+		// $data123= array('uid'=>$uid, 'username'=>$username, 'pass'=>$password, 'confpass'=>$confirmspassword);
+		// print_r($data123);die;
+		if( empty($cid) || empty($username) || empty($password) || empty($confirmspassword) )
+		{
+			$res=array('Response'=>"Error","Error"=>"Dữ liệu không hợp lệ.");
+		}
+		else if( $password != $confirmspassword )
+		{
+			$res=array('Response'=>"Error","Error"=>"Xác nhận mật khẩu không đúng.");
+		}
+		else
+		{
+			$pass = vst_password($this->input->post('password'));
+			$params_where = array('id'=>$cid);
+			$new_pass = array('password'=> $pass );
+
+			$result = $this->users_model->updateUser($new_pass,$params_where);
+			if($result)
+			{
+				$res=array('Response'=>"Success","Message"=>"Thay đổi mật khẩu thành công.");	
+			}else{
+				$res=array('Response'=>"Error","Error"=>"Thay đổi mật khẩu không thành công.");	
+			}
+		
+		}
+		echo json_encode($res);
+	}
+	
 	function profile($uid)
 	{
 		
@@ -73,6 +135,7 @@ class Users extends CI_Controller
 		{
 			$params_where= array('id'=> $uid);
 			$data['data']= $this->users_model->findUser($params_where);
+			//print_r($data['data']);die;
 			$this->load->view('users/edit_view', $data);
 		}
 		if ($this->form_validation->run() == true)

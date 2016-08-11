@@ -6,23 +6,23 @@
 <div id="content" class="container fullwidth">
      <?php $this->load->view('_base/message'); ?>
     <h2 class="title ">Edit user's information</h2>
-    <form name="edit" action="<?php echo site_url().'users/update/'.$data['0']->id; ?>" method="POST">
+    <form name="edit" action="<?php echo site_url().'users/update/'.$data['id']; ?>" method="POST">
 	
         <div class="group-input">
             <label class="label_input">Username <span class="red">*</span></label>
-            <input type="text" placeholder="<?php echo $data['0']->username; ?>" name="username">
+            <input type="text" placeholder="<?php echo $data['username']; ?>" name="username">
 			<?php echo form_error('username', '<div class="error">', '</div>'); ?>
 		</div>
         
 		<div class="group-input">
             <label class="label_input">Fullname <span class="red">*</span></label>
-            <input type="text" placeholder="<?php echo $data['0']->fullname; ?>" name="fullname">
+            <input type="text" placeholder="<?php echo $data['fullname']; ?>" name="fullname">
 			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Email <span class="red">*</span></label>
-            <input type="text" placeholder="<?php echo $data['0']->email; ?>" name="email">
+            <input type="text" placeholder="<?php echo $data['email']; ?>" name="email">
 			<?php echo form_error('email', '<div class="error">', '</div>'); ?>
 		</div>
 		

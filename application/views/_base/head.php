@@ -9,6 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+	<script type="text/javascript" src="<?php echo site_url().'static/js/my_ajax.js'; ?>"></script>
 	<base href="<?php echo site_url(); ?>" />
 	<?php
 		$siteSconfig = $this->config->item('site');

@@ -16,15 +16,22 @@ class Customers_model extends MY_Model
 		param_where = array(fieldName=>fieldValue)
 	*/
 	
-    function findCustomer($params_where)
+    function findCustomer123($params_where)
 	{
 		
-		$this->db->where($params_where);
+		//$this->db->where($params_where);
 		$result= $this->db->get($this->customers);
 		
-		return $result->row();
+		return $result->custom_result_object($this->customers);
 	}
-	
+     function findCustomer($params_where,$is_list=false){
+          $user = $this->_getwhere(array(
+                         'table'        => $this->customers,
+                         'param_where'  => $params_where,
+                         'list'=>$is_list
+          ));
+          return $user;
+    }
 	function updateCustomer($data,$params_where){
             return $this->_save(array(
                                         'table'        => $this->customers,
