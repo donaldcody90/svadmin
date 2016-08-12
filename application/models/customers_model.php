@@ -16,44 +16,29 @@ class Customers_model extends MY_Model
 		param_where = array(fieldName=>fieldValue)
 	*/
 	
-    function findCustomer123($params_where)
-	{
-		
-		//$this->db->where($params_where);
-		$result= $this->db->get($this->customers);
-		
-		return $result->custom_result_object($this->customers);
-	}
-     function findCustomer($params_where,$is_list=false){
-          $user = $this->_getwhere(array(
+    
+	
+     function findCustomer($params_where=null, $is_list=true){
+          return  $this->_getwhere(array(
                          'table'        => $this->customers,
                          'param_where'  => $params_where,
-                         'list'=>$is_list
+                         'list'			=> $is_list
           ));
-          return $user;
     }
 	function updateCustomer($data,$params_where){
             return $this->_save(array(
                                         'table'        => $this->customers,
                                         'data'         => $data,
                                         'param_where'  => $params_where
-                                   ));
-			
+                                   ));	
        }
 	
 
-     /*function insertUser($data){
-          return $this->_save(array(
-               'table' => $this->table_users,
-               'data' => $data
+	 function deleteCustomer($params_where){
+          return $this->_del(array(
+               'table'        => $this->customers,
+               'param_where'  => $params_where
           ));
-     }*/
-
-     function deleteCustomer($params_where){
-        $this->db->delete($this->customers, $params_where);
-		  
-		return $this->db->affected_rows();
-		
      }
 	 
 	 function listCustomer($filter,$limit,$start){
@@ -77,5 +62,21 @@ class Customers_model extends MY_Model
 							'data'     => $data
 						   ));
 	}
+	
+	
+	 /*function insertUser($data){
+          return $this->_save(array(
+               'table' => $this->table_users,
+               'data' => $data
+          ));
+     }*/
+
+     // function deleteCustomer($params_where){
+        // $this->db->delete($this->customers, $params_where);
+		  
+		// return $this->db->affected_rows();
+		
+     // }
+	
 }
 ?>

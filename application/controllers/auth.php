@@ -7,6 +7,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('auth_model');
+		$this->load->model('users_model');
 	}
 	
 	function index()
@@ -25,6 +26,8 @@ class Auth extends CI_Controller
 	
 	function login()
 	{
+		$username = $this->input->post("username");
+        $password = $this->input->post("password");
 		$this->form_validation->set_rules('username', 'Username', 'required|trim|max_length[50]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|max_length[50]');
 		
@@ -34,29 +37,29 @@ class Auth extends CI_Controller
 		}
 		else
 		{
-			extract($_POST);
-			// $username= $this->input->post('username');
-			// $password= $this->input->post('password');
-			$user_id= $this->auth_model->checkLogin($username, $password)->id;
-			$role= $this->auth_model->checkLogin($username, $password)->role;
-			
-			if(! $user_id)
-			{
-				//login failed
-				$this->session->set_flashdata('login_error', TRUE);
-				redirect('auth/login');
-			}
-			else
-			{
-				//$username= $this->Auth_model->checkLogin($username, $password)->username;
-				$this->session->set_userdata(array(
+			if ($this->input->post('btn_login'))
+		    {
+			  
+				$data= $this->users_model->findUser( array('username'=> $username, 'password'=> vst_password($password)) );
+				if(count($data)){
+					$this->session->set_userdata(array(
 									'logged_in'=> true,
 									'user_id' => $user_id,
-									'username' => $username,
-									'role'=> $role
+									'username' => $username
 								));
-				redirect('customers');
-			}
+					
+					redirect('customers');
+				}
+				else{
+					message_flash('Tên đăng nhập hoặc mật khẩu không đúng. Xin vui lòng nhập lại !!!','error');
+					redirect(site_url('auth/login'));
+				}    
+		  
+		    }
+			else
+			{
+			   redirect(site_url('auth/login'));
+		    }
 		}
 	}
 	

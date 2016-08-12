@@ -19,16 +19,22 @@ class Auth_model extends CI_Model{
 	
 	//----------signup------------
 	
-	function addUser($data)
-	{
-		$this->db->insert($this->users, $data);
-		
-		return $this->db->affected_rows();
-		
-	}
+	
 
+	function addUser($data){
+          return $this->_save(array(
+               'table' => $this->users,
+               'data' => $data
+          ));
+     }
 	
-	
+	// function addUser($data)
+	// {
+		// $this->db->insert($this->users, $data);
+		
+		// return $this->db->affected_rows();
+		
+	// }
 	
 	
 	

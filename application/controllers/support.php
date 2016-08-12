@@ -50,6 +50,13 @@ class Support extends CI_Controller
 	{
 		$this->form_validation->set_rules('reply', 'Reply', 'required|max_length[1000]|trim');
 		
+		if ($this->form_validation->run() == false)
+		{
+			$param_where['cid']= $insert_id;
+			$message['info']= $this->support_model->getConversation($param_where);
+			$message['result']= $this->support_model->getMessage($insert_id);
+			$this->load->view('support/ticketcontent_view', $message);	
+		}
 		if ($this->form_validation->run() == true)
 		{
 			$data['uid']= $this->session->userdata('user_id');
@@ -68,22 +75,25 @@ class Support extends CI_Controller
 			}
 		}
 		
-		$message['info']= $this->support_model->getConversationinfo($insert_id);
-		$message['result']= $this->support_model->getMessage($insert_id);
-		$this->load->view('support/ticketcontent_view', $message);	
+		// $message['info']= $this->support_model->getConversationinfo($insert_id);
+		// $message['result']= $this->support_model->getMessage($insert_id);
+		// $this->load->view('support/ticketcontent_view', $message);	
 	
 	}
 	
 	
 	function closeTicket($insert_id)
 	{
-		$data= array('cid' => $insert_id);
-		$result= $this->support_model->closeTicket($data);
+		$data= array('status'=> 0);
+		$param= array('cid' => $insert_id);
+		$result= $this->support_model->closeTicket($data, $param);
 		if ($result > 0)
 		{
 			redirect ('support/lists');
 		}
 	}
+	
+	
 	
 	
 }

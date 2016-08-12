@@ -95,7 +95,7 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where);
+		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;
@@ -108,7 +108,7 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where);
+		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;
@@ -121,7 +121,7 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where);
+		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;

@@ -15,22 +15,13 @@ class Users_model extends MY_Model
 		Function findUser
 		param_where = array(fieldName=>fieldValue)
 	*/
-    function findUserfindUser($params_where)
-	{
-		
-		$this->db->where($params_where);
-		$result= $this->db->get($this->users);
-		
-		return $result->result();
-	}
-	
+    
 	function findUser($params_where,$is_list=false){
-          $user = $this->_getwhere(array(
+          return  $this->_getwhere(array(
                          'table'        => $this->users,
                          'param_where'  => $params_where,
                          'list'=>$is_list
           ));
-          return $user;
     }
 	
 	  
@@ -40,24 +31,15 @@ class Users_model extends MY_Model
                                         'data'         => $data,
                                         'param_where'  => $params_where
                                    ));
-			
-          
+		 
        }
 	  
-
-	
-
-     /*function insertUser($data){
-          return $this->_save(array(
-               'table' => $this->users,
-               'data' => $data
+	 
+	 function deleteUser($params_where){
+          return $this->_del(array(
+               'table'        => $this->users,
+               'param_where'  => $params_where
           ));
-     }*/
-
-     function deleteUser($params_where){
-        $this->db->delete($this->users, $params_where);
-		  
-		return $this->db->affected_rows();
      }
 	  
 	 function listUser($filter,$limit,$start){
@@ -84,6 +66,13 @@ class Users_model extends MY_Model
 						   ));
 	}
 	
+	
+	/*function insertUser($data){
+          return $this->_save(array(
+               'table' => $this->users,
+               'data' => $data
+          ));
+     }*/
 
 }
 ?>

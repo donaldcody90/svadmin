@@ -1,7 +1,9 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('datacenters/lists'); ?>">Datacenter List</a></li>
-    <li><a href="<?php echo site_url('datacenters/add'); ?>">Add new</a></li>
+    <li><a href="<?php echo site_url('datacenters'); ?>">Datacenter List</a></li>
+    <li><a href="<?php echo site_url('datacenters/add'); ?>">Add new DC</a></li>
+    <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
+    <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
 </ul>
 <?php
     // echo "<pre>";

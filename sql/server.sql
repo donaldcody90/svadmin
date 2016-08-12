@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2016 at 11:46 AM
+-- Generation Time: Aug 12, 2016 at 01:06 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -55,7 +55,7 @@ INSERT INTO `categories` (`id`, `name`, `uid`, `status`) VALUES
 CREATE TABLE `conversation` (
   `cid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
-  `type` int(20) NOT NULL,
+  `caid` int(20) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `openingdate` datetime NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `conversation` (
 -- Dumping data for table `conversation`
 --
 
-INSERT INTO `conversation` (`cid`, `uid`, `type`, `title`, `message`, `openingdate`, `status`) VALUES
+INSERT INTO `conversation` (`cid`, `uid`, `caid`, `title`, `message`, `openingdate`, `status`) VALUES
 (33, 1002, 4, 'Day la subject', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', '2016-07-15 07:25:27', '0'),
 (34, 1004, 3, 'please help me!!!!', 'aaaaaaaaaaaaaaaaaaaaa', '2016-07-15 07:25:27', '0'),
 (35, 1003, 2, 'Hello!!!!!!!!!!!!!!!!!!!!!!!!!', 'aaaaaaaaaaaaaa', '2016-07-15 07:25:27', '1'),
@@ -121,16 +121,16 @@ CREATE TABLE `datacenters` (
 --
 
 INSERT INTO `datacenters` (`id`, `label`, `ip`, `svkey`, `svpass`) VALUES
-(1, '', '47.2.3.6', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc'),
-(3, '', '188.166.221.247', '6jktgaffibb7prf37iotrtqsn1dgmfz5', 'sygf0v1mf1meotn1qyt9uqzw3hyhft3e'),
-(4, '', '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456'),
-(5, '', '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456'),
-(6, '', '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456'),
-(7, '', '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456'),
-(20, '', '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456'),
-(22, '', '1.2.3.4', 'adasdkjfal', '123456'),
-(23, '', '123.13.13.123', 'daylakey', 'daylapass'),
-(24, '', '14.14.14.14', 'aldfkajs', 'sladkfjasl');
+(1, 'server 1', '47.2.3.6', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc'),
+(3, 'server 3', '188.166.221.247', '6jktgaffibb7prf37iotrtqsn1dgmfz5', 'sygf0v1mf1meotn1qyt9uqzw3hyhft3e'),
+(4, 'server 4', '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456'),
+(5, 'server 5', '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456'),
+(6, 'server 6', '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456'),
+(7, 'server 7', '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456'),
+(20, 'server 20', '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456'),
+(22, 'server 22', '1.2.3.4', 'adasdkjfal', '123456'),
+(23, 'server 23', '123.13.13.123', 'daylakey', 'daylapass'),
+(24, 'server 24', '14.14.14.14', 'aldfkajs', 'sladkfjasl');
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,9 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 (27, 38, 24, 'đã nhận', '2016-08-06 11:24:50'),
 (28, 38, 24, '23e23232323', '2016-08-06 14:47:44'),
 (29, 39, 1002, 'success', '2016-08-06 15:26:48'),
-(30, 39, 1002, 'asdfasfasdf', '2016-08-06 17:30:44');
+(30, 39, 1002, 'asdfasfasdf', '2016-08-06 17:30:44'),
+(31, 38, 1002, 'test', '2016-08-12 16:40:15'),
+(32, 38, 1002, 'test lan 2', '2016-08-12 16:40:29');
 
 -- --------------------------------------------------------
 
@@ -202,9 +204,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) VALUES
-(1, 'Toan', 'toan123', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'abdew@gmail.com', '0'),
+(1, 'Toan', 'toan123', '1392379478c88443c458ed72e88c72522d3a9ac1b93764c71383969a352d1c84a90f9b3230d04d0ef627954224e44df761757922506b92c1f9baf4460230ba44', 'abdew@gmail.com', '0'),
 (2, '888888888', 'Toan', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'sdfgsdfg@gmail.com', '0'),
-(5, 'nam', 'viet', '5775887ce6300c00191d4e797b296fe37520aeb941999f6b0db3f1ab4dbec2420054f8eaf11be2f6a08ec3b71b101546add38526f8492b0cdd929f7aec68b7db', 'asdftoanadfa@gmail.com', '0'),
+(5, 'nam', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdftoanadfa@gmail.com', '0'),
 (11, 'Happy', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', '0'),
 (13, 'tran', 'tranducnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdfasf@gmail.com', '0'),
 (14, 'Leo', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', '0'),
@@ -312,7 +314,7 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
 --
 -- AUTO_INCREMENT for table `datacenters`
 --
@@ -322,12 +324,12 @@ ALTER TABLE `datacenters`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `vps`
 --

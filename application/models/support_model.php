@@ -89,25 +89,40 @@ class Support_model extends My_Model
 		return $result->result();
 	}
 	
-	function getConversationinfo($insert_id)
-	{
-		$this->db->where('cid', $insert_id);
-		$result= $this->db->get($this->conversation);
-		return $result->row();
-		
+	
+	function getConversation($params_where,$is_list=false){
+		 return  $this->_getwhere(array(
+						'table'        => $this->conversation,
+						'param_where'  => $params_where,
+						'list'         => $is_list
+				));
+	  }
+	
+	
+	
+	function closeTicket($data, $params_where){
+          return $this->_save(array(
+                                        'table'        => $this->conversation,
+                                        'data'         => $data,
+                                        'param_where'  => $params_where
+                                   ));
 	}
 	
-	function closeTicket($data)
-	{
-		$this->db->where($data);
-		$this->db->update("$this->conversation", array('status'=> 0));
+	
+	// function closeTicket($data)
+	// {
+		// $this->db->where($data);
+		// $this->db->update("$this->conversation", array('status'=> 0));
 		
-		return $this->db->affected_rows();
-	}
+		// return $this->db->affected_rows();
+	// }
 	
-	
-	
-	
-	
+	// function getConversationinfo($param_where)
+	// {
+		// $this->db->where($param_where);
+		// $result= $this->db->get($this->conversation);
+		// return $result->row();
+		
+	// }
 	
 }

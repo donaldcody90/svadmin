@@ -24,11 +24,7 @@ $(document).ready(function(){
             Username:<input type="text" value="<?php echo isset($_GET['filter_username'])?$_GET['filter_username']:''; ?>" name="filter_username">
             Fullname:<input type="text" value="<?php echo isset($_GET['filter_fullname'])?$_GET['filter_fullname']:''; ?>" name="filter_fullname">
             Email:<input type="text" value="<?php echo isset($_GET['filter_email'])?$_GET['filter_email']:''; ?>" name="filter_email">
-            Role:
-            <select name="filter_role">
-                <option value="">Choose user role</option>
-                <option value="Customer" <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']=='Customer' )?'selected':''; ?>>Customer</option>
-            </select>
+            
             <input class="button" type="submit" value="Search">
             <a href="<?php echo site_url('customers/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form> 

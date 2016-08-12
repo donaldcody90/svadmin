@@ -13,7 +13,7 @@ class Vps_model extends MY_Model
 		
 	}
 	
-	function get_list($filter, $limit, $start)
+	function getList($filter, $limit, $start)
 	{
 		$this->db->select('v.id, cu.username, v.svid, v.vps_label, v.vps_ip, v.create_date, v.space, v.ram');
 		$this->db->from("$this->vps as v");
@@ -34,39 +34,68 @@ class Vps_model extends MY_Model
 		return $result->num_rows();
 	}
 	
-	function getUsername()
-	{
-		$this->db->select('username');
-		$this->db->from($this->customers);
-		return $this->db->get()->result();
-	}
 	
-	function getDatacenters()
-	{
-		$this->db->select('ip');
-		$this->db->from($this->datacenters);
-		return $this->db->get()->result();
-	}
+	function addVps($data){
+          return $this->_save(array(
+               'table' => $this->vps,
+               'data' => $data
+          ));
+     }
 	
-	function getIDcustomers($username)
-	{
-		$this->db->where('username', $username);
-		$result= $this->db->get($this->customers);
-		return $result->row();
-	}
 	
-	function getInfodatacenters($ip)
-	{
-		$this->db->where('ip', $ip);
-		$result= $this->db->get($this->datacenters);
-		return $result->row();
-	}
+	// function getDatacenters()
+	// {
+		// $this->db->select('*');
+		// $this->db->from($this->datacenters);
+		// return $this->db->get()->result();
+	// }
 	
-	function addVps($data)
-	{
-		$this->db->insert($this->vps, $data);
-		return $this->db->affected_rows();
-	}
+	// function getInfodatacenters($ip)
+	// {
+		// $this->db->where('ip', $ip);
+		// $result= $this->db->get($this->datacenters);
+		// return $result->row();
+	// }
+	
+	// function getDatacenters($params_where= null,$is_list=true){
+		 // return  $this->_getwhere(array(
+                    // 'table'        => $this->datacenters,
+                    // 'param_where'  => $params_where,
+                    // 'list'         => $is_list
+        // ));
+	// }
+	
+	// function getUsername()
+	// {
+		// $this->db->select('username');
+		// $this->db->from($this->customers);
+		// return $this->db->get()->result();
+	// }
+
+	
+	// function getCustomers($params_where= null, $is_list= true)
+	// {
+		// return $this->_getwhere(array(
+					// 'table'			=> $this->customers,
+					// 'param_where' 	=> $params_where,
+					// 'list' 			=> $is_list
+		// ));
+	// }
+	
+	// function getIDcustomers($username)
+	// {
+		// $this->db->where('username', $username);
+		// $result= $this->db->get($this->customers);
+		// return $result->row();
+	// }
+	
+	// function addVps($data)
+	// {
+		// $this->db->insert($this->vps, $data);
+		// return $this->db->affected_rows();
+	// }
+	
+	
 	
 	
 	

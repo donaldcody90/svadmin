@@ -15,7 +15,7 @@
 			<select name="username">
 				<option value="" selected>None</option>
 				<?php foreach($username as $value){
-					echo '<option value="'.$value->username.'">'.$value->username.'</option>';
+					echo '<option value="'.$value['id'].'">'.$value['username'].'</option>';
 				} ?>
 			</select>
 		</div>
@@ -24,7 +24,7 @@
 			<select name="datacenter">
 				<option value="" selected>None</option>
 				<?php foreach($datacenters as $value2){
-					echo '<option value="'.$value2->ip.'">'.$value2->ip.'</option>';
+					echo '<option value="'.$value2['id'].'">'.$value2['ip'].'</option>';
 				} ?>
 			</select>
 		</div>

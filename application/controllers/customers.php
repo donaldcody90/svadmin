@@ -55,7 +55,7 @@ class Customers extends CI_Controller
 		}
 		else{
 			
-			$userInfo=$this->customers_model->findCustomer(array('id'=>$cid));
+			$userInfo=$this->customers_model->findCustomer(array('id'=>$cid), $is_list=false);
 			if($userInfo){
 				$data['user']=$userInfo;
 				$content=$this->load->view('customers/ajax_changepassword',$data,true);
@@ -113,7 +113,7 @@ class Customers extends CI_Controller
 		else
 		{
 			$params_where= array('id'=> $uid);
-			$data['row']= $this->customers_model->findCustomer($params_where);
+			$data['row']= $this->customers_model->findCustomer($params_where, $is_list=false);
 					
 			$this->load->view('customers/profile_view', $data);
 		}
@@ -135,7 +135,7 @@ class Customers extends CI_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$params_where= array('id'=> $uid);
-			$data['data']= $this->customers_model->findCustomer($params_where);
+			$data['data']= $this->customers_model->findCustomer($params_where, $is_list=false);
 			$this->load->view('customers/edit_view', $data);
 		}
 		if ($this->form_validation->run() == true)
@@ -196,7 +196,6 @@ class Customers extends CI_Controller
 			$data['username']= $_POST['username'];
 			$data['password']= hash('sha512', $_POST['password']);
 			$data['email']= $_POST['email'];
-			$data['role']= 'Customer';
 			
 			$result= $this->customers_model->addCustomer($data);
 			

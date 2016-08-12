@@ -7,6 +7,8 @@ class Vps extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('vps_model');
+		$this->load->model('datacenters_model');
+		$this->load->model('customers_model');
 	}
 	
 	function index()
@@ -31,7 +33,7 @@ class Vps extends CI_Controller
 		$start= $this->input->get('page');
 		$limit= $config['per_page'];
 		
-		$data['value']= $this->vps_model->get_list($filterData, $limit, $start);
+		$data['value']= $this->vps_model->getList($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
 		$data['total_rows']= $total;
 		$this->load->view('vps/list', $data);
@@ -46,8 +48,8 @@ class Vps extends CI_Controller
 		
 		if($this->form_validation->run()== false)
 		{
-			$data['username']= $this->vps_model->getUsername();
-			$data['datacenters']= $this->vps_model->getDatacenters();
+			$data['username']= $this->customers_model->findCustomer();
+			$data['datacenters']= $this->datacenters_model->findDC();
 			$this->load->view('vps/add_vps_view', $data);
 		}
 		
@@ -55,9 +57,9 @@ class Vps extends CI_Controller
 		{
 			require_once APPPATH.'third_party/virtualizor/sdk/admin.php';
 				
-			$ip= $this->input->post('datacenter');
-			$key= $this->vps_model->getInfodatacenters($ip)->svkey;
-			$pass= $this->vps_model->getInfodatacenters($ip)->svpass;
+			$param_where['id']= $this->input->post('datacenter');
+			$key= $this->datacenters_model->findDC($param_where, $is_list=false)->svkey;
+			$pass= $this->datacenters_model->findDC($param_where, $is_list=false)->svpass;
 			
 			$admin = new Virtualizor_Admin_API($ip, $key, $pass);
 			
@@ -74,15 +76,9 @@ class Vps extends CI_Controller
 			{
 				$data2['id']= $output->vs_info->vpsid;
 				
-				$username= $this->input->post('username');
-				if($username!= ''){
-					$data2['cuid']= $this->vps_model->getIDcustomers($username)->id;
-				}
+				$data2['cuid']= $this->input->post('username');
 				
-				$datacenter= $this->input->post('datacenter');
-				if($datacenter!= ''){
-					$data2['svid']= $this->vps_model->getInfodatacenters($datacenter)->id;
-				}
+				$data2['svid']= $this->input->post('datacenter');
 				
 				if($this->input->post('label') != ''){
 					$data2['vps_label']= $this->input->post('label');
