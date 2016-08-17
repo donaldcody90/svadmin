@@ -7,11 +7,11 @@
 	
     <div class="ticket_title">
 		<div class="title">
-			<span><?php echo $info->title; ?><br></span>
+			<span><?php echo $info['title']; ?><br></span>
 			<p class="conv-info">
-				Ticket #<?php echo $info->cid; ?>&nbsp;&nbsp;
-				Opened <?php echo $info->openingdate; ?>&nbsp;&nbsp;
-				Status: <?php echo getStatusConversation($info->status); ?>
+				Ticket #<?php echo $info['cid']; ?>&nbsp;&nbsp;
+				Opened <?php echo $info['openingdate']; ?>&nbsp;&nbsp;
+				Status: <?php echo getStatusConversation($info['status']); ?>
 			</p>
 		</div>
 		
@@ -20,16 +20,16 @@
 			<button type="submit" class="reply">Post Reply</button>
 		</form>
 		
-		<?php echo form_open(base_url().'support/closeTicket/'.$info->cid, 'class="close-ticket"'); ?>
-			<?php if($info->status == 1){ echo '<button>Close ticket</button>'; } ?>
+		<?php echo form_open(base_url().'support/closeTicket/'.$info['cid'], 'class="close-ticket"'); ?>
+			<?php if($info['status'] == 1){ echo '<button>Close ticket</button>'; } ?>
 		</form>
 	</div>
 	
 	<div class="ticketcontent">
 		<?php foreach($result as $row) { ?>
-			<div class="<?php echo $row->role== 'Administrator' ? 'message2' : 'message1'; ?>">
+			<div class="<?php echo $row->role== null ? 'message1' : 'message2'; ?>">
 				<span><b><?php echo $row->username; ?>&nbsp;</b></span>
-				<img class="image2" src="<?php echo $row->role== 'Administrator' ? site_url('static/images/logo2.png') : '' ; ?>" />
+				<img class="image2" src="<?php echo $row->role== null ? '' : site_url('static/images/logo2.png') ; ?>" />
 				<span class="date"><?php echo $row->date; ?></span><br>
 				<p class="content"><?php echo $row->content; ?></p>
 			</div>

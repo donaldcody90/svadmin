@@ -41,11 +41,13 @@ class Auth extends CI_Controller
 		    {
 			  
 				$data= $this->users_model->findUser( array('username'=> $username, 'password'=> vst_password($password)) );
+				$role= $data['role'];
 				if(count($data)){
 					$this->session->set_userdata(array(
 									'logged_in'=> true,
 									'user_id' => $user_id,
-									'username' => $username
+									'username' => $username,
+									'role'	=>	$role
 								));
 					
 					redirect('customers');

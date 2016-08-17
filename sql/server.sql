@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2016 at 01:06 PM
+-- Generation Time: Aug 17, 2016 at 01:12 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -19,6 +19,41 @@ SET time_zone = "+00:00";
 --
 -- Database: `server`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `balance`
+--
+
+CREATE TABLE `balance` (
+  `cid` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing`
+--
+
+CREATE TABLE `billing` (
+  `id` int(11) NOT NULL,
+  `cid` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `payment` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`id`, `cid`, `type`, `payment`) VALUES
+(1, 1001, 1, 2000),
+(2, 1002, 1, 3000),
+(3, 1003, 1, 4000),
+(4, 1004, 1, 5000),
+(5, 1006, 1, 6000);
 
 -- --------------------------------------------------------
 
@@ -105,36 +140,6 @@ INSERT INTO `customers` (`id`, `fullname`, `username`, `password`, `email`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datacenters`
---
-
-CREATE TABLE `datacenters` (
-  `id` bigint(20) NOT NULL,
-  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `svkey` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `svpass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `datacenters`
---
-
-INSERT INTO `datacenters` (`id`, `label`, `ip`, `svkey`, `svpass`) VALUES
-(1, 'server 1', '47.2.3.6', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc'),
-(3, 'server 3', '188.166.221.247', '6jktgaffibb7prf37iotrtqsn1dgmfz5', 'sygf0v1mf1meotn1qyt9uqzw3hyhft3e'),
-(4, 'server 4', '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456'),
-(5, 'server 5', '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456'),
-(6, 'server 6', '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456'),
-(7, 'server 7', '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456'),
-(20, 'server 20', '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456'),
-(22, 'server 22', '1.2.3.4', 'adasdkjfal', '123456'),
-(23, 'server 23', '123.13.13.123', 'daylakey', 'daylapass'),
-(24, 'server 24', '14.14.14.14', 'aldfkajs', 'sladkfjasl');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `message`
 --
 
@@ -187,6 +192,37 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `servers`
+--
+
+CREATE TABLE `servers` (
+  `id` bigint(20) NOT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `svkey` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `svpass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `servers`
+--
+
+INSERT INTO `servers` (`id`, `label`, `ip`, `svkey`, `svpass`, `description`) VALUES
+(1, 'server 1', '47.2.3.7', 'yvpuctwv6sdyymgagxsga4pedom1rwte', 'igrdzwnadpxzx18xevlmktw178ybrksc', 'Japan'),
+(3, 'server 3', '188.166.221.247', '6jktgaffibb7prf37iotrtqsn1dgmfz5', 'sygf0v1mf1meotn1qyt9uqzw3hyhft3e', 'United States'),
+(4, 'server 4', '97.25.43.74', 'yvpuctasdfsfsfhfrthrhrhom1rwte', '123456', 'Japan'),
+(5, 'server 5', '12.79.143.123', 'yvpucdfgdvvdfvfga4pedom1rwte', '123456', 'United States'),
+(6, 'server 6', '79.41.85.76', 'yvpukuilkhjkhkhkhnrhegem1rwte', '123456', 'Japan'),
+(7, 'server 7', '45.11.231.68', 'yvfsdafsfsdfscscscscm1rwte', '123456', 'United States'),
+(20, 'server 20', '52.155.146.124', 'vvvyvpuctasdfsfsfsfsxsga4pedom1rwte', '123456', 'Australia'),
+(22, 'server 22', '1.2.3.4', 'adasdkjfal', '123456', 'United States'),
+(23, 'server 23', '123.13.13.123', 'daylakey', 'daylapass', 'Australia'),
+(24, 'server 24', '14.14.14.14', 'aldfkajs', 'sladkfjasl', 'United States');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -206,18 +242,18 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) VALUES
 (1, 'Toan', 'toan123', '1392379478c88443c458ed72e88c72522d3a9ac1b93764c71383969a352d1c84a90f9b3230d04d0ef627954224e44df761757922506b92c1f9baf4460230ba44', 'abdew@gmail.com', '0'),
 (2, '888888888', 'Toan', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'sdfgsdfg@gmail.com', '0'),
-(5, 'nam', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdftoanadfa@gmail.com', '0'),
-(11, 'Happy', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', '0'),
+(5, 'nam', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdftoanadfa@gmail.com', '1'),
+(11, 'Happy', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', '1'),
 (13, 'tran', 'tranducnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdfasf@gmail.com', '0'),
-(14, 'Leo', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', '0'),
-(15, 'Zlatan', 'ibrahimovic', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdf@asdfadl.com', '0'),
+(14, 'Leo', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', '1'),
+(15, 'Zlatan', 'ibrahimovic', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdf@asdfadl.com', '1'),
 (18, 'Toan', 'tienbeo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasn@asdfasdf.com', '0'),
-(19, 'conmeo', 'meo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'conmeo@gmail.com', '0'),
-(20, 'david', 'beckham', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfan@hotasdfas.csdfm.vn', '0'),
+(19, 'conmeo', 'meo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'conmeo@gmail.com', '1'),
+(20, 'david', 'beckham', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfan@hotasdfas.csdfm.vn', '1'),
 (24, 'admin', 'admin', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfa@hoasdfl.sdf.vn', '0'),
-(25, 'koco', 'admin1', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'admin1@gmail.com', '0'),
-(26, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com', '0'),
-(29, '2323', 'admin2w32', '5323b9fabdc99686c4e2e25aeaeb66bc68b64d6bc1f61f4aa0249708de7238076b883e825fb0f150383d3a263f4eee394ff07261c2db39122fd6222f5ccae1bc', 'toa23232@gmail.com', '0');
+(25, 'koco', 'admin1', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'admin1@gmail.com', '1'),
+(26, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com', '1'),
+(29, '2323', 'admin2w32', '5323b9fabdc99686c4e2e25aeaeb66bc68b64d6bc1f61f4aa0249708de7238076b883e825fb0f150383d3a263f4eee394ff07261c2db39122fd6222f5ccae1bc', 'toa23232@gmail.com', '1');
 
 -- --------------------------------------------------------
 
@@ -242,16 +278,27 @@ CREATE TABLE `vps` (
 --
 
 INSERT INTO `vps` (`id`, `cuid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
-(1, 1001, 1, 'asdfasdfasdfasdfsd', '1.3.2.5', 'qwertyhgfd', '2016-6-12', 5, 1024),
+(1, 1001, 1, 'asdfasdfasdfasdfsd', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
 (2, 1002, 1, 'hjfghjfghjfghjgghjfgh', '9.5.6.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
 (3, 1003, 2, 'fjdyeyrtyrytetertyry', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
 (4, 1001, 2, 'cbncvbnsgsddfgsdfgsdfg', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
-(5, 1001, 2, 'sdfgsdfgsdgqwerewrwrwdfsdf', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
-(11, 1002, 4, 'asdfasd', '16.2.98.35', 'xtvrlqrpzeeodbqbzowbchhapprxcc', '2016-08-10', 6, 512);
+(5, 1001, 2, 'sdfgsdfgsdgqwerewrwrwdfsdf', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `balance`
+--
+ALTER TABLE `balance`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Indexes for table `billing`
+--
+ALTER TABLE `billing`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -273,16 +320,16 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `datacenters`
---
-ALTER TABLE `datacenters`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `message`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`mid`);
+
+--
+-- Indexes for table `servers`
+--
+ALTER TABLE `servers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -301,6 +348,11 @@ ALTER TABLE `vps`
 --
 
 --
+-- AUTO_INCREMENT for table `billing`
+--
+ALTER TABLE `billing`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -314,27 +366,27 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
---
--- AUTO_INCREMENT for table `datacenters`
---
-ALTER TABLE `datacenters`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
+-- AUTO_INCREMENT for table `servers`
+--
+ALTER TABLE `servers`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `vps`
 --
 ALTER TABLE `vps`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

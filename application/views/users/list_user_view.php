@@ -15,7 +15,8 @@
             Role:
             <select name="filter_role">
                 <option value="">Choose user role</option>
-                <option value=0 <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']==0 )?'selected':''; ?>>Administrator</option>
+                <option value=0 <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']==0 )?'selected':''; ?>>Admin</option>
+                <option value=1 <?php echo (isset($_GET['filter_role']) && $_GET['filter_role']==1 )?'selected':''; ?>>Staff</option>
             </select>
             <input class="button" type="submit" value="Search">
             <a href="<?php echo site_url('users/lists') ?>"><input class="button" type="button" value="Clear"></a>
@@ -38,7 +39,7 @@
 						<td><?php echo $value->username ; ?></td>
 						<td><?php echo $value->fullname ; ?></td>
 						<td><?php echo $value->email ; ?></td>
-						<td><?php echo getStatusRole($value->role); ?></td>
+						<td><?php echo getRoleText($value->role); ?></td>
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'users/update/' . $value->id; ?>">Edit</a>
 							<a class="delete" href="<?php echo site_url() . 'users/delete_user/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>

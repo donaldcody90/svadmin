@@ -14,7 +14,7 @@
 			$filter_content = $this->input->get('filter_content');
 			$filter_username = $this->input->get('filter_username');
 			$filter_status = $this->input->get('filter_status');
-			$filter_type = $this->input->get('filter_type');
+			$filter_name = $this->input->get('filter_name');
 		?>
 		<form name="filter_form" action="<?php echo site_url('support/lists'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_cid)?$filter_cid:''; ?>" name="filter_cid">
@@ -22,10 +22,10 @@
             Last reply:<input type="text" value="<?php echo isset($filter_content)?$filter_content:''; ?>" name="filter_content">
             Customer Name:<input type="text" value="<?php echo isset($filter_username )?$filter_username:''; ?>" name="filter_username">
             Type:
-            <select name="filter_type">
+            <select name="filter_name">
                 <option value="" selected>All type</option>
-                <option value="General" <?php echo (isset($filter_type) && $filter_type=='General' )?'selected':''; ?>>General</option>
-                <option value="Billing" <?php echo (isset($filter_type) && $filter_type=='Billing' )?'selected':''; ?>>Billing</option>
+                <option value="General" <?php echo (isset($filter_name) && $filter_name=='General' )?'selected':''; ?>>General</option>
+                <option value="Billing" <?php echo (isset($filter_name) && $filter_name=='Billing' )?'selected':''; ?>>Billing</option>
             </select>
 			Status:
 			<select name="filter_status">
@@ -52,7 +52,7 @@
 				<?php foreach($result as $key => $row){ ?>
 				<tr>
 					<td><?php echo $row->cid; ?></td>
-					<td><?php echo $row->type; ?></td>
+					<td><?php echo $row->name; ?></td>
 					<td><a href="<?php echo site_url().'support/ticket/'.$row->cid; ?>"><?php echo $row->title; ?></a></td>
 					<td><?php echo substr($row->content, 0, 30); ?></td>
 					<td><?php echo $row->username; ?></td>

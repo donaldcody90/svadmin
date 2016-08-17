@@ -16,9 +16,10 @@ class Support_model extends My_Model
 	
 	function listTicket($filterData, $limit, $start, $param)
 	{
-		$this->db->select('c.cid, c.type, c.title, cu.username, c.status, m.content');
+		$this->db->select('c.cid, ca.name, c.title, cu.username, c.status, m.content');
 		$this->db->from('conversation as c');
 		$this->db->join('customers as cu', 'c.uid = cu.id');
+		$this->db->join('categories as ca', 'ca.id = c.caid');
 		$this->db->join('message as m', 'c.cid = m.cid');
 		$this->db->join('message as m2', 'm.cid = m2.cid AND m.mid < m2.mid', 'left');
 		$this->db->where('m2.mid', NULL);
@@ -33,9 +34,10 @@ class Support_model extends My_Model
 	
 	function totalTicket($filterData, $param)
 	{
-		$this->db->select('c.cid, c.type, c.title, cu.username, c.status, m.content');
+		$this->db->select('c.cid, ca.name, c.title, cu.username, c.status, m.content');
 		$this->db->from('conversation as c');
 		$this->db->join('customers as cu', 'c.uid = cu.id');
+		$this->db->join('categories as ca', 'ca.id = c.caid');
 		$this->db->join('message as m', 'c.cid = m.cid');
 		$this->db->join('message as m2', 'm.cid = m2.cid AND m.mid < m2.mid', 'left');
 		$this->db->where('m2.mid', NULL);

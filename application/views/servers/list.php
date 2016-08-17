@@ -1,13 +1,13 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('datacenters'); ?>">Datacenter List</a></li>
-    <li><a href="<?php echo site_url('datacenters/add'); ?>">Add new DC</a></li>
+    <li><a href="<?php echo site_url('servers'); ?>">Server List</a></li>
+    <li><a href="<?php echo site_url('servers/add'); ?>">Add new SV</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
-    <h2 class="title ">Datacenter List</h2>
+    <h2 class="title ">Server List</h2>
     <div class="filer_box">
         <?php
             $filter_id = $this->input->get('filter_id');
@@ -16,7 +16,7 @@
             $filter_svkey = $this->input->get('filter_svkey');
             $filter_svpass = $this->input->get('filter_svpass');
         ?>
-        <form name="filter_form" action="<?php echo site_url('datacenters/lists'); ?>" method="GET">
+        <form name="filter_form" action="<?php echo site_url('servers/lists'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_id)?$filter_id:''; ?>" name="filter_id">
             Label:<input type="text" value="<?php echo isset($filter_label)?$filter_label:''; ?>" name="filter_label">
             IP Address:<input type="text" value="<?php echo isset($filter_ip)?$_GET['filter_ip']:''; ?>" name="filter_ip">
@@ -24,7 +24,7 @@
             Password:<input type="text" value="<?php echo isset($filter_svpass)?$_GET['filter_svpass']:''; ?>" name="filter_svpass">
             
             <input class="button" type="submit" value="Search" />
-            <a href="<?php echo site_url('datacenters/lists') ?>"><input class="button" type="button" value="Clear"></a>
+            <a href="<?php echo site_url('servers/lists') ?>"><input class="button" type="button" value="Clear"></a>
         </form>
     </div>
     <div class="gridtable">
@@ -45,8 +45,8 @@
 				<td><?php echo $row->svkey; ?></td>
 				<td><?php echo $row->svpass; ?></td>
 				<td>
-					<a class="edit" href="<?php echo site_url() . 'datacenters/update/' . $row->id; ?>">Edit</a>
-					<a class="delete" href="<?php echo site_url() . 'datacenters/deletedc/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+					<a class="edit" href="<?php echo site_url() . 'servers/edit/' . $row->id; ?>">Edit</a>
+					<a class="delete" href="<?php echo site_url() . 'servers/deletedc/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 				</td>
 			</tr>
 			<?php } ?>

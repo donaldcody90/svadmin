@@ -1,9 +1,9 @@
 <?php
 if (!defined ('BASEPATH')) exit ('No direct script access allowed');
 
-class Datacenters_model extends MY_Model
+class Servers_model extends MY_Model
 {
-	private $datacenters= 'datacenters';
+	private $servers= 'servers';
 	
 	public function __construct()
 	{
@@ -16,9 +16,9 @@ class Datacenters_model extends MY_Model
 	*/
 	
 	
-	function findDC($params_where= null,$is_list=true){
+	function findSV($params_where= null,$is_list=false){
 		 return $this->_getwhere(array(
-							'table'        => $this->datacenters,
+							'table'        => $this->servers,
 							'param_where'  => $params_where,
 							'list'         => $is_list
 				));
@@ -27,9 +27,9 @@ class Datacenters_model extends MY_Model
 
 	
 	
-	function updateDC($data,$params_where){
+	function updateSV($data,$params_where){
            return $this->_save(array(
-                                        'table'        => $this->datacenters,
+                                        'table'        => $this->servers,
                                         'data'         => $data,
                                         'param_where'  => $params_where
                                    ));
@@ -37,62 +37,62 @@ class Datacenters_model extends MY_Model
 
     
 	
-	function addDC($data){
+	function addSV($data){
           return $this->_save(array(
-               'table' => $this->datacenters,
+               'table' => $this->servers,
                'data' => $data
           ));
      }
 	
 
-	 function deleteDC($params_where){
+	 function deleteSV($params_where){
           return $this->_del(array(
-               'table'        => $this->datacenters,
+               'table'        => $this->servers,
                'param_where'  => $params_where
           ));
      }
 	 
 	  
-	function listDC($filterData, $limit, $start){
+	function listSV($filterData, $limit, $start){
 		vst_buildFilter($filterData);
         $this->db->limit($limit, $start);
-        $query = $this->db->get($this->datacenters);
+        $query = $this->db->get($this->servers);
         return $query->result();
 	}
 	
 	 
-	 function totalDC($filterData){
+	 function totalSV($filterData){
 		vst_buildFilter($filterData);
-        $query = $this->db->get($this->datacenters);
+        $query = $this->db->get($this->servers);
 		return $query->num_rows();
      }
 	 
 	 
 	 
-	 // function findDC($params_where)
+	 // function findSV($params_where)
 	// {
 		// $this->db->where($params_where);
-		// $result= $this->db->get($this->datacenters);
+		// $result= $this->db->get($this->servers);
 		// return $result->row();
 	// }
 	
 	
-	// function updateDC($data, $params_where)
+	// function updateSV($data, $params_where)
 	// {
         // $this->db->where($params_where);
-		// $this->db->update($this->datacenters, $data);
+		// $this->db->update($this->servers, $data);
 		
 		// return $this->db->affected_rows();
     // }
 	
-	// function addDC($data){
-        // $this->db->insert($this->datacenters, $data);
+	// function addSV($data){
+        // $this->db->insert($this->servers, $data);
         
 		// return $this->db->affected_rows();
     // }
 	
-	// function deleteDC($params_where){
-        // $this->db->delete($this->datacenters, $params_where);
+	// function deleteSV($params_where){
+        // $this->db->delete($this->servers, $params_where);
 		  
 		// return $this->db->affected_rows();
      // }

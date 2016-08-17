@@ -1,20 +1,20 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Datacenters extends CI_Controller
+class Servers extends CI_Controller
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
 		vkt_checkAuth();
-		$this->load->model('datacenters_model');
+		$this->load->model('servers_model');
 		$this->load->helper('server_helper');
 	}
 	
 	function index()
 	{
-		redirect('datacenters/lists');
+		redirect('servers/lists');
 	}
 	
 	function lists()
@@ -27,7 +27,7 @@ class Datacenters extends CI_Controller
 			);
 		
 		$this->load->library('pagination');
-		$total= $this->datacenters_model->totalDC($filterData);
+		$total= $this->servers_model->totalSV($filterData);
 			
 		$config= vst_Pagination($total);
 		$this->pagination->initialize($config);
@@ -35,10 +35,10 @@ class Datacenters extends CI_Controller
 		$start = $this->input->get('page');
 		$limit= $config['per_page'];
 			
-		$data['result']= $this->datacenters_model->listDC($filterData, $limit, $start);
+		$data['result']= $this->servers_model->listSV($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
 		$data['total_rows']= $total;
-		$this->load->view('datacenters/list', $data);
+		$this->load->view('servers/list', $data);
 		
 		
 	}
@@ -86,7 +86,7 @@ class Datacenters extends CI_Controller
 				$data['status']= 'Stopped';
 			}
 					
-			$this->load->view('users/profile_view', $data);
+			$this->load->view('servers/profile', $data);
 		}
 	}
 	
@@ -95,12 +95,12 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
+		$result= $this->servers_model->findSV($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;
 		$output= sv_restart($ip, $key, $pass);
-		redirect('datacenters/lists');
+		redirect('servers/lists');
 	}
 	
 	
@@ -108,12 +108,12 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
+		$result= $this->servers_model->findSV($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;
 		$output= sv_stop($ip, $key, $pass);
-		redirect('datacenters/lists');
+		redirect('servers/lists');
 	}
 	
 	
@@ -121,18 +121,63 @@ class Datacenters extends CI_Controller
 	{
 		$id1= $id;
 		$params_where= array('id' => $id1);
-		$result= $this->datacenters_model->findDC($params_where, $is_list=false);
+		$result= $this->servers_model->findSV($params_where, $is_list=false);
 		$ip= $result->ip;
 		$key= $result->svkey;
 		$pass= $result->svpass;
 		$output= sv_start($ip, $key, $pass);
-		redirect('datacenters/lists');
+		redirect('servers/lists');
 	}
 	
+	function edit($id)
+	{
+		
+		if($this->input->post('save'))
+		{
+			
+			$params_where= array('id' => $id);
+			$data = array();
+			$ip = $this->input->post('ip');
+			if($ip!='' ){
+				$data['ip'] = $this->input->post('ip');
+			}
+			$svkey = $this->input->post('key');
+			if($svkey!=''){
+				$data['svkey'] = $this->input->post('key');
+			}
+			$password = $this->input->post('password');
+			if($password!=''){
+				$data['svpass'] = $this->input->post('password');
+			}
+			if(count($data) == 3 ){
+				$success= $this->servers_model->updateSV($data, $params_where);
+				if ($success == 1)
+				{
+					$this->session->set_flashdata('success', TRUE);
+				}
+				else
+				{
+					$this->session->set_flashdata('error', TRUE);
+				}
+				redirect('servers/lists');
+			}
+		}
+		// get SV info by id
+		$datacenter = $this->servers_model->findSV(array('id'=>$id));
+		if($datacenter)
+		{
+			//var_dump($datacenter);
+			$data['server']=$datacenter;
+			$this->load->view('servers/edit',$data);
+		}else{
+			message_flash("Server not found.",'error');
+			redirect(site_url('servers/lists'));
+		}
+	}
 	
 	function update($uid)
 	{
-		$this->form_validation->set_rules('ip', 'IP Address', 'valid_ip|is_unique[datacenters.ip]|trim');
+		$this->form_validation->set_rules('ip', 'IP Address', 'valid_ip|is_unique[servers.ip]|trim');
 		$this->form_validation->set_rules('key', 'Key', 'min_length[6]|trim');
 		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
 		
@@ -141,12 +186,12 @@ class Datacenters extends CI_Controller
 		if ($this->form_validation->run() == false)
 		{
 			$params_where= array('id'=> $uid);
-			$data['value']= $this->datacenters_model->findDC($params_where);
-			
-			$this->load->view('datacenters/edit_dc_view', $data);
+			$data['value']= $this->servers_model->findSV($params_where);
+			var_dump($data['value']);
+			$this->load->view('servers/edit_view', $data);
 		}
 		if ($this->form_validation->run() == true)
-		{//echo 1;die;
+		{
 			$params_where= array('id' => $uid);
 			$data = array();
 			$ip = $this->input->post('ip');
@@ -162,7 +207,7 @@ class Datacenters extends CI_Controller
 				$data['svpass'] = $this->input->post('password');
 			}
 			if(count($data)>0 ){
-				$success= $this->datacenters_model->updateDC($data, $params_where);
+				$success= $this->servers_model->updateSV($data, $params_where);
 				if ($success == 1)
 				{
 					$this->session->set_flashdata('success', TRUE);
@@ -171,7 +216,7 @@ class Datacenters extends CI_Controller
 				{
 					$this->session->set_flashdata('error', TRUE);
 				}
-				redirect('datacenters/lists');
+				redirect('servers/lists');
 			}
 		}
 		
@@ -180,8 +225,8 @@ class Datacenters extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('ip', 'IP Address', 'required|valid_ip|is_unique[datacenters.ip]|trim');
-		$this->form_validation->set_rules('key', 'Key', 'required|alpha|min_length[6]|max_length[50]|is_unique[datacenters.svkey]|trim');
+		$this->form_validation->set_rules('ip', 'IP Address', 'required|valid_ip|is_unique[servers.ip]|trim');
+		$this->form_validation->set_rules('key', 'Key', 'required|alpha|min_length[6]|max_length[50]|is_unique[servers.svkey]|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
 		//$this->form_validation->set_rules('passconf', 'Password Confirm', 'required|matches[password]|min_length[6]|trim');
 		
@@ -190,7 +235,7 @@ class Datacenters extends CI_Controller
 		
 		if ($this->form_validation->run() == false)
 		{
-			$this->load->view('datacenters/add_dc_view');
+			$this->load->view('servers/add');
 		}
 		else
 		{
@@ -199,17 +244,17 @@ class Datacenters extends CI_Controller
 			$data['svpass']= $this->input->post('password');
 			
 			
-			$result= $this->datacenters_model->addDC($data);
+			$result= $this->servers_model->addSV($data);
 			
 			if ($result == 1)
 			{
 				$this->session->set_flashdata('success', true);
-				redirect('datacenters/lists');
+				redirect('servers/lists');
 			}
 			else
 			{
 				$this->session->set_flashdata('error', true);
-				redirect('datacenters/add');
+				redirect('servers/add');
 			}
 		}
 		
@@ -221,7 +266,7 @@ class Datacenters extends CI_Controller
 	{
 		
 			$params_where= array('id'=> $uid);
-			$result= $this->datacenters_model->deleteDC($params_where);
+			$result= $this->servers_model->deleteSV($params_where);
 			
 			if ($result == 1)
 			{
@@ -231,7 +276,7 @@ class Datacenters extends CI_Controller
 			{
 				$this->session->set_flashdata('error', true);
 			}
-			redirect('datacenters/lists');
+			redirect('servers/lists');
 			
 		
 	}

@@ -8,6 +8,11 @@ class Users extends CI_Controller
 	{
 		parent::__construct();
 		vkt_checkAuth();
+		if(!$this->session->userdata('role') == 0)
+		{
+			redirect('auth/login');
+		}
+		
 		$this->load->model('users_model');
 		$this->load->helper('server_helper');
 	}
@@ -15,7 +20,6 @@ class Users extends CI_Controller
 	
 	function index()
 	{
-
 		redirect('users/lists');
 	}
 	

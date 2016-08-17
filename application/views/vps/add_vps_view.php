@@ -1,8 +1,8 @@
 <?php $this->load->view('_base/head'); ?>
 
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('datacenters'); ?>">Datacenter List</a></li>
-    <li><a href="<?php echo site_url('datacenters/add'); ?>">Add new DC</a></li>
+    <li><a href="<?php echo site_url('servers'); ?>">Server List</a></li>
+    <li><a href="<?php echo site_url('servers/add'); ?>">Add new DC</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
 </ul>
@@ -11,20 +11,20 @@
 	<h2>Add new VPS</h2>
 	<form action="<?php echo site_url('vps/add'); ?>"  method="POST" >
 		<div class="group-input">
-			<label class="label_input">Username <span class="red">*</span></label>
+			<label class="label_input">Customer <span class="red">*</span></label>
 			<select name="username">
 				<option value="" selected>None</option>
-				<?php foreach($username as $value){
+				<?php foreach($customers as $value){
 					echo '<option value="'.$value['id'].'">'.$value['username'].'</option>';
 				} ?>
 			</select>
 		</div>
 		<div class="group-input">
-			<label class="label_input">Datacenter <span class="red">*</span></label>
-			<select name="datacenter">
+			<label class="label_input">Server <span class="red">*</span></label>
+			<select name="server">
 				<option value="" selected>None</option>
-				<?php foreach($datacenters as $value2){
-					echo '<option value="'.$value2['id'].'">'.$value2['ip'].'</option>';
+				<?php foreach($servers as $value2){
+					echo '<option value="'.$value2['id'].'">'.$value2['label'].'</option>';
 				} ?>
 			</select>
 		</div>

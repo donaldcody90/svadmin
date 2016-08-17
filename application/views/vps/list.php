@@ -1,7 +1,7 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('datacenters'); ?>">Datacenter List</a></li>
-    <li><a href="<?php echo site_url('datacenters/add'); ?>">Add new DC</a></li>
+    <li><a href="<?php echo site_url('servers'); ?>">Server List</a></li>
+    <li><a href="<?php echo site_url('servers/add'); ?>">Add new SV</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
 </ul>
@@ -55,8 +55,8 @@
 				<td><?php echo $row->space; ?></td>
 				<td><?php echo $row->ram; ?></td>
 				<td>
-					<a class="edit" href="<?php echo site_url() . 'vps/update/' . $row->id; ?>">Edit</a>
-					<a class="delete" href="<?php echo site_url() . 'vps/delete/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+					<a class="edit" href="<?php echo site_url() . 'vps/edit/' . $row->id; ?>">Edit</a>
+					<a class="delete" href="<?php echo site_url() . 'vps/deletevps/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 				</td>
 			</tr>
 			<?php } ?>

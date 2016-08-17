@@ -5,12 +5,20 @@ class Vps_model extends MY_Model
 {
 	private $vps= 'vps';
 	private $customers= 'customers';
-	private $datacenters= 'datacenters';
+	private $servers= 'servers';
 	
 	function __construct()
 	{
 		parent:: __construct();
 		
+	}
+	
+	function findVps($param_where)
+	{
+		return $this->_getwhere(array(
+				'table' 		=> $this->vps,
+				'param_where'	=>	$param_where
+		));
 	}
 	
 	function getList($filter, $limit, $start)
@@ -34,32 +42,47 @@ class Vps_model extends MY_Model
 		return $result->num_rows();
 	}
 	
+	function editVps($data, $param_where)
+	{
+		return $this->_save(array(
+				'table'			=>	$this->vps,
+				'data'			=>	$data,
+				'param_where'	=>	$param_where
+		));
+	}
 	
 	function addVps($data){
           return $this->_save(array(
                'table' => $this->vps,
                'data' => $data
           ));
-     }
+    }
+	
+	function deleteVps($param_where){
+		return $this->_del(array(
+				'table'	=> $this->vps,
+				'param_where'	=> $param_where
+		));
+	}
 	
 	
-	// function getDatacenters()
+	// function getServers()
 	// {
 		// $this->db->select('*');
-		// $this->db->from($this->datacenters);
+		// $this->db->from($this->servers);
 		// return $this->db->get()->result();
 	// }
 	
-	// function getInfodatacenters($ip)
+	// function getInfoservers($ip)
 	// {
 		// $this->db->where('ip', $ip);
-		// $result= $this->db->get($this->datacenters);
+		// $result= $this->db->get($this->servers);
 		// return $result->row();
 	// }
 	
-	// function getDatacenters($params_where= null,$is_list=true){
+	// function getServers($params_where= null,$is_list=true){
 		 // return  $this->_getwhere(array(
-                    // 'table'        => $this->datacenters,
+                    // 'table'        => $this->servers,
                     // 'param_where'  => $params_where,
                     // 'list'         => $is_list
         // ));

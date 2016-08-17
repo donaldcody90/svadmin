@@ -24,9 +24,9 @@ class Support extends CI_Controller
 		$id= $this->session->userdata('user_id');
 		$param['c.uid']= $id;
 		$filterData= vst_filterData(
-			array('filter_cid' ,'filter_title' ,'filter_content' ,'filter_username' ,'filter_status' ,'filter_type'),
+			array('filter_cid' ,'filter_title' ,'filter_content' ,'filter_username' ,'filter_status' ,'filter_name'),
 			array(),
-			array('cid'=>'c', 'title'=>'c', 'content'=>'m', 'username'=>'cu', 'status'=>'c', 'type'=>'c')
+			array('cid'=>'c', 'title'=>'c', 'content'=>'m', 'username'=>'cu', 'status'=>'c', 'name'=>'ca')
 			);
 		
 		$this->load->library('pagination');

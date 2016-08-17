@@ -51,23 +51,11 @@ if ( ! function_exists('getRoleText'))
 		$roleText="NA";
 		switch($role)
 		{
-			case 1:
+			case 0:
 				$roleText="Admin";
 				break;
-			case 2:
-				$roleText="Quản lý";
-				break;
-			case 3:
-				$roleText="Tư vấn";
-				break;
-			case 4:
-				$roleText="Mua hàng";
-				break;
-			case 5:
-				$roleText="Kho TQ";
-				break;
-			case 5:
-				$roleText="Kho VN";
+			case 1:
+				$roleText="Staff";
 				break;
 			default:
 				$roleText="NA";

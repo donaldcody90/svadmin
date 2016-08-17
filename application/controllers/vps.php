@@ -6,8 +6,9 @@ class Vps extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		vkt_checkAuth();
 		$this->load->model('vps_model');
-		$this->load->model('datacenters_model');
+		$this->load->model('servers_model');
 		$this->load->model('customers_model');
 	}
 	
@@ -40,6 +41,52 @@ class Vps extends CI_Controller
 		
 	}
 	
+	function edit($id)
+	{
+		
+		if($this->input->post('save'))
+		{
+			$param_where= array('id' => $id);
+			$data = array();
+			$ip = $this->input->post('ip');
+			if($ip!='' ){
+				$data['vps_ip'] = $this->input->post('ip');
+			}
+			$label = $this->input->post('label');
+			if($label!=''){
+				$data['vps_label'] = $this->input->post('label');
+			}
+			$rootpass = $this->input->post('rootpass');
+			if($rootpass!=''){
+				$data['rootpass'] = $this->input->post('rootpass');
+			}
+			if(count($data) == 3 ){
+				$success= $this->vps_model->editVps($data, $param_where);
+				if ($success == 1)
+				{
+					$this->session->set_flashdata('success', TRUE);
+					redirect('vps/lists');
+				}
+				else
+				{
+					$this->session->set_flashdata('error', TRUE);
+					redirect('vps/edit/'.$id);
+				}
+				
+			}
+		}
+		$param_where= array('id' => $id);
+		$value['vps']= $this->vps_model->findVps($param_where);
+		if($value['vps'])
+		{
+			$this->load->view('vps/edit', $value);
+		}
+		else{
+			message_flash("VPS not found.",'error');
+			redirect(site_url('vps/lists'));
+		}
+	}
+	
 	function add()
 	{
 		$this->form_validation->set_rules('label', 'Label', 'required|trim');
@@ -48,8 +95,8 @@ class Vps extends CI_Controller
 		
 		if($this->form_validation->run()== false)
 		{
-			$data['username']= $this->customers_model->findCustomer();
-			$data['datacenters']= $this->datacenters_model->findDC();
+			$data['customers']= $this->customers_model->findCustomer();
+			$data['servers']= $this->servers_model->findSV(array(),true);
 			$this->load->view('vps/add_vps_view', $data);
 		}
 		
@@ -58,8 +105,8 @@ class Vps extends CI_Controller
 			require_once APPPATH.'third_party/virtualizor/sdk/admin.php';
 				
 			$param_where['id']= $this->input->post('datacenter');
-			$key= $this->datacenters_model->findDC($param_where, $is_list=false)->svkey;
-			$pass= $this->datacenters_model->findDC($param_where, $is_list=false)->svpass;
+			$key= $this->servers_model->findSV($param_where, $is_list=false)->svkey;
+			$pass= $this->servers_model->findSV($param_where, $is_list=false)->svpass;
 			
 			$admin = new Virtualizor_Admin_API($ip, $key, $pass);
 			
@@ -121,6 +168,20 @@ class Vps extends CI_Controller
 		}
 	}
 	
+	function deletevps($id)
+	{
+		$params_where= array('id'=> $id);
+		$result= $this->vps_model->deleteVps($params_where);
+		if ($result == 1)
+		{
+			$this->session->set_flashdata('success', true);
+		}
+		else
+		{
+			$this->session->set_flashdata('error', true);
+		}
+		redirect('vps/lists');
+	}
 	
 	
 	
