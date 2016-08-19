@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2016 at 01:12 PM
+-- Generation Time: Aug 19, 2016 at 12:23 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -74,12 +74,11 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `uid`, `status`) VALUES
 (1, 'Billing', 2, 1),
-(2, 'Billing', 13, 1),
-(3, 'Billing', 14, 1),
-(4, 'Billing', 24, 1),
-(5, 'General', 18, 1),
-(6, 'General', 20, 1),
-(7, 'General', 15, 1);
+(2, 'Billing', 11, 2),
+(5, 'General', 2, 2),
+(6, 'General', 20, 2),
+(8, 'General', 1, 1),
+(9, 'day la cat', 5, 2);
 
 -- --------------------------------------------------------
 
@@ -134,8 +133,7 @@ INSERT INTO `customers` (`id`, `fullname`, `username`, `password`, `email`) VALU
 (1003, 'asdf', 'asdfsd', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfsdf@gmail.com'),
 (1004, 'viet', 'vo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vo@gmail.com'),
 (1006, 'adfaaf', 'customer', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'cu2@gmail.com'),
-(1007, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com'),
-(1010, 'taasfd', 'test4', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'lkj@g.com');
+(1007, 'vietnam', 'vietnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vn@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -187,7 +185,28 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 (29, 39, 1002, 'success', '2016-08-06 15:26:48'),
 (30, 39, 1002, 'asdfasfasdf', '2016-08-06 17:30:44'),
 (31, 38, 1002, 'test', '2016-08-12 16:40:15'),
-(32, 38, 1002, 'test lan 2', '2016-08-12 16:40:29');
+(32, 38, 1002, 'test lan 2', '2016-08-12 16:40:29'),
+(33, 39, 24, 'kjhjk', '2016-08-19 16:12:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentaccounts`
+--
+
+CREATE TABLE `paymentaccounts` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `account` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `paymentaccounts`
+--
+
+INSERT INTO `paymentaccounts` (`id`, `name`, `account`) VALUES
+(1, 'paypal', 'adminvultr@gmail.com'),
+(2, 'vietcombank', '123451411111111');
 
 -- --------------------------------------------------------
 
@@ -279,7 +298,7 @@ CREATE TABLE `vps` (
 
 INSERT INTO `vps` (`id`, `cuid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
 (1, 1001, 1, 'asdfasdfasdfasdfsd', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
-(2, 1002, 1, 'hjfghjfghjfghjgghjfgh', '9.5.6.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
+(2, 1002, 1, 'hjfghjfghjfghjgghjfgh', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
 (3, 1003, 2, 'fjdyeyrtyrytetertyry', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
 (4, 1001, 2, 'cbncvbnsgsddfgsdfgsdfg', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
 (5, 1001, 2, 'sdfgsdfgsdgqwerewrwrwdfsdf', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
@@ -326,6 +345,12 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`mid`);
 
 --
+-- Indexes for table `paymentaccounts`
+--
+ALTER TABLE `paymentaccounts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `servers`
 --
 ALTER TABLE `servers`
@@ -356,7 +381,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -366,27 +391,32 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `paymentaccounts`
+--
+ALTER TABLE `paymentaccounts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `servers`
 --
 ALTER TABLE `servers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `vps`
 --
 ALTER TABLE `vps`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
