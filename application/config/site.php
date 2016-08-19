@@ -33,7 +33,8 @@ $config['site'] = array(
 			'static/js/jquery-1.9.1.min.js',
 			'static/js/w2ui-1.4.3.min.js',
 			'static/js/custom.js',
-			'static/js/ajax_handle.js'
+			'static/js/ajax_handle.js',
+			//'static/js/my_ajax.js'
 		),
 		'foot'	=> array(
 		),

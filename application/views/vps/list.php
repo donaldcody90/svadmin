@@ -1,9 +1,9 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('servers'); ?>">Server List</a></li>
-    <li><a href="<?php echo site_url('servers/add'); ?>">Add new SV</a></li>
-    <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
-    <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
+    <li><a href="<?php echo site_url('servers'); ?>">Servers</a></li>
+    <li><a href="<?php echo site_url('servers/add'); ?>">Add server</a></li>
+    <li><a href="<?php echo site_url('vps'); ?>">VPS</a></li>
+    <li><a href="<?php echo site_url('vps/add'); ?>">Add VPS</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
@@ -15,8 +15,6 @@
             $filter_vps_label = $this->input->get('filter_vps_label');
             $filter_vps_ip = $this->input->get('filter_vps_ip');
             $filter_create_date = $this->input->get('filter_create_date');
-            $filter_space = $this->input->get('filter_space');
-            $filter_ram = $this->input->get('filter_ram');
         ?>
         <form name="filter_form" action="<?php echo site_url('vps/lists'); ?>" method="GET">
             Customer:<input type="text" value="<?php echo isset($filter_username)?$filter_username:''; ?>" name="filter_username">
@@ -24,8 +22,6 @@
             VPS Label:<input type="text" value="<?php echo isset($filter_vps_label)?$_GET['filter_vps_label']:''; ?>" name="filter_vps_label">
             VPS IP:<input type="text" value="<?php echo isset($filter_vps_ip)?$_GET['filter_vps_ip']:''; ?>" name="filter_vps_ip">
             Create Date:<input type="text" value="<?php echo isset($filter_create_date)?$_GET['filter_create_date']:''; ?>" name="filter_create_date">
-            Space:<input type="text" value="<?php echo isset($filter_space)?$_GET['filter_space']:''; ?>" name="filter_space">
-            Ram:<input type="text" value="<?php echo isset($filter_ram)?$_GET['filter_ram']:''; ?>" name="filter_ram">
             
             <input class="button" type="submit" value="Search" />
             <a href="<?php echo site_url('vps/lists') ?>"><input class="button" type="button" value="Clear"></a>

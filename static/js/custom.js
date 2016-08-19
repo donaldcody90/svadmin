@@ -43,8 +43,7 @@ function openPopup(URL,data,width,height){
         url: URL,
         type: "post",
 		data: data,
-        success: function (response) {
-           // you will get response from your php page (what you echo or print)                 
+        success: function (response) {              
 		   var obj = jQuery.parseJSON(response);
 			if(obj.Response=='Error')
 			{

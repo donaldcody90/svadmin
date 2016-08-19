@@ -96,7 +96,5 @@ class Servers_model extends MY_Model
 		  
 		// return $this->db->affected_rows();
      // }
-	 
-	 
 
 }

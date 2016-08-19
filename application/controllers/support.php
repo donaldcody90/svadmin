@@ -8,6 +8,7 @@ class Support extends CI_Controller
 		parent::__construct();
 		vkt_checkAuth();
 		$this->load->model('support_model');
+		$this->load->model('users_model');
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 	}
 	
@@ -41,7 +42,7 @@ class Support extends CI_Controller
 		$data['result']= $this->support_model->listTicket($filterData, $limit, $start, $param);
 		$data['link']= $this->pagination->create_links();
 		$data['total_rows']= $total;
-		
+		$data['type']= $this->support_model->findCategory(null, $is_list= true);
 		$this->load->view('support/ticketlist_view', $data);
 	}
 	
@@ -93,6 +94,116 @@ class Support extends CI_Controller
 		}
 	}
 	
+	function categories()
+	{
+		
+		$filterData= vst_filterData(
+					array('filter_id', 'filter_username', 'filter_name', 'filter_status'),
+					array(),
+					array('id'=>'ca', 'username'=>'u', 'name'=>'ca', 'status'=>'ca')
+		);
+		
+		$this->load->library('pagination');
+		$total= $this->support_model->totalUser($filterData);
+		
+		$config= vst_Pagination($total);
+		$this->pagination->initialize($config);
+		
+		$start = $this->input->get('page');
+		$limit= $config['per_page'];
+		
+		$data['result']= $this->support_model->listUser($filterData, $limit, $start);
+		$data['link']= $this->pagination->create_links();
+		$data['total_rows']= $total;
+		$data['type']= $this->support_model->findCategory(null, $is_list= true);
+		$this->load->view('support/categories_view', $data);
+	}
+	
+	function edit_cat($id)
+	{
+		$param_where= array('id' => $id);
+		
+		if($this->input->post('save'))
+		{
+			
+			
+			if($_POST['category']) { $data['name']= $_POST['category']; }
+			if($_POST['uid']) { $data['uid']= $_POST['uid']; }
+			if($_POST['status']) { $data['status']= $_POST['status']; }
+			
+			if(count($data) > 0)
+			{
+				$result= $this->support_model->saveCategory($data, $param_where);
+				
+				if ($result == TRUE)
+				{
+					message_flash('Updated successfully!');
+					redirect('support/categories');
+				}
+				if($result == FALSE)
+				{
+					message_flash('Can not edit yet.','error');
+					redirect('support/edit_cat/'.$id);
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		$data2['category']= $this->support_model->findCategory($param_where);
+		$data2['users']= $this->users_model->findUser(null, true);
+		$this->load->view('support/edit_view', $data2);
+	}
+	
+	
+	function add()
+	{
+		if($this->input->post('save'))
+		{
+			if($_POST['category'] && $_POST['uid'])
+			{
+				
+				$data['name']= $_POST['category'];
+				$data['uid']= $_POST['uid'];
+				$data['status']= 2;
+				
+				$result= $this->support_model->saveCategory($data);
+				
+				
+				if ($result == TRUE)
+				{
+					message_flash('Updated successfully!');
+					redirect('support/categories');
+				}
+				if($result == FALSE)
+				{
+					message_flash('Failed', 'error');
+					redirect('support/add');
+				}
+			}
+		}
+		
+		$data2['users']= $this->users_model->findUser(null, true);
+		$this->load->view('support/add_view', $data2);
+		
+		
+	}
+	
+	function delete($id)
+	{
+		$param= array('id' => $id);
+		$success= $this->support_model->delete($param);
+		if($success != 1)
+		{
+			message_flash("Can not delete yet.",'error');
+		}
+		else{
+			message_flash('Deleted successfully!');
+		}
+		redirect('support/categories');
+	}
 	
 	
 	

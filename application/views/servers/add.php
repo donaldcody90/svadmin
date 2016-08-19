@@ -1,9 +1,9 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url('servers'); ?>">Server List</a></li>
-    <li><a href="<?php echo site_url('servers/add'); ?>">Add new SV</a></li>
-    <li><a href="<?php echo site_url('vps'); ?>">VPS List</a></li>
-    <li><a href="<?php echo site_url('vps/add'); ?>">Add new VPS</a></li>
+    <li><a href="<?php echo site_url('servers'); ?>">Servers</a></li>
+    <li><a href="<?php echo site_url('servers/add'); ?>">Add server</a></li>
+    <li><a href="<?php echo site_url('vps'); ?>">VPS</a></li>
+    <li><a href="<?php echo site_url('vps/add'); ?>">Add VPS</a></li>
 </ul>
 <?php
     // echo "<pre>";
@@ -13,21 +13,27 @@
      <?php $this->load->view('_base/message'); ?>
     <h2 class="title ">Add new server</h2>
     <form name="edit" action="<?php echo site_url('servers/add'); ?>" method="POST">
-	
+		
         <div class="group-input">
-            <label class="label_input">IP <span class="red"></span></label>
+            <label class="label_input">IP <span class="red">*</span></label>
             <input placeholder="IP" type="text" value="" name="ip" required="">
 			<?php echo form_error('ip', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
-            <label class="label_input">Key <span class="red"></span></label>
+            <label class="label_input">Label <span class="red">*</span></label>
+            <input placeholder="Label" type="text" value="" name="label" required="">
+			<?php echo form_error('label', '<div class="error">', '</div>'); ?>
+        </div>
+		
+        <div class="group-input">
+            <label class="label_input">Key <span class="red">*</span></label>
             <input placeholder="Key" type="text" value="" name="key" required="">
 			<?php echo form_error('key', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
-            <label class="label_input">Password <span class="red"></span></label>
+            <label class="label_input">Password <span class="red">*</span></label>
             <input placeholder="Password" type="text" value="" name="password" required="">
 			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
         </div>

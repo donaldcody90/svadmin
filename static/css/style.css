@@ -465,11 +465,26 @@ text-align:center;
 
 /*---------------------Support-------------------------*/
 
+.support_list .opening{
+	background: #23F967;
+	text-align: center;
+}
+
+.support_list .closed{
+	background: red;
+	font-weight: bold;
+	text-align: center;
+}
 
 .ticket_page{
 	background: white;
 	width: 100%;
-	height: 420px;
+	height: 450px;
+}
+
+.ticket_title{
+	width: 350px;
+	height: 400px; 
 }
 
 .ticket_title .title span{
@@ -482,10 +497,10 @@ text-align:center;
 }
 
 .ticket_title textarea{
-	width: 400px;
+	width: 380px;
 	height: 250px;
 	padding: 15px 20px;
-	margin: 50px 0 0 15px;
+	margin: 20px 0 0 15px;
 	border-radius: 3px;
 	resize: vertical;
 }
@@ -528,10 +543,11 @@ text-align:center;
 .ticketcontent{
 	background: #ECECEC;
 	width: 850px;
-	height: 390px;
+	height: 420px;
 	overflow: auto;
 	border-radius: 3px;
-	margin: 15px 0 0 30px
+	margin: 15px 0 0 30px;
+	resize: vertical;
 }
 
 .ticketcontent .message1{

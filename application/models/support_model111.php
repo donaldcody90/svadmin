@@ -1,6 +1,7 @@
-<?php
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Support_model extends MY_Model
+﻿<?php 
+if ( ! defined ('BASEPATH')) exit ('No direct script access allowed');
+
+class Support_model extends My_Model
 {
 	private $message= 'message';
 	private $conversation= 'conversation';
@@ -121,7 +122,7 @@ class Support_model extends MY_Model
 		return $this->db->get()->result();
 	}
 	
-	function listUser($filterData, $limit, $start)
+	function supportteam($filterData, $limit, $start)
 	{
 		$this->db->select('ca.id, ca.name, u.username, ca.status');
 		$this->db->from("$this->categories as ca");
@@ -148,24 +149,11 @@ class Support_model extends MY_Model
 		));
 	}
 	
-	function saveCategory($data, $param_where= null)
+	function insertCategory($data)
 	{
 		return $this->_save(array(
 				'table'			=>	$this->categories,
-				'data'			=>	$data,
-				'param_where'	=>	$param_where
+				'data'	=>	$data
 		));
 	}
-	
-	function findCategory($param_where= null, $is_list= false)
-	{
-		return $this->_getwhere(array(
-				'table'			=>	$this->categories,
-				'param_where'	=>	$param_where,
-				'list'		=>	$is_list
-		));
-	}
-	
-	
 }
-?>

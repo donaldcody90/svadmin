@@ -1,6 +1,6 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>customers">Support List</a></li>
+    <li><a href="<?php echo site_url().'support/lists'; ?>">Tikets</a></li>
 </ul>
 <div class="ticket_page">
     <?php $this->load->view('_base/message'); ?>

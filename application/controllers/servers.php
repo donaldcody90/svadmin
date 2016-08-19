@@ -145,11 +145,15 @@ class Servers extends CI_Controller
 			if($svkey!=''){
 				$data['svkey'] = $this->input->post('key');
 			}
+			$label = $this->input->post('label');
+			if($label!=''){
+				$data['label'] = $this->input->post('label');
+			}
 			$password = $this->input->post('password');
 			if($password!=''){
 				$data['svpass'] = $this->input->post('password');
 			}
-			if(count($data) == 3 ){
+			if(count($data) == 4 ){
 				$success= $this->servers_model->updateSV($data, $params_where);
 				if ($success == 1)
 				{
@@ -175,52 +179,53 @@ class Servers extends CI_Controller
 		}
 	}
 	
-	function update($uid)
-	{
-		$this->form_validation->set_rules('ip', 'IP Address', 'valid_ip|is_unique[servers.ip]|trim');
-		$this->form_validation->set_rules('key', 'Key', 'min_length[6]|trim');
-		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
+	// function update($uid)
+	// {
+		// $this->form_validation->set_rules('ip', 'IP Address', 'valid_ip|is_unique[servers.ip]|trim');
+		// $this->form_validation->set_rules('label', 'Label', 'min_length[6]|trim');
+		// $this->form_validation->set_rules('key', 'Key', 'min_length[6]|trim');
+		// $this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
 		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
+		// $this->form_validation->set_message('is_unique', 'This %s is already registered.');
 		
-		if ($this->form_validation->run() == false)
-		{
-			$params_where= array('id'=> $uid);
-			$data['value']= $this->servers_model->findSV($params_where);
-			var_dump($data['value']);
-			$this->load->view('servers/edit_view', $data);
-		}
-		if ($this->form_validation->run() == true)
-		{
-			$params_where= array('id' => $uid);
-			$data = array();
-			$ip = $this->input->post('ip');
-			if($ip!='' ){
-				$data['ip'] = $this->input->post('ip');
-			}
-			$svkey = $this->input->post('key');
-			if($svkey!=''){
-				$data['svkey'] = $this->input->post('key');
-			}
-			$password = $this->input->post('password');
-			if($password!=''){
-				$data['svpass'] = $this->input->post('password');
-			}
-			if(count($data)>0 ){
-				$success= $this->servers_model->updateSV($data, $params_where);
-				if ($success == 1)
-				{
-					$this->session->set_flashdata('success', TRUE);
-				}
-				else
-				{
-					$this->session->set_flashdata('error', TRUE);
-				}
-				redirect('servers/lists');
-			}
-		}
+		// if ($this->form_validation->run() == false)
+		// {
+			// $params_where= array('id'=> $uid);
+			// $data['value']= $this->servers_model->findSV($params_where);
+			// var_dump($data['value']);
+			// $this->load->view('servers/edit_view', $data);
+		// }
+		// if ($this->form_validation->run() == true)
+		// {
+			// $params_where= array('id' => $uid);
+			// $data = array();
+			// $ip = $this->input->post('ip');
+			// if($ip!='' ){
+				// $data['ip'] = $this->input->post('ip');
+			// }
+			// $svkey = $this->input->post('key');
+			// if($svkey!=''){
+				// $data['svkey'] = $this->input->post('key');
+			// }
+			// $password = $this->input->post('password');
+			// if($password!=''){
+				// $data['svpass'] = $this->input->post('password');
+			// }
+			// if(count($data)>0 ){
+				// $success= $this->servers_model->updateSV($data, $params_where);
+				// if ($success == 1)
+				// {
+					// $this->session->set_flashdata('success', TRUE);
+				// }
+				// else
+				// {
+					// $this->session->set_flashdata('error', TRUE);
+				// }
+				// redirect('servers/lists');
+			// }
+		// }
 		
-	}
+	// }
 	
 	
 	function add()
@@ -228,10 +233,9 @@ class Servers extends CI_Controller
 		$this->form_validation->set_rules('ip', 'IP Address', 'required|valid_ip|is_unique[servers.ip]|trim');
 		$this->form_validation->set_rules('key', 'Key', 'required|alpha|min_length[6]|max_length[50]|is_unique[servers.svkey]|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
-		//$this->form_validation->set_rules('passconf', 'Password Confirm', 'required|matches[password]|min_length[6]|trim');
+		$this->form_validation->set_rules('label', 'Label', 'required|min_length[6]|trim');
 		
 		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
-		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
 		
 		if ($this->form_validation->run() == false)
 		{
@@ -240,6 +244,7 @@ class Servers extends CI_Controller
 		else
 		{
 			$data['ip']= $this->input->post('ip');
+			$data['label']= $this->input->post('label');
 			$data['svkey']= $this->input->post('key');
 			$data['svpass']= $this->input->post('password');
 			

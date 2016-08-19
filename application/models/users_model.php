@@ -1,6 +1,5 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 class Users_model extends MY_Model
 {
 	 private $users = 'users';
@@ -16,7 +15,7 @@ class Users_model extends MY_Model
 		param_where = array(fieldName=>fieldValue)
 	*/
     
-	function findUser($params_where,$is_list=false){
+	function findUser($params_where= null,$is_list=false){
           return  $this->_getwhere(array(
                          'table'        => $this->users,
                          'param_where'  => $params_where,

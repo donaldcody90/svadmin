@@ -1,7 +1,7 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>users">User List</a></li>
-    <li><a href="<?php echo site_url(); ?>users/add">Add new</a></li>
+    <li><a href="<?php echo site_url(); ?>users">Users</a></li>
+    <li><a href="<?php echo site_url(); ?>users/add">Add user</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>

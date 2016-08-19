@@ -42,6 +42,7 @@ class Auth extends CI_Controller
 			  
 				$data= $this->users_model->findUser( array('username'=> $username, 'password'=> vst_password($password)) );
 				$role= $data['role'];
+				$user_id= $data['id'];
 				if(count($data)){
 					$this->session->set_userdata(array(
 									'logged_in'=> true,

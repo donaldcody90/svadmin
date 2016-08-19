@@ -120,6 +120,26 @@ if(!function_exists ('getStatusConversation'))
 	}
 }
 
+if(!function_exists ('getStatusCategories'))
+{
+	function getStatusCategories($status)
+	{
+		$statusText="";
+		switch($status)
+		{
+			case 1:
+				$statusText= 'closed';
+				break;
+			case 2:
+				$statusText= 'opening';
+				break;
+			default:
+				//code
+		}
+		return $statusText;
+	}
+}
+
 if(! function_exists('getStatusRole'))
 {
 	function getStatusRole($status)

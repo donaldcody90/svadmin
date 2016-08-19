@@ -216,7 +216,7 @@ class Customers extends CI_Controller
 	}
 	
 	
-	function delete_user($uid)
+	function delete($uid)
 	{
 		$params_where= array('id'=> $uid);
 		$result= $this->customers_model->deleteCustomer($params_where);

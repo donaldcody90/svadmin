@@ -183,7 +183,7 @@ class Users extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('fullname', 'Full name', 'required|min_length[2]|max_length[20]|trim');
+		$this->form_validation->set_rules('fullname', 'Full name', 'required|min_length[2]|trim');
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
