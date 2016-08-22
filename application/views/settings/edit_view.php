@@ -1,6 +1,6 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>users">Global config</a></li>
+    <li><a href="<?php echo site_url(); ?>settings">Global config</a></li>
 </ul>
 <div id="content" class="container fullwidth">
      <?php $this->load->view('_base/message'); ?>
@@ -9,13 +9,13 @@
 	
         <div class="group-input">
             <label class="label_input">Paypal account:</label>
-            <input type="text" value="<?php echo $paypal['account']; ?>" name="paypal">
+            <input type="text" value="<?php echo get_setting_meta('paypal'); ?>" name="paypal_account">
 			<?php echo form_error('paypal', '<div class="error">', '</div>'); ?>
 		</div>
         
 		<div class="group-input">
             <label class="label_input">Bank transfer account:</label>
-            <input type="text" value="<?php echo $bank['account']; ?>" name="bank_account">
+            <input type="text" value="<?php echo get_setting_meta('vietcombank'); ?>" name="bank_account">
 			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?>
         </div>
         

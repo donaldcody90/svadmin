@@ -15,7 +15,7 @@ class Support_model extends MY_Model
 	}
 	
 	
-	function listTicket($filterData, $limit, $start, $param)
+	function listTicket($filterData, $limit, $start)
 	{
 		$this->db->select('c.cid, ca.name, c.title, cu.username, c.status, m.content');
 		$this->db->from('conversation as c');
@@ -33,7 +33,7 @@ class Support_model extends MY_Model
 		return $result->result();
 	}
 	
-	function totalTicket($filterData, $param)
+	function totalTicket($filterData)
 	{
 		$this->db->select('c.cid, ca.name, c.title, cu.username, c.status, m.content');
 		$this->db->from('conversation as c');

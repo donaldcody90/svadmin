@@ -123,7 +123,7 @@ class Vps extends CI_Controller
 			{
 				$data2['id']= $output->vs_info->vpsid;
 				
-				$data2['cuid']= $this->input->post('username');
+				$data2['cid']= $this->input->post('username');
 				
 				$data2['svid']= $this->input->post('datacenter');
 				

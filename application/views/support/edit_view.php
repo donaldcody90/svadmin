@@ -26,13 +26,13 @@
 		<div class="group-input">
 			<label class="label_input">Status</label>
 			<select name="status">
-				<option value="2" <?php echo $category['status']=='2' ?'selected':''; ?>>Opening</option>
-				<option value="1" <?php echo $category['status']=='1' ?'selected':''; ?>>Closed</option>
+				<option value="1" <?php echo $category['status']=='1' ?'selected':''; ?>>Enable</option>
+				<option value="0" <?php echo $category['status']=='0' ?'selected':''; ?>>Disable</option>
 			</select>
 		</div>
 		
 		
-		<input type="submit" name="save" value="Edit" />
+		<input type="submit" name="save" value="Save" />
 	</form>
 </div>
 

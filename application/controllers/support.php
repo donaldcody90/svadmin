@@ -23,23 +23,22 @@ class Support extends CI_Controller
 	function lists()
 	{
 		$id= $this->session->userdata('user_id');
-		$param['c.uid']= $id;
 		$filterData= vst_filterData(
 			array('filter_cid' ,'filter_title' ,'filter_content' ,'filter_username' ,'filter_status' ,'filter_name'),
 			array(),
 			array('cid'=>'c', 'title'=>'c', 'content'=>'m', 'username'=>'cu', 'status'=>'c', 'name'=>'ca')
 			);
 		
-		$this->load->library('pagination');
+		$filterData['ca.uid']= array('value'=>$id,'condition'=>'where');
 		
-		$total= $this->support_model->totalTicket($filterData, $param);
+		$total= $this->support_model->totalTicket($filterData);
 		$config= vst_Pagination($total);
 		$this->pagination->initialize($config);
 		
 		$start= $this->input->get('page');
 		$limit= $config['per_page'];
 		
-		$data['result']= $this->support_model->listTicket($filterData, $limit, $start, $param);
+		$data['result']= $this->support_model->listTicket($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
 		$data['total_rows']= $total;
 		$data['type']= $this->support_model->findCategory(null, $is_list= true);
@@ -127,9 +126,9 @@ class Support extends CI_Controller
 		{
 			
 			
-			if($_POST['category']) { $data['name']= $_POST['category']; }
-			if($_POST['uid']) { $data['uid']= $_POST['uid']; }
-			if($_POST['status']) { $data['status']= $_POST['status']; }
+			if($this->input->post('category')) { $data['name']= $this->input->post('category'); }
+			if($this->input->post('uid')) { $data['uid']= $this->input->post('uid'); }
+			if($this->input->post('status')) { $data['status']= $this->input->post('status'); }
 			
 			if(count($data) > 0)
 			{
@@ -148,8 +147,6 @@ class Support extends CI_Controller
 				
 			}
 			
-			
-			
 		}
 		
 		$data2['category']= $this->support_model->findCategory($param_where);
@@ -162,12 +159,12 @@ class Support extends CI_Controller
 	{
 		if($this->input->post('save'))
 		{
-			if($_POST['category'] && $_POST['uid'])
+			if($this->input->post('category') && $this->input->post('uid'))
 			{
 				
-				$data['name']= $_POST['category'];
-				$data['uid']= $_POST['uid'];
-				$data['status']= 2;
+				$data['name']= $this->input->post('category');
+				$data['uid']= $this->input->post('uid');
+				$data['status']= $this->input->post('status');
 				
 				$result= $this->support_model->saveCategory($data);
 				

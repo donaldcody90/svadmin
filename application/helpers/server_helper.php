@@ -127,11 +127,11 @@ if(!function_exists ('getStatusCategories'))
 		$statusText="";
 		switch($status)
 		{
-			case 1:
-				$statusText= 'closed';
+			case 0:
+				$statusText= 'Disable';
 				break;
-			case 2:
-				$statusText= 'opening';
+			case 1:
+				$statusText= 'Enable';
 				break;
 			default:
 				//code
@@ -456,6 +456,26 @@ if(!function_exists('RandomString'))
 			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
 		return $randomString;
+	}
+}
+
+if(!function_exists('get_setting_meta')){
+	function get_setting_meta($meta_key,$return_row=false)
+	{
+	$CI =& get_instance();
+	$setting_table="settings";
+	$CI->db->select("*");
+	$CI->db->from($setting_table);
+	$CI->db->where(array('meta_key'=>$meta_key));
+	$query=$CI->db->get();
+	$row=$query->row_array();
+	if($row){
+	if($return_row)
+    return $row;
+	return $row['meta_value'];
+	}else{
+		return false;
+		}
 	}
 }
 

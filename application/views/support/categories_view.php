@@ -22,8 +22,8 @@
 			Status:
 			<select name="filter_status">
 				<option value="" selected>All ticket</option>
-				<option value="1" <?php echo (isset($filter_status) && $filter_status=='1' )?'selected':''; ?>>opening</option>
-				<option value="0" <?php echo (isset($filter_status) && $filter_status=='0' )?'selected':''; ?>>closed</option>
+				<option value="1" <?php echo (isset($filter_status) && $filter_status=='1' )?'selected':''; ?>>Enable</option>
+				<option value="0" <?php echo (isset($filter_status) && $filter_status=='0' )?'selected':''; ?>>Disable</option>
 			</select>
           <input class="button" type="submit" value="Search" >
           <a href="<?php echo site_url('support/categories') ?>"><input class="button" type="button" value="Clear"></a>

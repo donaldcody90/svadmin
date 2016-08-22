@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Settings_model extends MY_Model
 {
-	 private $paymentaccounts = 'paymentaccounts';
+	 private $settings = 'settings';
 
      function __construct()
      {
@@ -20,7 +20,7 @@ class Settings_model extends MY_Model
 	function getPayment($param_where)
 	{
 		return $this->_getwhere(array(
-				'table'			=>	$this->paymentaccounts,
+				'table'			=>	$this->settings,
 				'param_where'	=>	$param_where
 		));
 	}
@@ -28,7 +28,7 @@ class Settings_model extends MY_Model
 	function editPayment($data, $param_where)
 	{
 		return $this->_save(array(
-				'table'		=>	$this->paymentaccounts,
+				'table'			=>	$this->settings,
 				'param_where'	=>	$param_where,
 				'data'			=>	$data
 		));

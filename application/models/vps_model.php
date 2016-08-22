@@ -25,7 +25,7 @@ class Vps_model extends MY_Model
 	{
 		$this->db->select('v.id, cu.username, v.svid, v.vps_label, v.vps_ip, v.create_date, v.space, v.ram');
 		$this->db->from("$this->vps as v");
-		$this->db->join("$this->customers as cu", 'v.cuid = cu.id');
+		$this->db->join("$this->customers as cu", 'v.cid = cu.id');
 		vst_buildFilter($filter);
 		$this->db->limit($limit, $start);
 		return $this->db->get()->result();
@@ -36,7 +36,7 @@ class Vps_model extends MY_Model
 	{
 		$this->db->select('*');
 		$this->db->from("$this->vps as v");
-		$this->db->join("$this->customers as cu", 'v.cuid = cu.id');
+		$this->db->join("$this->customers as cu", 'v.cid = cu.id');
 		vst_buildFilter($filter);
 		$result= $this->db->get();
 		return $result->num_rows();

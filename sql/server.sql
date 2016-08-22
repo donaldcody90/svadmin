@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2016 at 12:23 PM
+-- Generation Time: Aug 22, 2016 at 10:19 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -74,11 +74,9 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `uid`, `status`) VALUES
 (1, 'Billing', 2, 1),
-(2, 'Billing', 11, 2),
-(5, 'General', 2, 2),
-(6, 'General', 20, 2),
-(8, 'General', 1, 1),
-(9, 'day la cat', 5, 2);
+(5, 'General', 24, 1),
+(9, 'Technique', 5, 0),
+(13, 'abc', 18, 0);
 
 -- --------------------------------------------------------
 
@@ -90,6 +88,7 @@ CREATE TABLE `conversation` (
   `cid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `caid` int(20) NOT NULL,
+  `vpsid` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `openingdate` datetime NOT NULL,
@@ -100,14 +99,14 @@ CREATE TABLE `conversation` (
 -- Dumping data for table `conversation`
 --
 
-INSERT INTO `conversation` (`cid`, `uid`, `caid`, `title`, `message`, `openingdate`, `status`) VALUES
-(33, 1002, 4, 'Day la subject', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', '2016-07-15 07:25:27', '0'),
-(34, 1004, 3, 'please help me!!!!', 'aaaaaaaaaaaaaaaaaaaaa', '2016-07-15 07:25:27', '0'),
-(35, 1003, 2, 'Hello!!!!!!!!!!!!!!!!!!!!!!!!!', 'aaaaaaaaaaaaaa', '2016-07-15 07:25:27', '1'),
-(36, 1001, 1, 'cho hỏi cái', 'aaaaaaaaaaaa', '2016-08-01 04:20:11', '1'),
-(37, 1002, 5, 'test lan 3:45 ', 'success', '2016-08-05 15:46:13', '0'),
-(38, 1002, 7, 'test lan 3:46', 'success', '2016-08-05 15:46:39', '1'),
-(39, 1002, 6, 'test 3:26 6/8', 'success', '2016-08-06 15:26:48', '1');
+INSERT INTO `conversation` (`cid`, `uid`, `caid`, `vpsid`, `title`, `message`, `openingdate`, `status`) VALUES
+(33, 1002, 5, 0, 'Day la subject', 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', '2016-07-15 07:25:27', '0'),
+(34, 1004, 5, 0, 'please help me!!!!', 'aaaaaaaaaaaaaaaaaaaaa', '2016-07-15 07:25:27', '0'),
+(35, 1003, 5, 0, 'Hello!!!!!!!!!!!!!!!!!!!!!!!!!', 'aaaaaaaaaaaaaa', '2016-07-15 07:25:27', '1'),
+(36, 1001, 1, 0, 'cho hỏi cái', 'aaaaaaaaaaaa', '2016-08-01 04:20:11', '1'),
+(37, 1002, 5, 0, 'test lan 3:45 ', 'success', '2016-08-05 15:46:13', '0'),
+(38, 1002, 9, 0, 'test lan 3:46', 'success', '2016-08-05 15:46:39', '1'),
+(39, 1002, 13, 0, 'test 3:26 6/8', 'success', '2016-08-06 15:26:48', '1');
 
 -- --------------------------------------------------------
 
@@ -191,26 +190,6 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paymentaccounts`
---
-
-CREATE TABLE `paymentaccounts` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `account` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `paymentaccounts`
---
-
-INSERT INTO `paymentaccounts` (`id`, `name`, `account`) VALUES
-(1, 'paypal', 'adminvultr@gmail.com'),
-(2, 'vietcombank', '123451411111111');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `servers`
 --
 
@@ -238,6 +217,26 @@ INSERT INTO `servers` (`id`, `label`, `ip`, `svkey`, `svpass`, `description`) VA
 (22, 'server 22', '1.2.3.4', 'adasdkjfal', '123456', 'United States'),
 (23, 'server 23', '123.13.13.123', 'daylakey', 'daylapass', 'Australia'),
 (24, 'server 24', '14.14.14.14', 'aldfkajs', 'sladkfjasl', 'United States');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `meta_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_value` longtext COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `meta_key`, `meta_value`) VALUES
+(1, 'paypal', 'adminvultr@gmail.com'),
+(2, 'vietcombank', '123451411111111333');
 
 -- --------------------------------------------------------
 
@@ -282,7 +281,7 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) 
 
 CREATE TABLE `vps` (
   `id` bigint(18) NOT NULL,
-  `cuid` bigint(18) DEFAULT NULL,
+  `cid` bigint(18) DEFAULT NULL,
   `svid` bigint(18) DEFAULT NULL,
   `vps_label` varchar(255) DEFAULT NULL,
   `vps_ip` varchar(255) DEFAULT NULL,
@@ -296,12 +295,12 @@ CREATE TABLE `vps` (
 -- Dumping data for table `vps`
 --
 
-INSERT INTO `vps` (`id`, `cuid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
-(1, 1001, 1, 'asdfasdfasdfasdfsd', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
-(2, 1002, 1, 'hjfghjfghjfghjgghjfgh', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
-(3, 1003, 2, 'fjdyeyrtyrytetertyry', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
-(4, 1001, 2, 'cbncvbnsgsddfgsdfgsdfg', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
-(5, 1001, 2, 'sdfgsdfgsdgqwerewrwrwdfsdf', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
+INSERT INTO `vps` (`id`, `cid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
+(1, 1001, 1, 'vps 1', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
+(2, 1002, 3, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
+(3, 1002, 3, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
+(4, 1002, 5, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
+(5, 1001, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
 
 --
 -- Indexes for dumped tables
@@ -345,15 +344,15 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`mid`);
 
 --
--- Indexes for table `paymentaccounts`
---
-ALTER TABLE `paymentaccounts`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `servers`
 --
 ALTER TABLE `servers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -381,7 +380,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -391,27 +390,27 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
--- AUTO_INCREMENT for table `paymentaccounts`
---
-ALTER TABLE `paymentaccounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT for table `servers`
 --
 ALTER TABLE `servers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `vps`
 --

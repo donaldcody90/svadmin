@@ -7,7 +7,7 @@
 </ul>
 <div id="content" class="container fullwidth">
 	<?php $this->load->view('_base/message'); ?>
-	<h2>Add new support-team member</h2>
+	<h2>Add new category</h2>
 	<form action="<?php echo site_url('support/add'); ?>"  method="POST" >
 		<div class="group-input">
 			<label class="label_input">Username</label>
@@ -22,6 +22,14 @@
 		<div class="group-input">
 			<label class="label_input">Category</label>
 			<input name="category" type="text" placeholder="Category" />
+		</div>
+		
+		<div class="status">
+			<label class="label_input">Status</label>
+			<select name="status">
+				<option value="1">Enable</option>
+				<option value="0">Disable</option>
+			</select>
 		</div>
 		
 		<input type="submit" name="save" value="Add new" />
