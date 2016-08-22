@@ -25,7 +25,7 @@ class Settings_model extends MY_Model
 		));
 	}
 	
-	function editPayment($data, $param_where)
+	function editSettings($data, $param_where)
 	{
 		return $this->_save(array(
 				'table'			=>	$this->settings,

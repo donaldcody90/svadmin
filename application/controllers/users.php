@@ -167,13 +167,15 @@ class Users extends CI_Controller
 				$success= $this->users_model->updateUser($data, $params_where);
 				if ($success > 0)
 				{
-					$this->session->set_flashdata('success', TRUE);
+					message_flash('Updated successfully!');
+					redirect('users/lists');
 				}
 				else
 				{
-					$this->session->set_flashdata('error', TRUE);
+					message_flash('Can not update at this time.', 'error');
+					redirect('users/edit/'.$uid);
 				}
-				redirect('users/lists');
+				
 			}
 		}
 		

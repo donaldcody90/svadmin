@@ -19,7 +19,7 @@
 		?>
 		<form name="filter_form" action="<?php echo site_url('support/lists'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_cid)?$filter_cid:''; ?>" name="filter_cid">
-            Type:<input type="text" value="<?php echo isset($filter_name)?$filter_name:''; ?>" name="filter_name">
+            Name:<input type="text" value="<?php echo isset($filter_name)?$filter_name:''; ?>" name="filter_name">
             Title:<input type="text" value="<?php echo isset($filter_title)?$filter_title:''; ?>" name="filter_title">
             Customer:<input type="text" value="<?php echo isset($filter_username )?$filter_username:''; ?>" name="filter_username">
 			Status:
@@ -37,7 +37,7 @@
 			<tbody>
 				<tr>
 					<td>ID</td>
-					<td>Type</td>
+					<td>Name</td>
 					<td>Title</td>
 					<td>Customer</td>
 					<td>Status</td>

@@ -17,7 +17,7 @@
 		?>
 		<form name="filter_form" action="<?php echo site_url('support/categories'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_id)?$filter_id:''; ?>" name="filter_id">
-            Type:<input type="text" value="<?php echo isset($filter_name)?$filter_name:''; ?>" name="filter_name">
+            Category:<input type="text" value="<?php echo isset($filter_name)?$filter_name:''; ?>" name="filter_name">
             User:<input type="text" value="<?php echo isset($filter_username)?$filter_username:''; ?>" name="filter_username">
 			Status:
 			<select name="filter_status">
@@ -34,7 +34,7 @@
             <tbody>
                 <tr>
                     <td>ID</td>
-                    <td>Type</td>
+                    <td>Category</td>
                     <td>User</td>
                     <td>Status</td>
                     <td>Action</td>
