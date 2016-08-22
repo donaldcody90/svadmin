@@ -124,12 +124,18 @@ class Support extends CI_Controller
 		
 		if($this->input->post('save'))
 		{
-			
-			
+
 			if($this->input->post('category')) { $data['name']= $this->input->post('category'); }
 			if($this->input->post('uid')) { $data['uid']= $this->input->post('uid'); }
 			if($this->input->post('status')) { $data['status']= $this->input->post('status'); }
+
+			if($_POST['category']) { $data['name']= $_POST['category']; }
+			if($_POST['uid']) { $data['uid']= $_POST['uid']; }
+			if($_POST['status']) { $data['status']= $_POST['status']; }
+			//var_dump($this->input->post('status'));
+
 			
+			$data['status']=$this->input->post('status');
 			if(count($data) > 0)
 			{
 				$result= $this->support_model->saveCategory($data, $param_where);
