@@ -120,23 +120,19 @@ class Support extends CI_Controller
 			if($this->input->post('uid')) { $data['uid']= $this->input->post('uid'); }
 			if($this->input->post('status')) { $data['status']= $this->input->post('status'); }
 
-			
 			$data['status']=$this->input->post('status');
-			if(count($data) > 0)
+			
+			$result= $this->support_model->saveCategory($data, $param_where);
+			
+			if ($result == TRUE)
 			{
-				$result= $this->support_model->saveCategory($data, $param_where);
-				
-				if ($result == TRUE)
-				{
-					message_flash('Updated Successfully!');
-					redirect('support/categories');
-				}
-				if($result == FALSE)
-				{
-					message_flash('Category update failed.','error');
-					redirect('support/editCat/'.$id);
-				}
-				
+				message_flash('Updated Successfully!');
+				redirect('support/categories');
+			}
+			if($result == FALSE)
+			{
+				message_flash('Category update failed.','error');
+				redirect('support/editCat/'.$id);
 			}
 			
 		}
@@ -159,7 +155,6 @@ class Support extends CI_Controller
 				$data['status']= $this->input->post('status');
 				
 				$result= $this->support_model->saveCategory($data);
-				
 				
 				if ($result == TRUE)
 				{

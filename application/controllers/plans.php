@@ -56,18 +56,17 @@ class Plans extends CI_Controller
 			$data['bandwidth']= $this->input->post('bandwidth');
 			$data['status']= $this->input->post('status');
 			
-			if(count($data) == 7 ){
-				$success= $this->plans_model->updatePlan($data, $params_where);
-				if ($success == 1)
-				{
-					message_flash('Updated Successfully!','success');
-				}
-				else
-				{
-					message_flash('Plan update failed.','error');
-				}
-				redirect('plans/lists');
+			$success= $this->plans_model->updatePlan($data, $params_where);
+			if ($success == 1)
+			{
+				message_flash('Updated Successfully!','success');
 			}
+			else
+			{
+				message_flash('Plan update failed.','error');
+			}
+			redirect('plans/lists');
+			
 		}
 		// get SV info by id
 		$result = $this->plans_model->findPlan(array('id'=>$id));

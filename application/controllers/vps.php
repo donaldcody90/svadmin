@@ -53,20 +53,18 @@ class Vps extends CI_Controller
 			$data['vps_label'] = $this->input->post('label');
 			$data['rootpass'] = $this->input->post('rootpass');
 			
-			if(count($data) == 3 ){
-				$success= $this->vps_model->editVps($data, $param_where);
-				if ($success == 1)
-				{
-					message_flash('Updated Successfully!');
-					redirect('vps/lists');
-				}
-				else
-				{
-					message_flash('VPS update failed.', 'error');
-					redirect('vps/edit/'.$id);
-				}
-				
+			$success= $this->vps_model->editVps($data, $param_where);
+			if ($success == 1)
+			{
+				message_flash('Updated Successfully!');
+				redirect('vps/lists');
 			}
+			else
+			{
+				message_flash('VPS update failed.', 'error');
+				redirect('vps/edit/'.$id);
+			}
+			
 		}
 		$param_where= array('id' => $id);
 		$value['vps']= $this->vps_model->findVps($param_where);

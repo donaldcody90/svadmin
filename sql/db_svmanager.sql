@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.0.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2016 at 04:19 AM
--- Server version: 10.0.17-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: Aug 23, 2016 at 01:05 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -128,7 +128,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `fullname`, `username`, `password`, `email`) VALUES
-(1001, 'Donald Cody', 'name', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'toandx90@gmail.com'),
+(1001, 'donal', 'name', 'f1ecb37cc45de7b5e816917b042f258e37bd81e95a4352723c172d20095418d82e3c05838912b8801f4f0d215969c0188509868f26735eddc5293880ef0a4c06', 'toandx90@gmail.com'),
 (1002, 'viet', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'tran@gmail.com'),
 (1003, 'asdf', 'asdfsd', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfsdf@gmail.com'),
 (1004, 'viet', 'vo', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'vo@gmail.com'),
@@ -186,7 +186,10 @@ INSERT INTO `message` (`mid`, `cid`, `uid`, `content`, `date`) VALUES
 (30, 39, 1002, 'asdfasfasdf', '2016-08-06 17:30:44'),
 (31, 38, 1002, 'test', '2016-08-12 16:40:15'),
 (32, 38, 1002, 'test lan 2', '2016-08-12 16:40:29'),
-(33, 39, 24, 'kjhjk', '2016-08-19 16:12:32');
+(33, 39, 24, 'kjhjk', '2016-08-19 16:12:32'),
+(34, 35, 24, 'ddddddddddd', '2016-08-23 11:06:41'),
+(35, 35, 24, 'aaaaaaaaaaaaa', '2016-08-23 11:06:47'),
+(36, 35, 24, 'ssssssss', '2016-08-23 11:06:59');
 
 -- --------------------------------------------------------
 
@@ -204,6 +207,16 @@ CREATE TABLE `plans` (
   `bandwidth` bigint(18) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '1 : Enable  0 Disable'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `plans`
+--
+
+INSERT INTO `plans` (`id`, `name`, `price`, `cpu_core`, `disk_space`, `ram`, `bandwidth`, `status`) VALUES
+(2, 'plan 1', 50, 4, 5, 512, 500, 1),
+(3, 'plan 3', 100, 2, 20, 2048, 1000, 1),
+(4, 'Vietnam', 80, 8, 120, 4096, 30000, 1),
+(5, '15 GB SSD', 5, 1, 15, 768, 1000, 1);
 
 -- --------------------------------------------------------
 
@@ -225,7 +238,7 @@ CREATE TABLE `servers` (
 --
 
 INSERT INTO `servers` (`id`, `label`, `ip`, `svkey`, `svpass`, `description`) VALUES
-(25, 'Japan', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', '');
+(25, 'United States', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', '');
 
 -- --------------------------------------------------------
 
@@ -245,7 +258,7 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `meta_key`, `meta_value`) VALUES
 (1, 'paypal', 'adminvultr@gmail.com'),
-(2, 'vietcombank', '123451411111111333');
+(2, 'vietcombank', '12345141111111133311');
 
 -- --------------------------------------------------------
 
@@ -270,7 +283,7 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) 
 (1, 'Toan', 'toan123', '1392379478c88443c458ed72e88c72522d3a9ac1b93764c71383969a352d1c84a90f9b3230d04d0ef627954224e44df761757922506b92c1f9baf4460230ba44', 'abdew@gmail.com', '0'),
 (2, '888888888', 'Toan', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'sdfgsdfg@gmail.com', '0'),
 (5, 'nam', 'viet', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdftoanadfa@gmail.com', '1'),
-(11, 'Happy', 'happypola', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'happypola@gmail.com', '1'),
+(11, 'dddddddd', 'happypola', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 'happypol1a@gmail.com', '1'),
 (13, 'tran', 'tranducnam', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdfasf@gmail.com', '0'),
 (14, 'Leo', 'silun', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asfasdfasf@outlook.com', '1'),
 (15, 'Zlatan', 'ibrahimovic', 'ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413', 'asdfasdf@asdfadl.com', '1'),
@@ -291,6 +304,7 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `email`, `role`) 
 CREATE TABLE `vps` (
   `id` bigint(18) NOT NULL,
   `cid` bigint(18) DEFAULT NULL,
+  `pid` int(11) NOT NULL,
   `svid` bigint(18) DEFAULT NULL,
   `vps_label` varchar(255) DEFAULT NULL,
   `vps_ip` varchar(255) DEFAULT NULL,
@@ -304,12 +318,12 @@ CREATE TABLE `vps` (
 -- Dumping data for table `vps`
 --
 
-INSERT INTO `vps` (`id`, `cid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
-(1, 1001, 1, 'vps 1', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
-(2, 1002, 3, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
-(3, 1002, 3, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
-(4, 1002, 5, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
-(5, 1001, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
+INSERT INTO `vps` (`id`, `cid`, `pid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
+(1, 1001, 2, 1, 'vps 1', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
+(2, 1002, 3, 3, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
+(3, 1002, 5, 3, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
+(4, 1002, 4, 5, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
+(5, 1001, 2, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
 
 --
 -- Indexes for dumped tables
@@ -395,7 +409,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -405,22 +419,22 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1009;
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `servers`
 --
 ALTER TABLE `servers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `settings`
 --

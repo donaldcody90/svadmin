@@ -121,20 +121,18 @@ class Users extends CI_Controller
 			$data['password'] = vst_password($this->input->post('password'));
 			$data['email'] = $this->input->post('email');
 			
-			if(count($data)>0 ){
-				$success= $this->users_model->updateUser($data, $params_where);
-				if ($success > 0)
-				{
-					message_flash('Updated Successfully!');
-					redirect('users/lists');
-				}
-				else
-				{
-					message_flash('User update failed.', 'error');
-					redirect('users/edit/'.$uid);
-				}
-				
+			$success= $this->users_model->updateUser($data, $params_where);
+			if ($success > 0)
+			{
+				message_flash('Updated Successfully!');
+				redirect('users/lists');
 			}
+			else
+			{
+				message_flash('User update failed.', 'error');
+				redirect('users/edit/'.$uid);
+			}
+			
 		}
 		
 		$params_where= array('id'=> $uid);

@@ -57,18 +57,17 @@ class Servers extends CI_Controller
 			$data['label'] = $this->input->post('label');
 			$data['svpass'] = $this->input->post('password');
 			
-			if(count($data) == 4 ){
-				$success= $this->servers_model->updateSV($data, $params_where);
-				if ($success == 1)
-				{
-					message_flash('Updated Successfully!','success');
-				}
-				else
-				{
-					message_flash('Server update failed.','error');
-				}
-				redirect('servers/lists');
+			$success= $this->servers_model->updateSV($data, $params_where);
+			if ($success == 1)
+			{
+				message_flash('Updated Successfully!','success');
 			}
+			else
+			{
+				message_flash('Server update failed.','error');
+			}
+			redirect('servers/lists');
+			
 		}
 		// get SV info by id
 		$datacenter = $this->servers_model->findSV(array('id'=>$id));
