@@ -12,10 +12,8 @@ class Customers extends CI_Controller
 		$this->load->helper('server_helper');
 	}
 	
-	
 	function index()
 	{
-
 		redirect('customers/lists');
 	}
 
@@ -103,75 +101,27 @@ class Customers extends CI_Controller
 		echo json_encode($res);
 	}
 	
-	function profile($uid)
-	{
-		
-		if ($this->session->userdata('access') == 'Customer' && $uid != $this->session->userdata('user_id'))
-		{
-			redirect('auth/login');
-		}
-		else
-		{
-			$params_where= array('id'=> $uid);
-			$data['row']= $this->customers_model->findCustomer($params_where, $is_list=false);
-					
-			$this->load->view('customers/profile_view', $data);
-		}
 	
-	}
-	
-	
-	function update($uid)
-	{
+	function edit($uid)
+	{	
+		$customerInfo= $this->customers_model->findCustomer(array('id'=> $uid));
 		
-		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
-		$this->form_validation->set_rules('fullname', 'Full name', 'min_length[2]|max_length[20]|trim');
-		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
-		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
-		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
-		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
-		
-		if ($this->form_validation->run() == false)
-		{
-			$params_where= array('id'=> $uid);
-			$data['data']= $this->customers_model->findCustomer($params_where, $is_list=false);
+		if($customerInfo){
+			if($this->input->post('save'))
+			{
+				// do save
+				$data['fullname']=$this->input->post('fullname');
+				$data['email']=$this->input->post('email');
+				$this->customers_model->updateCustomer($data,array('id'=> $uid));
+				message_flash("Update successfully.");
+				redirect(site_url('customers/lists'));
+			}
+			$data['customer']=$customerInfo;
 			$this->load->view('customers/edit_view', $data);
+		}else{
+			message_flash("Customer not found.",'error');
+			redirect(site_url('customers/lists'));
 		}
-		if ($this->form_validation->run() == true)
-		{
-			$params_where= array('id' => $uid);
-			$data = array();
-			$username = $this->input->post('username');
-			if($username!='' ){
-				$data['username'] = $this->input->post('username');
-			}
-			$fullname = $this->input->post('fullname');
-			if($fullname!='' ){
-				$data['fullname'] = $this->input->post('fullname');
-			}
-			$password = $this->input->post('password');
-			if($password!=''){
-				$data['password'] = hash('sha512', $this->input->post('password'));
-			}
-			$email = $this->input->post('email');
-			if($email!=''){
-				$data['email'] = $this->input->post('email');
-			}
-			if(count($data)>0 ){
-				$success= $this->customers_model->updateCustomer($data, $params_where);
-				if ($success > 0)
-				{
-					$this->session->set_flashdata('success', TRUE);
-				}
-				else
-				{
-					$this->session->set_flashdata('error', TRUE);
-				}
-				redirect('customers/lists');
-			}
-		}
-		
 		
 	}
 	
@@ -218,15 +168,16 @@ class Customers extends CI_Controller
 	
 	function delete($uid)
 	{
+		
 		$params_where= array('id'=> $uid);
 		$result= $this->customers_model->deleteCustomer($params_where);
-		if ($result > 0)
+		if ($result)
 		{
-			$this->session->set_flashdata('success', true);
+			message_flash("Delete successfully.");
 		}
 		else
 		{
-			$this->session->set_flashdata('error', true);
+			message_flash("Delete faild.",'error');
 		}
 		redirect('customers/lists');
 		

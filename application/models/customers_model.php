@@ -18,7 +18,7 @@ class Customers_model extends MY_Model
 	
     
 	
-     function findCustomer($params_where=null, $is_list=true){
+     function findCustomer($params_where=null, $is_list=false){
           return  $this->_getwhere(array(
                          'table'        => $this->customers,
                          'param_where'  => $params_where,

@@ -31,8 +31,8 @@
         <table>
             <tr>
 				<td>ID</td>
-				<td>IP Address</td>
 				<td>Label</td>
+				<td>IP Address</td>
 				<td>Key</td>
 				<td>Password</td>
 				<td>Action</td>
@@ -40,13 +40,13 @@
 			<?php foreach($result as $key => $row){ ?>
 			<tr>
 				<td><?php echo $row->id; ?></td>
-				<td><?php echo $row->ip; ?></td>
 				<td><?php echo $row->label; ?></td>
+				<td><?php echo $row->ip; ?></td>
 				<td><?php echo $row->svkey; ?></td>
 				<td><?php echo $row->svpass; ?></td>
 				<td>
 					<a class="edit" href="<?php echo site_url() . 'servers/edit/' . $row->id; ?>">Edit</a>
-					<a class="delete" href="<?php echo site_url() . 'servers/deletedc/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+					<a class="delete" href="<?php echo site_url() . 'servers/delete/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 				</td>
 			</tr>
 			<?php } ?>

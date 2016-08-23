@@ -102,11 +102,13 @@ class Servers extends CI_Controller
 				$success= $this->servers_model->updateSV($data, $params_where);
 				if ($success == 1)
 				{
-					$this->session->set_flashdata('success', TRUE);
+					message_flash("Server updated successfully.",'success');
+					//$this->session->set_flashdata('success', TRUE);
 				}
 				else
 				{
-					$this->session->set_flashdata('error', TRUE);
+					message_flash("Can not update.",'error');
+					//$this->session->set_flashdata('error', TRUE);
 				}
 				redirect('servers/lists');
 			}
@@ -129,12 +131,11 @@ class Servers extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('ip', 'IP Address', 'required|valid_ip|is_unique[servers.ip]|trim');
-		$this->form_validation->set_rules('key', 'Key', 'required|alpha|min_length[6]|max_length[50]|is_unique[servers.svkey]|trim');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
-		$this->form_validation->set_rules('label', 'Label', 'required|min_length[6]|trim');
-		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
+		//$this->form_validation->set_rules('ip', 'IP Address', 'required|valid_ip|is_unique[servers.ip]|trim');
+		//$this->form_validation->set_rules('key', 'Key', 'required|alpha|min_length[6]|max_length[50]|is_unique[servers.svkey]|trim');
+		///$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
+		//$this->form_validation->set_rules('label', 'Label', 'required|min_length[6]|trim');
+		//$this->form_validation->set_message('is_unique', 'This %s is already registered.');
 		
 		if ($this->form_validation->run() == false)
 		{
@@ -166,7 +167,7 @@ class Servers extends CI_Controller
 	}
 	
 	
-	function deletedc($uid)
+	function delete($uid)
 	{
 		
 			$params_where= array('id'=> $uid);
@@ -181,8 +182,6 @@ class Servers extends CI_Controller
 				$this->session->set_flashdata('error', true);
 			}
 			redirect('servers/lists');
-			
-		
 	}
 	
 	
