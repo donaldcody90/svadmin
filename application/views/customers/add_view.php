@@ -21,7 +21,7 @@
 			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Email <span class="red">*</span></label>
-			<input placeholder="Email" type="text" name="email" required />
+			<input placeholder="Email" type="email" name="email" required />
 			<?php echo form_error('email', '<div class="error">', '</div>'); ?></div>
 		
 		<input type="submit" name="save" value="Save" />

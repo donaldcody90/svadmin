@@ -1,33 +1,30 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Servers extends CI_Controller
+class Plans extends CI_Controller
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
 		vkt_checkAuth();
-		$this->load->model('servers_model');
+		$this->load->model('plans_model');
 		$this->load->helper('server_helper');
 	}
 	
 	function index()
 	{
-		redirect('servers/lists');
+		redirect('plans/lists');
 	}
 	
 	function lists()
 	{	
 		
 		$filterData= vst_filterData(
-			array('filter_id', 'filter_ip', 'filter_svkey', 'filter_svpass'),
-			array(),
-			array()
+			array('filter_name', 'filter_price', 'filter_cpu_core', 'filter_disk_space', 'filter_ram', 'filter_bandwidth', 'filter_status')
 			);
 		
-		$this->load->library('pagination');
-		$total= $this->servers_model->totalSV($filterData);
+		$total= $this->plans_model->totalPlan($filterData);
 			
 		$config= vst_Pagination($total);
 		$this->pagination->initialize($config);
@@ -35,11 +32,10 @@ class Servers extends CI_Controller
 		$start = $this->input->get('page');
 		$limit= $config['per_page'];
 			
-		$data['result']= $this->servers_model->listSV($filterData, $limit, $start);
+		$data['result']= $this->plans_model->listPlan($filterData, $limit, $start);
 		$data['link']= $this->pagination->create_links();
 		$data['total_rows']= $total;
-		$this->load->view('servers/list', $data);
-		
+		$this->load->view('plans/list', $data);
 		
 	}
 	
@@ -52,33 +48,36 @@ class Servers extends CI_Controller
 		{
 			
 			$params_where= array('id' => $id);
-			$data['ip'] = $this->input->post('ip');
-			$data['svkey'] = $this->input->post('key');
-			$data['label'] = $this->input->post('label');
-			$data['svpass'] = $this->input->post('password');
+			$data['name']= $this->input->post('name');
+			$data['price']= $this->input->post('price');
+			$data['cpu_core']= $this->input->post('cpu_core');
+			$data['disk_space']= $this->input->post('disk_space');
+			$data['ram']= $this->input->post('ram');
+			$data['bandwidth']= $this->input->post('bandwidth');
+			$data['status']= $this->input->post('status');
 			
-			if(count($data) == 4 ){
-				$success= $this->servers_model->updateSV($data, $params_where);
+			if(count($data) == 7 ){
+				$success= $this->plans_model->updatePlan($data, $params_where);
 				if ($success == 1)
 				{
 					message_flash('Updated Successfully!','success');
 				}
 				else
 				{
-					message_flash('Server update failed.','error');
+					message_flash('Plan update failed.','error');
 				}
-				redirect('servers/lists');
+				redirect('plans/lists');
 			}
 		}
 		// get SV info by id
-		$datacenter = $this->servers_model->findSV(array('id'=>$id));
-		if($datacenter)
+		$result = $this->plans_model->findPlan(array('id'=>$id));
+		if($result)
 		{
-			$data['server']=$datacenter;
-			$this->load->view('servers/edit',$data);
+			$data1['plan']= $result;
+			$this->load->view('plans/edit',$data1);
 		}else{
-			message_flash('Server not found.','error');
-			redirect(site_url('servers/lists'));
+			message_flash('Plan not found.','error');
+			redirect(site_url('plans/lists'));
 		}
 	}
 	
@@ -90,35 +89,37 @@ class Servers extends CI_Controller
 		
 		if($this->input->post('save'))
 		{
-			$data['ip']= $this->input->post('ip');
-			$data['label']= $this->input->post('label');
-			$data['svkey']= $this->input->post('key');
-			$data['svpass']= $this->input->post('password');
+			$data['name']= $this->input->post('name');
+			$data['price']= $this->input->post('price');
+			$data['cpu_core']= $this->input->post('cpu_core');
+			$data['disk_space']= $this->input->post('disk_space');
+			$data['ram']= $this->input->post('ram');
+			$data['bandwidth']= $this->input->post('bandwidth');
 			
 			
-			$result= $this->servers_model->addSV($data);
+			$result= $this->plans_model->addPlan($data);
 			
 			if ($result == 1)
 			{
 				message_flash('Inserted Successfully!');
-				redirect('servers/lists');
+				redirect('plans/lists');
 			}
 			else
 			{
-				message_flash('Server addition failed.','error');
-				redirect('servers/add');
+				message_flash('Plan addition failed.','error');
+				redirect('plans/add');
 			}
 		}
 		
-		$this->load->view('servers/add');
+		$this->load->view('plans/add');
 	}
 	
 	
-	function delete($uid)
+	function delete($id)
 	{
 		
-			$params_where= array('id'=> $uid);
-			$result= $this->servers_model->deleteSV($params_where);
+			$params_where= array('id'=> $id);
+			$result= $this->plans_model->deletePlan($params_where);
 			
 			if ($result == 1)
 			{
@@ -128,7 +129,7 @@ class Servers extends CI_Controller
 			{
 				message_flash('Server delete failed.','error');
 			}
-			redirect('servers/lists');
+			redirect('plans/lists');
 	}
 	
 	

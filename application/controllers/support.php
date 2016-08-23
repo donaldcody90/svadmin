@@ -48,16 +48,8 @@ class Support extends CI_Controller
 	
 	function ticket($insert_id)
 	{
-		$this->form_validation->set_rules('reply', 'Reply', 'required|max_length[1000]|trim');
 		
-		if ($this->form_validation->run() == false)
-		{
-			$param_where['cid']= $insert_id;
-			$message['info']= $this->support_model->getConversation($param_where);
-			$message['result']= $this->support_model->getMessage($insert_id);
-			$this->load->view('support/ticketcontent_view', $message);	
-		}
-		if ($this->form_validation->run() == true)
+		if ($this->input->post('reply'))
 		{
 			$data['uid']= $this->session->userdata('user_id');
 			$data['cid']= $insert_id;
@@ -75,9 +67,10 @@ class Support extends CI_Controller
 			}
 		}
 		
-		// $message['info']= $this->support_model->getConversationinfo($insert_id);
-		// $message['result']= $this->support_model->getMessage($insert_id);
-		// $this->load->view('support/ticketcontent_view', $message);	
+		$param_where['cid']= $insert_id;
+		$message['info']= $this->support_model->getConversation($param_where);
+		$message['result']= $this->support_model->getMessage($insert_id);
+		$this->load->view('support/ticketcontent_view', $message);	
 	
 	}
 	
@@ -102,7 +95,6 @@ class Support extends CI_Controller
 					array('id'=>'ca', 'username'=>'u', 'name'=>'ca', 'status'=>'ca')
 		);
 		
-		$this->load->library('pagination');
 		$total= $this->support_model->totalUser($filterData);
 		
 		$config= vst_Pagination($total);
@@ -118,13 +110,12 @@ class Support extends CI_Controller
 		$this->load->view('support/categories_view', $data);
 	}
 	
-	function edit_cat($id)
+	function editCat($id)
 	{
 		$param_where= array('id' => $id);
 		
 		if($this->input->post('save'))
 		{
-
 			if($this->input->post('category')) { $data['name']= $this->input->post('category'); }
 			if($this->input->post('uid')) { $data['uid']= $this->input->post('uid'); }
 			if($this->input->post('status')) { $data['status']= $this->input->post('status'); }
@@ -137,13 +128,13 @@ class Support extends CI_Controller
 				
 				if ($result == TRUE)
 				{
-					message_flash('Updated successfully!');
+					message_flash('Updated Successfully!');
 					redirect('support/categories');
 				}
 				if($result == FALSE)
 				{
-					message_flash('Can not edit yet.','error');
-					redirect('support/edit_cat/'.$id);
+					message_flash('Category update failed.','error');
+					redirect('support/editCat/'.$id);
 				}
 				
 			}
@@ -172,12 +163,12 @@ class Support extends CI_Controller
 				
 				if ($result == TRUE)
 				{
-					message_flash('Added successfully!');
+					message_flash('Inserted successfully!');
 					redirect('support/categories');
 				}
 				if($result == FALSE)
 				{
-					message_flash('Failed', 'error');
+					message_flash('Category addition failed.', 'error');
 					redirect('support/add');
 				}
 			}
@@ -185,7 +176,6 @@ class Support extends CI_Controller
 		
 		$data2['users']= $this->users_model->findUser(null, true);
 		$this->load->view('support/add_view', $data2);
-		
 		
 	}
 	
@@ -195,10 +185,10 @@ class Support extends CI_Controller
 		$success= $this->support_model->delete($param);
 		if($success != 1)
 		{
-			message_flash("Can not delete yet.",'error');
+			message_flash('Deleted Successfully!');
 		}
 		else{
-			message_flash('Deleted successfully!');
+			message_flash('Category delete failed.','error');
 		}
 		redirect('support/categories');
 	}

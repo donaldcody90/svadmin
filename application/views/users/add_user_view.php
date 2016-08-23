@@ -1,8 +1,7 @@
 <?php $this->load->view('_base/head'); ?>
-
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>users">User List</a></li>
-    <li><a href="<?php echo site_url(); ?>users/add">Add new</a></li>
+    <li><a href="<?php echo site_url('users/lists'); ?>">Users</a></li>
+    <li><a href="<?php echo site_url('users/add'); ?>">Add user</a></li>
 </ul>
 <div id="content" class="container fullwidth">
 	<?php $this->load->view('_base/message'); ?>
@@ -22,7 +21,7 @@
 			<?php echo form_error('fullname', '<div class="error">', '</div>'); ?></div>
 		<div class="group-input">
 			<label class="label_input">Email <span class="red">*</span></label>
-			<input placeholder="Email" type="text" name="email" required />
+			<input placeholder="Email" type="email" name="email" required />
 			<?php echo form_error('email', '<div class="error">', '</div>'); ?></div>
 		
 		<input type="submit" name="save" value="Add new" />

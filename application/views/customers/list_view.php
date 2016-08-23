@@ -3,7 +3,6 @@
     <li><a href="<?php echo site_url('customers/lists'); ?>">Customers</a></li>
     <li><a href="<?php echo site_url('customers/add'); ?>">Add</a></li>
 </ul>
-
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
     <h2 class="title ">Customer List</h2>

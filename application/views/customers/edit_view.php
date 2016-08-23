@@ -22,7 +22,7 @@
 		
         <div class="group-input">
             <label class="label_input">Email <span class="red">*</span></label>
-            <input type="text" value="<?php echo $customer['email']; ?>" name="email" required>
+            <input type="email" value="<?php echo $customer['email']; ?>" name="email" required>
 			<?php echo form_error('email', '<div class="error">', '</div>'); ?>
 		</div>
 		<input type="hidden" name="cid" value="<?php echo $customer['id']; ?>"> 

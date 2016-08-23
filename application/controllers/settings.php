@@ -22,30 +22,30 @@ class Settings extends CI_Controller
 		{
 			$count= 0;
 			$data = array();
+			
 			$paypal = $this->input->post('paypal_account');
-			if($paypal!='' ){
-				$data1['meta_value'] = $this->input->post('paypal_account');
-				$param1= array('id' => $this->input->post('paypal_id'));
-				$success1= $this->settings_model->editSettings($data1, $param1);
-				if($success1 == 1){	$count += 1; }
-			}
+			
+			$data1['meta_value'] = $this->input->post('paypal_account');
+			$param1= array('id' => $this->input->post('paypal_id'));
+			$success1= $this->settings_model->editSettings($data1, $param1);
+			if($success1 == 1){	$count += 1; }
+			
 			$vietcombank = $this->input->post('vietcombank_account');
-			if($vietcombank!=''){
-				$data2['meta_value'] = $this->input->post('vietcombank_account');
-				$param2= array('id' => $this->input->post('vietcombank_id'));
-				$success2= $this->settings_model->editSettings($data2, $param2);
-				if($success2 == 1){	$count += 1; }
-			}
+			
+			$data2['meta_value'] = $this->input->post('vietcombank_account');
+			$param2= array('id' => $this->input->post('vietcombank_id'));
+			$success2= $this->settings_model->editSettings($data2, $param2);
+			if($success2 == 1){	$count += 1; }
+			
 			if ($count > 0)
 			{
-				redirect(site_url('settings/edit'));
+				message_flash('Updated Successfully!');
 			}
 			else
 			{
-				message_flash("Nothing changed at all.",'error');
-				redirect(site_url('settings/edit'));
+				message_flash('Nothing changed at all.','error');
 			}
-			
+			redirect(site_url('settings/edit'));
 		}
 		
 		$param_where= array('id' => 1);
@@ -58,8 +58,7 @@ class Settings extends CI_Controller
 			$this->load->view('settings/edit_view', $value);
 		}
 		else{
-			message_flash("Not found.",'error');
-			redirect(site_url('settings/edit'));
+			message_flash('Not found.','error');
 		}
 	}
 	

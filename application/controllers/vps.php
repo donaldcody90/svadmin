@@ -48,28 +48,21 @@ class Vps extends CI_Controller
 		{
 			$param_where= array('id' => $id);
 			$data = array();
-			$ip = $this->input->post('ip');
-			if($ip!='' ){
-				$data['vps_ip'] = $this->input->post('ip');
-			}
-			$label = $this->input->post('label');
-			if($label!=''){
-				$data['vps_label'] = $this->input->post('label');
-			}
-			$rootpass = $this->input->post('rootpass');
-			if($rootpass!=''){
-				$data['rootpass'] = $this->input->post('rootpass');
-			}
+			
+			$data['vps_ip'] = $this->input->post('ip');
+			$data['vps_label'] = $this->input->post('label');
+			$data['rootpass'] = $this->input->post('rootpass');
+			
 			if(count($data) == 3 ){
 				$success= $this->vps_model->editVps($data, $param_where);
 				if ($success == 1)
 				{
-					$this->session->set_flashdata('success', TRUE);
+					message_flash('Updated Successfully!');
 					redirect('vps/lists');
 				}
 				else
 				{
-					$this->session->set_flashdata('error', TRUE);
+					message_flash('VPS update failed.', 'error');
 					redirect('vps/edit/'.$id);
 				}
 				
@@ -89,18 +82,7 @@ class Vps extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('label', 'Label', 'required|trim');
-		$this->form_validation->set_rules('vps_ip', 'VPS IP', 'required|trim|valid_ip');
-		$this->form_validation->set_rules('space', 'Space', 'required|trim');
-		
-		if($this->form_validation->run()== false)
-		{
-			$data['customers']= $this->customers_model->findCustomer();
-			$data['servers']= $this->servers_model->findSV(array(),true);
-			$this->load->view('vps/add_vps_view', $data);
-		}
-		
-		else 
+		if($this->input->post('save'))
 		{
 			require_once APPPATH.'third_party/virtualizor/sdk/admin.php';
 				
@@ -147,11 +129,11 @@ class Vps extends CI_Controller
 					$insert= $this->vps_model->addVps($data2);
 					if($insert == 1)
 					{
-						$this->session->set_flashdata('success', true);
+						message_flash('Inserted Successfully!');
 					}
 					else
 					{
-						$this->session->set_flashdata('error', true);
+						message_flash('VPS addition failed.','error');
 					}
 					redirect('vps/lists');
 				}
@@ -166,19 +148,23 @@ class Vps extends CI_Controller
 			}
 			
 		}
+		
+		$data['customers']= $this->customers_model->findCustomer();
+		$data['servers']= $this->servers_model->findSV(array(),true);
+		$this->load->view('vps/add_vps_view', $data);
 	}
 	
-	function deletevps($id)
+	function delete($id)
 	{
 		$params_where= array('id'=> $id);
 		$result= $this->vps_model->deleteVps($params_where);
 		if ($result == 1)
 		{
-			$this->session->set_flashdata('success', true);
+			message_flash('Deleted Successfully!');
 		}
 		else
 		{
-			$this->session->set_flashdata('error', true);
+			message_flash('VPS delete failed.','error');
 		}
 		redirect('vps/lists');
 	}

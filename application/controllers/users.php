@@ -53,7 +53,7 @@ class Users extends CI_Controller
 			redirect(site_url('404'));
 		if(empty($cid) || $cid <=0)
 		{
-			$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+			$res=array('Response'=>"Error","Error"=>"Can not found user.");
 		}
 		else{
 			
@@ -64,7 +64,7 @@ class Users extends CI_Controller
 				$res=array('Response'=>"Success","Message"=>$content);
 			}
 			else{
-				$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+				$res=array('Response'=>"Error","Error"=>"Can not found user.");
 			}
 		}
 		echo json_encode($res);
@@ -79,8 +79,7 @@ class Users extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$confirmspassword = $this->input->post('confirmspassword');
-		// $data123= array('uid'=>$uid, 'username'=>$username, 'pass'=>$password, 'confpass'=>$confirmspassword);
-		// print_r($data123);die;
+		
 		if( empty($cid) || empty($username) || empty($password) || empty($confirmspassword) )
 		{
 			$res=array('Response'=>"Error","Error"=>"Dữ liệu không hợp lệ.");
@@ -107,97 +106,53 @@ class Users extends CI_Controller
 		echo json_encode($res);
 	}
 	
-	function profile($uid)
-	{
-		
-		if ($this->session->userdata('access') == 'Customer' && $uid != $this->session->userdata('user_id'))
-		{
-			redirect('auth/login');
-		}
-		else
-		{
-			$params_where= array('id'=> $uid);
-			$data['row']= $this->users_model->findUser($params_where);
-					
-			$this->load->view('users/profile_view', $data);
-		}
-	
-	}
 	
 	
 	function update($uid)
 	{
 		
-		$this->form_validation->set_rules('username', 'Username', 'alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
-		$this->form_validation->set_rules('fullname', 'Full name', 'min_length[2]|max_length[20]|trim');
-		$this->form_validation->set_rules('password', 'Password', 'min_length[6]|trim');
-		$this->form_validation->set_rules('email', 'Email', 'valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
-		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
-		
-		if ($this->form_validation->run() == false)
-		{
-			$params_where= array('id'=> $uid);
-			$data['data']= $this->users_model->findUser($params_where);
-			//print_r($data['data']);die;
-			$this->load->view('users/edit_view', $data);
-		}
-		if ($this->form_validation->run() == true)
+		if ($this->input->post('save'))
 		{
 			$params_where= array('id' => $uid);
 			$data = array();
-			$username = $this->input->post('username');
-			if($username!='' ){
-				$data['username'] = $this->input->post('username');
-			}
-			$fullname = $this->input->post('fullname');
-			if($fullname!='' ){
-				$data['fullname'] = $this->input->post('fullname');
-			}
-			$password = $this->input->post('password');
-			if($password!=''){
-				$data['password'] = hash('sha512', $this->input->post('password'));
-			}
-			$email = $this->input->post('email');
-			if($email!=''){
-				$data['email'] = $this->input->post('email');
-			}
+			
+			$data['username'] = $this->input->post('username');
+			$data['fullname'] = $this->input->post('fullname');
+			$data['password'] = vst_password($this->input->post('password'));
+			$data['email'] = $this->input->post('email');
 			
 			if(count($data)>0 ){
 				$success= $this->users_model->updateUser($data, $params_where);
 				if ($success > 0)
 				{
-					message_flash('Updated successfully!');
+					message_flash('Updated Successfully!');
 					redirect('users/lists');
 				}
 				else
 				{
-					message_flash('Can not update at this time.', 'error');
+					message_flash('User update failed.', 'error');
 					redirect('users/edit/'.$uid);
 				}
 				
 			}
 		}
 		
-		
+		$params_where= array('id'=> $uid);
+		$data['users']= $this->users_model->findUser($params_where);
+		if(count($data['users']))
+		{
+			$this->load->view('users/edit_view', $data);
+		}
+		else{
+			message_flash('User not found','error');
+			redirect(site_url('users/lists'));
+		}
 	}
 	
 	
 	function add()
 	{
-		$this->form_validation->set_rules('fullname', 'Full name', 'required|min_length[2]|trim');
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
-		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
-		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
-		
-		if ($this->form_validation->run() == false)
-		{
-			$this->load->view('users/add_user_view');
-		}
-		else
+		if ($this->input->post('save'))
 		{
 			$data['fullname']= $_POST['fullname'];
 			$data['username']= $_POST['username'];
@@ -210,31 +165,31 @@ class Users extends CI_Controller
 			
 			if ($result == 1)
 			{
-				$this->session->set_flashdata('success', true);
+				message_flash('Updated Successfully!');
 				redirect('users/lists');
 			}
 			else
 			{
-				$this->session->set_flashdata('error', true);
+				message_flash('User addition failed.', 'error');
 				redirect('users/add');
 			}
 		}
 		
-		
+		$this->load->view('users/add_user_view');
 	}
 	
 	
-	function delete_user($uid)
+	function delete($uid)
 	{
 		$params_where= array('id'=> $uid);
 		$result= $this->users_model->deleteUser($params_where);
 		if ($result == 1)
 		{
-			$this->session->set_flashdata('success', true);
+			message_flash('Deleted Successfully!');
 		}
 		else
 		{
-			$this->session->set_flashdata('error', true);
+			message_flash('User delete failed.', 'error');
 		}
 		redirect('users/lists');
 		

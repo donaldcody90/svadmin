@@ -1,6 +1,8 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url().'support/lists'; ?>">Tikets</a></li>
+    <li><a href="<?php echo site_url('support'); ?>">Tikets</a></li>
+    <li><a href="<?php echo site_url('support/categories'); ?>">Categories</a></li>
+    <li><a href="<?php echo site_url('support/add'); ?>">Add category</a></li>
 </ul>
 <div class="ticket_page">
     <?php $this->load->view('_base/message'); ?>
@@ -16,7 +18,7 @@
 		</div>
 		
 		<?php echo form_open(current_url()); ?>
-			<textarea type="text" placeholder="Reply..." name="reply" ></textarea><br>
+			<textarea type="text" placeholder="Reply..." name="reply" required ></textarea><br>
 			<button type="submit" class="reply">Post Reply</button>
 		</form>
 		

@@ -24,9 +24,7 @@ class Customers extends CI_Controller
 		
 		$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_fullname', 'filter_email'));
 		
-		$this->load->library('pagination');
 		$total= $this->customers_model->totalCustomer($filterData);
-		
 		$config= vst_Pagination($total);
 		$this->pagination->initialize($config);
 		
@@ -49,7 +47,7 @@ class Customers extends CI_Controller
 			redirect(site_url('404'));
 		if(empty($cid) || $cid <=0)
 		{
-			$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+			$res=array('Response'=>"Error","Error"=>"Can not found any customer.");
 		}
 		else{
 			
@@ -60,7 +58,7 @@ class Customers extends CI_Controller
 				$res=array('Response'=>"Success","Message"=>$content);
 			}
 			else{
-				$res=array('Response'=>"Error","Error"=>"Không tìm thấy khách hàng.");
+				$res=array('Response'=>"Error","Error"=>"Can not found any customer.");
 			}
 		}
 		echo json_encode($res);
@@ -112,14 +110,21 @@ class Customers extends CI_Controller
 				// do save
 				$data['fullname']=$this->input->post('fullname');
 				$data['email']=$this->input->post('email');
-				$this->customers_model->updateCustomer($data,array('id'=> $uid));
-				message_flash("Update successfully.");
-				redirect(site_url('customers/lists'));
+				$result= $this->customers_model->updateCustomer($data,array('id'=> $uid));
+				if($result)
+				{
+					message_flash('Updated Successfully!');
+					redirect(site_url('customers/lists'));
+				}
+				else{
+					message_flash('Customer update failed.', 'error');
+					redirect(site_url('customers/edit/'.$uid));
+				}
 			}
 			$data['customer']=$customerInfo;
 			$this->load->view('customers/edit_view', $data);
 		}else{
-			message_flash("Customer not found.",'error');
+			message_flash('Customer not found.','error');
 			redirect(site_url('customers/lists'));
 		}
 		
@@ -128,41 +133,30 @@ class Customers extends CI_Controller
 	
 	function add()
 	{
-		$this->form_validation->set_rules('fullname', 'Full name', 'required|min_length[2]|max_length[20]|trim');
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric|min_length[3]|max_length[20]|trim|is_unique[users.username]|is_unique[customers.username]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[users.email]|is_unique[customers.email]');
 		
-		$this->form_validation->set_message('is_unique', 'This %s is already registered.');
-		$this->form_validation->set_message('matches', 'That is not the same password as the first one.');
-		
-		if ($this->form_validation->run() == false)
+		if($this->input->post('save'))
 		{
-			$this->load->view('customers/add_view');
-		}
-		else
-		{
-			$data['fullname']= $_POST['fullname'];
-			$data['username']= $_POST['username'];
-			$data['password']= hash('sha512', $_POST['password']);
-			$data['email']= $_POST['email'];
+			$data['fullname']= $this->input->post('fullname');
+			$data['username']= $this->input->post('username');
+			$data['password']= vst_password($this->input->post('password'));
+			$data['email']= $this->input->post('email');
 			
 			$result= $this->customers_model->addCustomer($data);
 			
 			
 			if ($result == TRUE)
 			{
-				$this->session->set_flashdata('success', true);
+				message_flash('Inserted Successfully!');
 				redirect('customers/lists');
 			}
 			if($result == FALSE)
 			{
-				$this->session->set_flashdata('error', true);
+				message_flash('Customer addition failed.','error');
 				redirect('customers/add');
 			}
 		}
 		
-		
+		$this->load->view('customers/add_view');
 	}
 	
 	
@@ -173,11 +167,11 @@ class Customers extends CI_Controller
 		$result= $this->customers_model->deleteCustomer($params_where);
 		if ($result)
 		{
-			message_flash("Delete successfully.");
+			message_flash('Deleted successfully!');
 		}
 		else
 		{
-			message_flash("Delete faild.",'error');
+			message_flash('Customer delete failed.','error');
 		}
 		redirect('customers/lists');
 		

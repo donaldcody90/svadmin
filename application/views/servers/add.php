@@ -4,6 +4,8 @@
     <li><a href="<?php echo site_url('servers/add'); ?>">Add server</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add VPS</a></li>
+    <li><a href="<?php echo site_url('plans/lists'); ?>">Plans</a></li>
+    <li><a href="<?php echo site_url('plans/add'); ?>">Add plan</a></li>
 </ul>
 <?php
     // echo "<pre>";

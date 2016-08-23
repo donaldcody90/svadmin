@@ -13,7 +13,7 @@ $cMedthod=vst_getMethod();
 			echo '<li><a href="'.site_url('users').'">Users</a></li>';
 		}
 		?>
-		<li <?php echo ($cController == 'servers' || $cController == 'vps') ? 'class="active"':'' ?>><a href="<?php echo site_url( 'servers' );?>">Servers</a></li>
+		<li <?php echo ($cController == 'servers' || $cController == 'vps' || $cController == 'plans') ? 'class="active"':'' ?>><a href="<?php echo site_url( 'servers' );?>">Servers</a></li>
 		<li <?php echo $cController == 'support' ? 'class="active"':'' ?>><a href="<?php echo site_url( 'support' );?>">Support</a></li>
 		<li <?php echo $cController == 'settings' ? 'class="active"':'' ?>><a href="<?php echo site_url( 'settings' );?>">Settings</a></li>
 	</ul>

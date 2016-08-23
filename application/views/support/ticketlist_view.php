@@ -1,8 +1,8 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>support">Tikets</a></li>
-    <li><a href="<?php echo site_url(); ?>support/categories">Categories</a></li>
-    <li><a href="<?php echo site_url(); ?>support/add">Add category</a></li>
+    <li><a href="<?php echo site_url('support'); ?>">Tikets</a></li>
+    <li><a href="<?php echo site_url('support/categories'); ?>">Categories</a></li>
+    <li><a href="<?php echo site_url('support/add'); ?>">Add category</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>

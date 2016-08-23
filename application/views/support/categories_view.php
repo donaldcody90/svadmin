@@ -1,8 +1,8 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>support">Tikets</a></li>
-    <li><a href="<?php echo site_url(); ?>support/categories">Categories</a></li>
-    <li><a href="<?php echo site_url(); ?>support/add">Add category</a></li>
+    <li><a href="<?php echo site_url('support'); ?>">Tikets</a></li>
+    <li><a href="<?php echo site_url('support/categories'); ?>">Categories</a></li>
+    <li><a href="<?php echo site_url('support/add'); ?>">Add category</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
@@ -46,7 +46,7 @@
 						<td><?php echo $row->username ; ?></td>
 						<td><?php echo getStatusCategories($row->status); ?></td>
 						<td>
-							<a href="<?php echo site_url().'support/edit_cat/'.$row->id; ?>" >Edit</a>
+							<a href="<?php echo site_url().'support/editCat/'.$row->id; ?>" >Edit</a>
 							<a href="<?php echo site_url().'support/delete/'.$row->id; ?>"onclick="return confirm('Are you sure you want to delete?')" >Delete</a>
 						</td>
 					</tr>

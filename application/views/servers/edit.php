@@ -4,6 +4,8 @@
     <li><a href="<?php echo site_url('servers/add'); ?>">Add server</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add VPS</a></li>
+    <li><a href="<?php echo site_url('plans/lists'); ?>">Plans</a></li>
+    <li><a href="<?php echo site_url('plans/add'); ?>">Add plan</a></li>
 </ul>
 <?php
     // echo "<pre>";
@@ -16,25 +18,25 @@
     <form name="edit" action="" method="POST">
         <div class="group-input">
             <label class="label_input">IP <span class="red">*</span></label>
-            <input type="text" value="<?php echo $server['ip']; ?>" name="ip">
+            <input type="text" value="<?php echo $server['ip']; ?>" name="ip" required >
 			<?php echo form_error('ip', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Label <span class="red">*</span></label>
-            <input type="text" value="<?php echo $server['label']; ?>" name="label">
+            <input type="text" value="<?php echo $server['label']; ?>" name="label" required >
 			<?php echo form_error('label', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Key <span class="red">*</span></label>
-            <input type="text" value="<?php echo $server['svkey']; ?>" name="key">
+            <input type="text" value="<?php echo $server['svkey']; ?>" name="key" required >
 			<?php echo form_error('key', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
             <label class="label_input">Password <span class="red">*</span></label>
-            <input type="text" value="<?php echo $server['svpass']; ?>" name="password">
+            <input type="text" value="<?php echo $server['svpass']; ?>" name="password" required >
 			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
         </div>
       <!--   <input type="hidden" name="uid" value="1"> -->

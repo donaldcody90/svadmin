@@ -1,7 +1,7 @@
 <?php $this->load->view('_base/head'); ?>
 <ul id="dropdow_menu">
-    <li><a href="<?php echo site_url(); ?>users">Users</a></li>
-    <li><a href="<?php echo site_url(); ?>users/add">Add user</a></li>
+    <li><a href="<?php echo site_url('users/lists'); ?>">Users</a></li>
+    <li><a href="<?php echo site_url('users/add'); ?>">Add user</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
@@ -42,7 +42,7 @@
 						<td><?php echo getRoleText($value->role); ?></td>
 						<td>
 							<a class="edit" href="<?php echo site_url() . 'users/update/' . $value->id; ?>">Edit</a>
-							<a class="delete" href="<?php echo site_url() . 'users/delete_user/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+							<a class="delete" href="<?php echo site_url() . 'users/delete/' . $value->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 							<button class="link_ajax" onclick="openPopup('<?php echo site_url('users/changepassword'); ?>',{cid:<?php echo  $value->id; ?>},600,500)">
 								Change password
 							</button>

@@ -4,6 +4,8 @@
     <li><a href="<?php echo site_url('servers/add'); ?>">Add server</a></li>
     <li><a href="<?php echo site_url('vps'); ?>">VPS</a></li>
     <li><a href="<?php echo site_url('vps/add'); ?>">Add VPS</a></li>
+    <li><a href="<?php echo site_url('plans/lists'); ?>">Plans</a></li>
+    <li><a href="<?php echo site_url('plans/add'); ?>">Add plan</a></li>
 </ul>
 <div id="content" class="container fullwidth">
     <?php $this->load->view('_base/message'); ?>
@@ -52,7 +54,7 @@
 				<td><?php echo $row->ram; ?></td>
 				<td>
 					<a class="edit" href="<?php echo site_url() . 'vps/edit/' . $row->id; ?>">Edit</a>
-					<a class="delete" href="<?php echo site_url() . 'vps/deletevps/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+					<a class="delete" href="<?php echo site_url() . 'vps/delete/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 				</td>
 			</tr>
 			<?php } ?>

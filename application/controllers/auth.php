@@ -26,46 +26,38 @@ class Auth extends CI_Controller
 	
 	function login()
 	{
-		$username = $this->input->post("username");
-        $password = $this->input->post("password");
-		$this->form_validation->set_rules('username', 'Username', 'required|trim|max_length[50]');
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|max_length[50]');
 		
-		if ($this->form_validation->run() == FALSE)
+		$username = $this->input->post('username');
+        $password = $this->input->post('password');
+		
+		if ($this->input->post('btn_login'))
 		{
-			$this->load->view('auth/login');
+			
+			$data= $this->users_model->findUser( array('username'=> $username, 'password'=> vst_password($password)) );
+			$role= $data['role'];
+			$user_id= $data['id'];
+			if(count($data)){
+				$this->session->set_userdata(array(
+								'logged_in'=> true,
+								'user_id' => $user_id,
+								'username' => $username,
+								'role'	=>	$role
+							));
+				
+				redirect('customers');
+			}
+			else{
+				message_flash('Username or Password is not correct. Please try again!','error');
+				redirect(site_url('auth/login'));
+			}    
+	  
 		}
 		else
 		{
-			if ($this->input->post('btn_login'))
-		    {
-			  
-				$data= $this->users_model->findUser( array('username'=> $username, 'password'=> vst_password($password)) );
-				$role= $data['role'];
-				$user_id= $data['id'];
-				if(count($data)){
-					$this->session->set_userdata(array(
-									'logged_in'=> true,
-									'user_id' => $user_id,
-									'username' => $username,
-									'role'	=>	$role
-								));
-					
-					redirect('customers');
-				}
-				else{
-					message_flash('Tên đăng nhập hoặc mật khẩu không đúng. Xin vui lòng nhập lại !!!','error');
-					redirect(site_url('auth/login'));
-				}    
-		  
-		    }
-			else
-			{
-			   redirect(site_url('auth/login'));
-		    }
+		   $this->load->view('auth/login');
 		}
-	}
 	
+	}
 	
 	
 	//----------------------Logout-------------------
@@ -73,8 +65,7 @@ class Auth extends CI_Controller
 	
 	function logout()
 	{
-		// $item = array('username' => '', 'logged_in' => '', 'user_id' => '', 'access' => '');
-		// $this->session->unset_userdata($items);
+		
 		$this->session->sess_destroy();
 		redirect('auth/login');
 
