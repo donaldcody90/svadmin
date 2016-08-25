@@ -1,5 +1,5 @@
 <?php
-	 defined('BASEPATH') OR exit('No direct script access allowed');
+	defined('BASEPATH') OR exit('No direct script access allowed');
 	//Debug SQL
 	$this->output->enable_profiler(TRUE); 
 ?>
@@ -37,7 +37,8 @@
 	?>
 
 
-	<title><?php echo $siteSconfig['title']; ?></title>
+	<title><?php $siteSconfig = $this->config->item('site'); $cController=vst_getController();
+					echo $cController.' - '.$siteSconfig['title']; ?></title>
 
 <body class="<?php echo vst_getBodyClass(); ?>">
 <div id="wrapper">

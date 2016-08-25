@@ -17,28 +17,30 @@
 	
     <form name="edit" action="" method="POST">
         <div class="group-input">
-            <label class="label_input">IP <span class="red">*</span></label>
-            <input type="text" value="<?php echo $server['ip']; ?>" name="ip" required >
-			<?php echo form_error('ip', '<div class="error">', '</div>'); ?>
-        </div>
-		
-        <div class="group-input">
-            <label class="label_input">Label <span class="red">*</span></label>
+            <label class="label_input">Label <span class="red"></span></label>
             <input type="text" value="<?php echo $server['label']; ?>" name="label" required >
-			<?php echo form_error('label', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
-            <label class="label_input">Key <span class="red">*</span></label>
+            <label class="label_input">IP <span class="red"></span></label>
+            <input type="text" value="<?php echo $server['ip']; ?>" name="ip" required >
+        </div>
+		
+        <div class="group-input">
+            <label class="label_input">Key <span class="red"></span></label>
             <input type="text" value="<?php echo $server['svkey']; ?>" name="key" required >
-			<?php echo form_error('key', '<div class="error">', '</div>'); ?>
         </div>
 		
         <div class="group-input">
-            <label class="label_input">Password <span class="red">*</span></label>
+            <label class="label_input">Password <span class="red"></span></label>
             <input type="text" value="<?php echo $server['svpass']; ?>" name="password" required >
-			<?php echo form_error('password', '<div class="error">', '</div>'); ?>
         </div>
+		
+        <div class="group-input">
+            <label class="label_input">Description <span class="red"></span></label>
+            <input type="text" value="<?php echo $server['description']; ?>" name="description" required >
+        </div>
+		
       <!--   <input type="hidden" name="uid" value="1"> -->
         
         <input type="submit" name="save" value="Save">

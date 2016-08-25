@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2016 at 01:05 PM
+-- Generation Time: Aug 25, 2016 at 06:28 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -213,10 +213,13 @@ CREATE TABLE `plans` (
 --
 
 INSERT INTO `plans` (`id`, `name`, `price`, `cpu_core`, `disk_space`, `ram`, `bandwidth`, `status`) VALUES
-(2, 'plan 1', 50, 4, 5, 512, 500, 1),
-(3, 'plan 3', 100, 2, 20, 2048, 1000, 1),
-(4, 'Vietnam', 80, 8, 120, 4096, 30000, 1),
-(5, '15 GB SSD', 5, 1, 15, 768, 1000, 1);
+(2, '15 GB SSD', 5, 1, 15, 768, 1000, 1),
+(3, '20 GB SSD', 10, 1, 20, 1024, 2000, 1),
+(4, '45 GB SSD', 20, 2, 45, 2048, 3000, 1),
+(5, '90 GB SSD', 40, 4, 90, 4096, 4000, 1),
+(6, '150 GB SSD', 80, 6, 150, 8192, 5000, 1),
+(7, '300 GB SSD', 160, 8, 300, 16384, 6000, 1),
+(8, '600 GB SSD', 320, 16, 600, 32768, 10000, 1);
 
 -- --------------------------------------------------------
 
@@ -238,7 +241,13 @@ CREATE TABLE `servers` (
 --
 
 INSERT INTO `servers` (`id`, `label`, `ip`, `svkey`, `svpass`, `description`) VALUES
-(25, 'United States', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', '');
+(25, 'Tokyo', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'Japan'),
+(26, 'Amsterdam', '123.124.234.189', 'aksdfvnaikfdcnalefdjalksj', 'aolfdjjowieksdnlaskjfoialskfj', 'Netherlands'),
+(27, 'Frankfurt', '56.136.149.98', 'skfnasivhdnhwdnksd', 'lasdkfjalsdfjlasfosfldkfjalskdj', 'Germany'),
+(28, 'Paris', '78.56.12.34', 'oislkdafjoisfslkjfls', 'alkdfjalsdfkvnasdlsfkdoafkl', 'France'),
+(29, 'London', '74.56.125.89', 'asdklvnadlknldnvkdknlkn', 'laskdfjoienvhsldkjoiasfdnoj', 'United Kingdom'),
+(30, 'Los Angeles', '78.32.16.96', 'alsdkfjasfknasvlskdjfoaiewofv', 'alkdjfaoiejfnoilksdjojfowijdf', 'United States'),
+(31, 'Sydney', '78.23.45.25', 'asldkfjsaofivnosldfolenfvoia', 'lakdfjoweinvoilkdsfieoidfkao', 'Australia');
 
 -- --------------------------------------------------------
 
@@ -323,7 +332,9 @@ INSERT INTO `vps` (`id`, `cid`, `pid`, `svid`, `vps_label`, `vps_ip`, `rootpass`
 (2, 1002, 3, 3, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
 (3, 1002, 5, 3, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
 (4, 1002, 4, 5, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
-(5, 1001, 2, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096);
+(5, 1001, 2, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
+(6, 1002, 6, 25, 'llllllllllllllllllll', '1.1.1.1', 'ykhtgbfddpab165xcplvmrqfob68vu', '2016-08-25 03:46:54', NULL, NULL),
+(7, 1002, 2, 25, 'pppppppppppppppp', '1.1.1.1', 'yk73sfcyqzraz3fnb3t4vuvcfn4d7f', '2016-08-25 05:17:27', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -409,7 +420,7 @@ ALTER TABLE `billing`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -419,7 +430,7 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1009;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 --
 -- AUTO_INCREMENT for table `message`
 --
@@ -429,12 +440,12 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `servers`
 --
 ALTER TABLE `servers`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -449,7 +460,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vps`
 --
 ALTER TABLE `vps`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

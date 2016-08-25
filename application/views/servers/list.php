@@ -17,6 +17,7 @@
             $filter_ip = $this->input->get('filter_ip');
             $filter_svkey = $this->input->get('filter_svkey');
             $filter_svpass = $this->input->get('filter_svpass');
+            $filter_description = $this->input->get('filter_description');
         ?>
         <form name="filter_form" action="<?php echo site_url('servers/lists'); ?>" method="GET">
             ID:<input type="text" value="<?php echo isset($filter_id)?$filter_id:''; ?>" name="filter_id">
@@ -24,6 +25,7 @@
             IP Address:<input type="text" value="<?php echo isset($filter_ip)?$_GET['filter_ip']:''; ?>" name="filter_ip">
             Key:<input type="text" value="<?php echo isset($filter_svkey)?$_GET['filter_svkey']:''; ?>" name="filter_svkey">
             Password:<input type="text" value="<?php echo isset($filter_svpass)?$_GET['filter_svpass']:''; ?>" name="filter_svpass">
+            Description:<input type="text" value="<?php echo isset($filter_description)?$_GET['filter_description']:''; ?>" name="filter_description">
             
             <input class="button" type="submit" value="Search" />
             <a href="<?php echo site_url('servers/lists') ?>"><input class="button" type="button" value="Clear"></a>
@@ -37,6 +39,7 @@
 				<td>IP Address</td>
 				<td>Key</td>
 				<td>Password</td>
+				<td>Description</td>
 				<td>Action</td>
 			</tr>
 			<?php foreach($result as $key => $row){ ?>
@@ -46,6 +49,7 @@
 				<td><?php echo $row->ip; ?></td>
 				<td><?php echo $row->svkey; ?></td>
 				<td><?php echo $row->svpass; ?></td>
+				<td><?php echo $row->description; ?></td>
 				<td>
 					<a class="edit" href="<?php echo site_url() . 'servers/edit/' . $row->id; ?>">Edit</a>
 					<a class="delete" href="<?php echo site_url() . 'servers/delete/' . $row->id; ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>

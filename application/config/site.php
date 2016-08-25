@@ -15,11 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['site'] = array(
 
 	// Site name
-	'name' => 'Hàng Quảng châu',
+	'name' => 'Vultr',
 
 	// Default page title
 	// (set empty then MY_Controller will automatically generate one based on controller / action)
-	'title' => 'VskyTech',
+	'title' => 'Vultr.com Administrator',
 
 	// Default meta data (name => content)
 	'meta'	=> array(

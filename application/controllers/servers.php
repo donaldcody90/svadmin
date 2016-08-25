@@ -56,6 +56,7 @@ class Servers extends CI_Controller
 			$data['svkey'] = $this->input->post('key');
 			$data['label'] = $this->input->post('label');
 			$data['svpass'] = $this->input->post('password');
+			$data['description'] = $this->input->post('description');
 			
 			$success= $this->servers_model->updateSV($data, $params_where);
 			if ($success == 1)
@@ -93,7 +94,7 @@ class Servers extends CI_Controller
 			$data['label']= $this->input->post('label');
 			$data['svkey']= $this->input->post('key');
 			$data['svpass']= $this->input->post('password');
-			
+			$data['description'] = $this->input->post('description');
 			
 			$result= $this->servers_model->addSV($data);
 			
