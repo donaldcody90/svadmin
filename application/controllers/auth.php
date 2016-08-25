@@ -10,6 +10,9 @@ class Auth extends CI_Controller
 		$this->load->model('users_model');
 	}
 	
+	
+	
+	
 	function index()
 	{
 		if(is_logged_in())
