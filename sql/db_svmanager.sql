@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2016 at 06:28 AM
+-- Generation Time: Aug 25, 2016 at 09:48 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -230,24 +230,25 @@ INSERT INTO `plans` (`id`, `name`, `price`, `cpu_core`, `disk_space`, `ram`, `ba
 CREATE TABLE `servers` (
   `id` bigint(20) NOT NULL,
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `svkey` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `svpass` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `servers`
 --
 
-INSERT INTO `servers` (`id`, `label`, `ip`, `svkey`, `svpass`, `description`) VALUES
-(25, 'Tokyo', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'Japan'),
-(26, 'Amsterdam', '123.124.234.189', 'aksdfvnaikfdcnalefdjalksj', 'aolfdjjowieksdnlaskjfoialskfj', 'Netherlands'),
-(27, 'Frankfurt', '56.136.149.98', 'skfnasivhdnhwdnksd', 'lasdkfjalsdfjlasfosfldkfjalskdj', 'Germany'),
-(28, 'Paris', '78.56.12.34', 'oislkdafjoisfslkjfls', 'alkdfjalsdfkvnasdlsfkdoafkl', 'France'),
-(29, 'London', '74.56.125.89', 'asdklvnadlknldnvkdknlkn', 'laskdfjoienvhsldkjoiasfdnoj', 'United Kingdom'),
-(30, 'Los Angeles', '78.32.16.96', 'alsdkfjasfknasvlskdjfoaiewofv', 'alkdjfaoiejfnoilksdjojfowijdf', 'United States'),
-(31, 'Sydney', '78.23.45.25', 'asldkfjsaofivnosldfolenfvoia', 'lakdfjoweinvoilkdsfieoidfkao', 'Australia');
+INSERT INTO `servers` (`id`, `label`, `description`, `ip`, `svkey`, `svpass`, `location`) VALUES
+(25, 'Tokyo', '', '188.166.221.247', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'gvubeiwa4enzdbai4gwidpzjgujj7f6a', 'Japan'),
+(26, 'Amsterdam', '', '123.124.234.189', 'aksdfvnaikfdcnalefdjalksj', 'aolfdjjowieksdnlaskjfoialskfj', 'Netherlands'),
+(27, 'Frankfurt', '', '56.136.149.98', 'skfnasivhdnhwdnksd', 'lasdkfjalsdfjlasfosfldkfjalskdj', 'Germany'),
+(28, 'Paris', '', '78.56.12.34', 'oislkdafjoisfslkjfls', 'alkdfjalsdfkvnasdlsfkdoafkl', 'France'),
+(29, 'London', '', '74.56.125.89', 'asdklvnadlknldnvkdknlkn', 'laskdfjoienvhsldkjoiasfdnoj', 'United Kingdom'),
+(30, 'Los Angeles', '', '78.32.16.96', 'alsdkfjasfknasvlskdjfoaiewofv', 'alkdjfaoiejfnoilksdjojfowijdf', 'United States'),
+(31, 'Sydney', '', '78.23.45.25', 'asldkfjsaofivnosldfolenfvoia', 'lakdfjoweinvoilkdsfieoidfkao', 'Australia');
 
 -- --------------------------------------------------------
 

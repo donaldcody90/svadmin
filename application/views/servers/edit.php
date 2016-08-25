@@ -22,6 +22,11 @@
         </div>
 		
         <div class="group-input">
+            <label class="label_input">Description <span class="red"></span></label>
+            <input type="text" value="<?php echo $server['description']; ?>" name="description">
+        </div>
+		
+        <div class="group-input">
             <label class="label_input">IP <span class="red"></span></label>
             <input type="text" value="<?php echo $server['ip']; ?>" name="ip" required >
         </div>
@@ -37,8 +42,8 @@
         </div>
 		
         <div class="group-input">
-            <label class="label_input">Description <span class="red"></span></label>
-            <input type="text" value="<?php echo $server['description']; ?>" name="description" required >
+            <label class="label_input">Location <span class="red"></span></label>
+            <input type="text" value="<?php echo $server['location']; ?>" name="location" required >
         </div>
 		
       <!--   <input type="hidden" name="uid" value="1"> -->

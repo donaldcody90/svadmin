@@ -52,11 +52,12 @@ class Servers extends CI_Controller
 		{
 			
 			$params_where= array('id' => $id);
-			$data['ip'] = $this->input->post('ip');
-			$data['svkey'] = $this->input->post('key');
-			$data['label'] = $this->input->post('label');
-			$data['svpass'] = $this->input->post('password');
+			$data['ip']= $this->input->post('ip');
+			$data['label']= $this->input->post('label');
 			$data['description'] = $this->input->post('description');
+			$data['svkey']= $this->input->post('key');
+			$data['svpass']= $this->input->post('password');
+			$data['location'] = $this->input->post('location');
 			
 			$success= $this->servers_model->updateSV($data, $params_where);
 			if ($success == 1)
@@ -92,9 +93,10 @@ class Servers extends CI_Controller
 		{
 			$data['ip']= $this->input->post('ip');
 			$data['label']= $this->input->post('label');
+			$data['description'] = $this->input->post('description');
 			$data['svkey']= $this->input->post('key');
 			$data['svpass']= $this->input->post('password');
-			$data['description'] = $this->input->post('description');
+			$data['location'] = $this->input->post('location');
 			
 			$result= $this->servers_model->addSV($data);
 			
