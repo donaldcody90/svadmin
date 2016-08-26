@@ -141,18 +141,28 @@ class Customers extends CI_Controller
 			$data['password']= vst_password($this->input->post('password'));
 			$data['email']= $this->input->post('email');
 			
-			$result= $this->customers_model->addCustomer($data);
+			$params_where= array('username' => $this->input->post('username'));
+			$condition= $this->customers_model->findCustomer($params_where);
 			
-			
-			if ($result == TRUE)
+			if($condition)
 			{
-				message_flash('Inserted Successfully!');
-				redirect('customers/lists');
-			}
-			if($result == FALSE)
-			{
-				message_flash('Customer addition failed.','error');
+				message_flash('This username is already registered. Please choose another one!', 'error');
 				redirect('customers/add');
+			}
+			else
+			{
+				$result= $this->customers_model->addCustomer($data);
+			
+				if ($result == TRUE)
+				{
+					message_flash('Inserted Successfully!');
+					redirect('customers/lists');
+				}
+				if($result == FALSE)
+				{
+					message_flash('Customer addition failed.','error');
+					redirect('customers/add');
+				}
 			}
 		}
 		

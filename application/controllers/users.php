@@ -158,18 +158,28 @@ class Users extends CI_Controller
 			$data['email']= $this->input->post('email');
 			$data['role']= $this->input->post('role');
 			
-			$result= $this->users_model->addUser($data);
+			$params_where= array('username' => $this->input->post('username'));
+			$condition= $this->users_model->findUser($params_where);
 			
-			
-			if ($result == 1)
+			if($condition)
 			{
-				message_flash('Updated Successfully!');
-				redirect('users/lists');
+				message_flash('This username is already registered. Please choose another one!', 'error');
+				redirect('users/add');
 			}
 			else
 			{
-				message_flash('User addition failed.', 'error');
-				redirect('users/add');
+				$result= $this->users_model->addUser($data);
+				
+				if ($result == 1)
+				{
+					message_flash('Updated Successfully!');
+					redirect('users/lists');
+				}
+				else
+				{
+					message_flash('User addition failed.', 'error');
+					redirect('users/add');
+				}
 			}
 		}
 		
