@@ -53,11 +53,25 @@ input[type=text] {padding:5px; border:2px solid #ccc;
     border-radius: 5px;
 }
 input[type=text]:focus {border-color:#333; }
+
+select {padding:5px; border:2px solid #ccc; 
+-webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+select:focus {border-color:#333; }
+
+input[type=email] {padding:5px; border:2px solid #ccc; 
+-webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+input[type=email]:focus {border-color:#333; }
+
 input[type=password] {padding:5px; border:2px solid #ccc; 
 -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 input[type=password]:focus {border-color:#333; }
+
 input[type=submit] { 
     background-color: #28aadc;
     color: white;
@@ -202,6 +216,22 @@ input[type=submit] {
 .gridtable tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
+
+.gridtable tr td:last-child {
+	width: 250px;
+	text-align: center;
+}
+
+.gridtable tr td:last-child button{
+	text-decoration: none;
+	color: violet;
+}
+
+.gridtable tr td:last-child .delete{
+	color: red;
+}
+
+
 .information { padding: 25px 280px; }
 .information h3.blue{ text-align: center;font-size: 20px;padding: 20px 0px; }
 .information .detail .left{ float: left; width: 50%; }

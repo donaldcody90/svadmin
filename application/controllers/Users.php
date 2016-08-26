@@ -152,11 +152,11 @@ class Users extends CI_Controller
 	{
 		if ($this->input->post('save'))
 		{
-			$data['fullname']= $_POST['fullname'];
-			$data['username']= $_POST['username'];
-			$data['password']= hash('sha512', $_POST['password']);
-			$data['email']= $_POST['email'];
-			$data['role']= 0;
+			$data['fullname']= $this->input->post('fullname');
+			$data['username']= $this->input->post('username');
+			$data['password']= vst_password($this->input->post('password'));
+			$data['email']= $this->input->post('email');
+			$data['role']= $this->input->post('role');
 			
 			$result= $this->users_model->addUser($data);
 			

@@ -1,11 +1,11 @@
-﻿<?php 
+<?php 
 if(!defined ('BASEPATH')) exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
 	function __construct()
 	{
-		parent::__construct();
+		parent:: __construct();
 		$this->load->model('auth_model');
 		$this->load->model('users_model');
 	}

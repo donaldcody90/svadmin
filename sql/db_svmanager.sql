@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2016 at 09:48 AM
+-- Generation Time: Aug 26, 2016 at 10:57 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -329,12 +329,12 @@ CREATE TABLE `vps` (
 --
 
 INSERT INTO `vps` (`id`, `cid`, `pid`, `svid`, `vps_label`, `vps_ip`, `rootpass`, `create_date`, `space`, `ram`) VALUES
-(1, 1001, 2, 1, 'vps 1', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
-(2, 1002, 3, 3, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
-(3, 1002, 5, 3, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
-(4, 1002, 4, 5, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
-(5, 1001, 2, 6, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
-(6, 1002, 6, 25, 'llllllllllllllllllll', '1.1.1.1', 'ykhtgbfddpab165xcplvmrqfob68vu', '2016-08-25 03:46:54', NULL, NULL),
+(1, 1001, 2, 30, 'vps 1', '1.3.2.4', 'qwertyhgfd', '2016-6-12', 5, 1024),
+(2, 1002, 3, 26, 'vps 2', '1.2.3.7', 'xcvbnfesdg', '2016-8-2', 6, 1024),
+(3, 1002, 5, 27, 'vps 3', '8.2.0.6', 'ikolghncse', '2016-8-3', 7, 2048),
+(4, 1002, 4, 28, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
+(5, 1001, 2, 29, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
+(6, 1002, 6, 25, 'DHQC', '1.1.1.1', 'ykhtgbfddpab165xcplvmrqfob68vu', '2016-08-25 03:46:54', NULL, NULL),
 (7, 1002, 2, 25, 'pppppppppppppppp', '1.1.1.1', 'yk73sfcyqzraz3fnb3t4vuvcfn4d7f', '2016-08-25 05:17:27', NULL, NULL);
 
 --
