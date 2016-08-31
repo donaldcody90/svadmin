@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2016 at 10:57 AM
+-- Generation Time: Aug 31, 2016 at 05:05 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -77,7 +77,7 @@ INSERT INTO `categories` (`id`, `name`, `uid`, `status`) VALUES
 (5, 'General', 24, 1),
 (9, 'Technique', 5, 0),
 (13, 'abc', 18, 0),
-(14, '455555555555', 5, 1);
+(14, '455555555555', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -108,6 +108,33 @@ INSERT INTO `conversation` (`cid`, `uid`, `caid`, `vpsid`, `title`, `message`, `
 (37, 1002, 5, 0, 'test lan 3:45 ', 'success', '2016-08-05 15:46:13', '0'),
 (38, 1002, 9, 0, 'test lan 3:46', 'success', '2016-08-05 15:46:39', '1'),
 (39, 1002, 13, 0, 'test 3:26 6/8', 'success', '2016-08-06 15:26:48', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `crypto_payments`
+--
+
+CREATE TABLE `crypto_payments` (
+  `paymentID` int(11) UNSIGNED NOT NULL,
+  `boxID` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `boxType` enum('paymentbox','captchabox') NOT NULL,
+  `orderID` varchar(50) NOT NULL DEFAULT '',
+  `userID` varchar(50) NOT NULL DEFAULT '',
+  `countryID` varchar(3) NOT NULL DEFAULT '',
+  `coinLabel` varchar(6) NOT NULL DEFAULT '',
+  `amount` double(20,8) NOT NULL DEFAULT '0.00000000',
+  `amountUSD` double(20,8) NOT NULL DEFAULT '0.00000000',
+  `unrecognised` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `addr` varchar(34) NOT NULL DEFAULT '',
+  `txID` char(64) NOT NULL DEFAULT '',
+  `txDate` datetime DEFAULT NULL,
+  `txConfirmed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `txCheckDate` datetime DEFAULT NULL,
+  `processed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `processedDate` datetime DEFAULT NULL,
+  `recordCreated` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -335,7 +362,8 @@ INSERT INTO `vps` (`id`, `cid`, `pid`, `svid`, `vps_label`, `vps_ip`, `rootpass`
 (4, 1002, 4, 28, 'vps 4', '6.1.4.3', 'qwvbnhgdfe', '2016-8-5', 9, 2048),
 (5, 1001, 2, 29, 'vps 5', '8.4.6.1', 'dcfvgrwkln', '2016-8-9', 2, 4096),
 (6, 1002, 6, 25, 'DHQC', '1.1.1.1', 'ykhtgbfddpab165xcplvmrqfob68vu', '2016-08-25 03:46:54', NULL, NULL),
-(7, 1002, 2, 25, 'pppppppppppppppp', '1.1.1.1', 'yk73sfcyqzraz3fnb3t4vuvcfn4d7f', '2016-08-25 05:17:27', NULL, NULL);
+(7, 1002, 2, 25, 'pppppppppppppppp', '1.1.1.1', 'yk73sfcyqzraz3fnb3t4vuvcfn4d7f', '2016-08-25 05:17:27', NULL, NULL),
+(8, 1002, 2, 25, 'toantest', '4.4.4.4', 'mybdj7hpsaa8sbwskw1rj4yzpjdsia', '2016-08-26 18:13:20', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -365,6 +393,32 @@ ALTER TABLE `categories`
 ALTER TABLE `conversation`
   ADD PRIMARY KEY (`cid`),
   ADD KEY `fk_u_id_customers` (`uid`);
+
+--
+-- Indexes for table `crypto_payments`
+--
+ALTER TABLE `crypto_payments`
+  ADD PRIMARY KEY (`paymentID`),
+  ADD KEY `boxID` (`boxID`),
+  ADD KEY `boxType` (`boxType`),
+  ADD KEY `userID` (`userID`),
+  ADD KEY `countryID` (`countryID`),
+  ADD KEY `orderID` (`orderID`),
+  ADD KEY `amount` (`amount`),
+  ADD KEY `amountUSD` (`amountUSD`),
+  ADD KEY `coinLabel` (`coinLabel`),
+  ADD KEY `unrecognised` (`unrecognised`),
+  ADD KEY `addr` (`addr`),
+  ADD KEY `txID` (`txID`),
+  ADD KEY `txDate` (`txDate`),
+  ADD KEY `txConfirmed` (`txConfirmed`),
+  ADD KEY `txCheckDate` (`txCheckDate`),
+  ADD KEY `processed` (`processed`),
+  ADD KEY `processedDate` (`processedDate`),
+  ADD KEY `recordCreated` (`recordCreated`),
+  ADD KEY `key1` (`boxID`,`orderID`),
+  ADD KEY `key2` (`boxID`,`orderID`,`userID`),
+  ADD KEY `key3` (`boxID`,`orderID`,`userID`,`txID`);
 
 --
 -- Indexes for table `customers`
@@ -428,6 +482,11 @@ ALTER TABLE `categories`
 ALTER TABLE `conversation`
   MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
+-- AUTO_INCREMENT for table `crypto_payments`
+--
+ALTER TABLE `crypto_payments`
+  MODIFY `paymentID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
@@ -461,7 +520,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vps`
 --
 ALTER TABLE `vps`
-  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(18) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
