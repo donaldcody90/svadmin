@@ -84,9 +84,10 @@ class Vps extends CI_Controller
 		{
 			require_once APPPATH.'third_party/virtualizor/sdk/admin.php';
 				
-			$param_where['id']= $this->input->post('datacenter');
-			$key= $this->servers_model->findSV($param_where, $is_list=false)->svkey;
-			$pass= $this->servers_model->findSV($param_where, $is_list=false)->svpass;
+			$param_where['id']= $this->input->post('server');
+			$key= $this->servers_model->findSV($param_where, $is_list=false)['svkey'];
+			$pass= $this->servers_model->findSV($param_where, $is_list=false)['svpass'];
+			$ip= $this->input->post('vps_ip');
 			
 			$admin = new Virtualizor_Admin_API($ip, $key, $pass);
 			
@@ -97,16 +98,19 @@ class Vps extends CI_Controller
 			
 			$output = $admin->addvs($post);
 			
-			print_r($output);die;
+			//print_r($output);
 			
-			if($output->error=array('') )
+			if($output['error']=array('') )
 			{
-				$data2['id']= $output->vs_info->vpsid;
-				
-				$data2['cid']= $this->input->post('username');
-				
-				$data2['svid']= $this->input->post('datacenter');
-				
+				if($output['vs_info']['vpsid'] != ''){
+					$data2['id']= $output['vs_info']['vpsid'];
+				}
+				if($this->input->post('username') != ''){
+					$data2['cid']= $this->input->post('username');
+				}
+				if($this->input->post('server') != ''){
+					$data2['svid']= $this->input->post('server');
+				}
 				if($this->input->post('label') != ''){
 					$data2['vps_label']= $this->input->post('label');
 				}
@@ -119,9 +123,12 @@ class Vps extends CI_Controller
 				
 				$data2['create_date']= date("Y-m-d");
 				
-				$data2['space']= $output->vs_info->space;
-				
-				$data2['ram']= $output->vs_info->ram;
+				if($output['vs_info']['space'] != ''){
+					$data2['space']= $output['vs_info']['space'];
+				}
+				if($output['vs_info']['ram'] != ''){
+					$data2['ram']= $output['vs_info']['ram'];
+				}
 				if(count($data2) == 9)
 				{
 					$insert= $this->vps_model->addVps($data2);
@@ -137,17 +144,18 @@ class Vps extends CI_Controller
 				}
 				else
 				{
+					message_flash('VPS addition failed.','error');
 					redirect('vps/add');
 				}
 			}
 			else
 			{
-				print_r($output->error);
+				print_r($output['error']);
 			}
 			
 		}
 		
-		$data['customers']= $this->customers_model->findCustomer();
+		$data['customers']= $this->customers_model->findCustomer(null, true);
 		$data['servers']= $this->servers_model->findSV(array(),true);
 		$this->load->view('vps/add_vps_view', $data);
 	}

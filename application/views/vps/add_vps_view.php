@@ -21,7 +21,7 @@
 			</select>
 		</div>
 		<div class="group-input">
-			<label class="label_input">Server <span class="red">*</span></label>
+			<label class="label_input">Servers <span class="red">*</span></label>
 			<select name="server">
 				<option value="" selected>None</option>
 				<?php foreach($servers as $value2){
