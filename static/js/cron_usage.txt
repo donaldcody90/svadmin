@@ -1,0 +1,19 @@
+Usage:
+
+new CronJob('* * * * * *', function(){
+    console.log('You will see this message every second');
+});
+Available Cron patterns:
+
+Asterisk. E.g. *
+Ranges. E.g. 1-3,5
+Steps. E.g. */2
+Read up on cron patterns here.
+
+Another example:
+
+new CronJob('00 30 11 * * 2-6', function(){
+    // Runs every weekday (Monday through Friday)
+    // at 11:30:00 AM. It does not run on Saturday
+    // or Sunday.
+});

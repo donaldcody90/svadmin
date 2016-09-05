@@ -65,7 +65,6 @@ class Vps_model extends MY_Model
 		));
 	}
 	
-	
 	// function getServers()
 	// {
 		// $this->db->select('*');

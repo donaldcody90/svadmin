@@ -87,7 +87,7 @@ class Vps extends CI_Controller
 			$param_where['id']= $this->input->post('server');
 			$key= $this->servers_model->findSV($param_where, $is_list=false)['svkey'];
 			$pass= $this->servers_model->findSV($param_where, $is_list=false)['svpass'];
-			$ip= $this->input->post('vps_ip');
+			$ip= $this->servers_model->findSV($param_where, $is_list=false)['ip'];
 			
 			$admin = new Virtualizor_Admin_API($ip, $key, $pass);
 			
@@ -98,7 +98,7 @@ class Vps extends CI_Controller
 			
 			$output = $admin->addvs($post);
 			
-			//print_r($output);
+			print_r($admin);die;
 			
 			if($output['error']=array('') )
 			{
@@ -174,15 +174,6 @@ class Vps extends CI_Controller
 		}
 		redirect('vps/lists');
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
