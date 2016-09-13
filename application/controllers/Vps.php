@@ -99,15 +99,15 @@ class Vps extends CI_Controller
 			
 			$output = $admin->addvs($post);
 			
-			print_r($admin);die;
+			//print_r($admin);die;
 			
 			if($output['error']=array('') )
 			{
 				if($output['vs_info']['vpsid'] != ''){
-					$data2['id']= $output['vs_info']['vpsid'];
+					$data2['id']= $data3['vps_id']= $output['vs_info']['vpsid'];
 				}
 				if($this->input->post('username') != ''){
-					$data2['cid']= $this->input->post('username');
+					$data2['cid']= $data3['cid']= $this->input->post('username');
 				}
 				if($this->input->post('server') != ''){
 					$data2['svid']= $this->input->post('server');
@@ -135,7 +135,14 @@ class Vps extends CI_Controller
 					$insert= $this->vps_model->addVps($data2);
 					if($insert == 1)
 					{
-						message_flash('Inserted Successfully!');
+						$data3['month']= date("m");
+						$data3['year']= date("Y");
+						$data3['start_date']= $data3['end_date']= date("Y-m-d h:i:s");
+						$insert_vps_lifetime= $this->vps_model->addVpslifetime($data3);
+						if($insert_vps_lifetime)
+						{
+							message_flash('Inserted Successfully!');
+						}
 					}
 					else
 					{

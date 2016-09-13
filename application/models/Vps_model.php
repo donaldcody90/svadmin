@@ -6,6 +6,7 @@ class Vps_model extends MY_Model
 	private $vps= 'vps';
 	private $customers= 'customers';
 	private $servers= 'servers';
+	private $vps_lifetime= 'vps_lifetime';
 	
 	function __construct()
 	{
@@ -13,11 +14,12 @@ class Vps_model extends MY_Model
 		
 	}
 	
-	function findVps($param_where)
+	function findVps($param_where, $is_list=false)
 	{
 		return $this->_getwhere(array(
 				'table' 		=> $this->vps,
-				'param_where'	=>	$param_where
+				'param_where'	=> $param_where,
+				'list'			=> $is_list
 		));
 	}
 	
@@ -62,6 +64,14 @@ class Vps_model extends MY_Model
 		return $this->_del(array(
 				'table'	=> $this->vps,
 				'param_where'	=> $param_where
+		));
+	}
+	
+	function addVpslifetime($data)
+	{
+		return $this->_save(array(
+				'table'		=> $this->vps_lifetime,
+				'data'		=> $data
 		));
 	}
 	
