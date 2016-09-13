@@ -62,7 +62,8 @@
 		?>
 	</div>
 	<?php 
-	if (is_logged_in()) {
+	$cController=vst_getController();
+	if (is_logged_in() && $cController != 'auth') {
 		$this->load->view('_base/menu'); 
 	}
 	?>

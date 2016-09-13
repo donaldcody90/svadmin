@@ -7,6 +7,7 @@ class Vps extends CI_Controller
 	{
 		parent::__construct();
 		vkt_checkAuth();
+		vkt_checkAdmin();
 		$this->load->model('vps_model');
 		$this->load->model('servers_model');
 		$this->load->model('customers_model');

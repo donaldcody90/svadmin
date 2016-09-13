@@ -41,11 +41,11 @@ class Customers_model extends MY_Model
           ));
      }
 	 
-	 function listCustomer($filter,$limit,$start){
+	 function listCustomer($filter,$limit=null,$start=null){
           vst_buildFilter($filter);
           $result = $this->db->get($this->customers, $limit, $start);
 		  
-          return $result->result();
+          return $result->result_array();
      }
 	 
 	 function totalCustomer($filter){

@@ -8,11 +8,7 @@ class Users extends CI_Controller
 	{
 		parent::__construct();
 		vkt_checkAuth();
-		if(!$this->session->userdata('role') == 0)
-		{
-			redirect('auth/login');
-		}
-		
+		vkt_checkAdmin();
 		$this->load->model('users_model');
 		$this->load->helper('server_helper');
 	}
@@ -42,7 +38,6 @@ class Users extends CI_Controller
 		$data['total_rows']= $total;
 		$this->load->view('users/list_user_view', $data);
 	
-		
 	}
 	
 	public function changepassword()
@@ -106,6 +101,34 @@ class Users extends CI_Controller
 		echo json_encode($res);
 	}
 	
+	
+	function exporttoExcel()
+	{
+		require APPPATH.'third_party/exportdata/php-export-data.class.php';
+		
+		$excel = new ExportDataExcel('file');
+		$find= array('/', ':', ' ');
+		$datetime= str_replace($find, '', vst_currentDate());
+		$excel->filename = 'user_list'.$datetime.'.xls';
+		$this->exportTo= "browser";
+		$excel->initialize();
+		
+		$title= array('ID', 'Fullname', 'Username', 'Password', 'Email', 'Role');
+		$excel->addRow($title);
+		$filterData= vst_filterData(array('filter_id', 'filter_username', 'filter_fullname', 'filter_email'));
+		$data= $this->users_model->listUser($filterData);
+		foreach($data as $row)
+		{
+			$data_row= array();
+			foreach($row as $value){
+				$data_row[]= $value;
+			}
+			$excel->addRow($row);
+		}
+		$excel->finalize();
+		message_flash('Export Successfully!');
+		redirect(site_url('users/lists'));
+	}
 	
 	
 	function update($uid)

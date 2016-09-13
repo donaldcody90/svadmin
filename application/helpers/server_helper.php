@@ -36,6 +36,21 @@ if ( ! function_exists('vkt_checkAuth'))
 	}
 }
 
+if(!function_exists('vkt_checkAdmin'))
+{
+	function vkt_checkAdmin()
+	{
+		$CI= & get_instance();
+		$role= $CI->session->userdata('role');
+		if($role!='0')
+		{
+			$CI->load->helper('url');
+			redirect('auth/login');
+		}
+		
+	}
+}
+
 if ( ! function_exists('vst_getCurrentUser'))
 {
 	function vst_getCurrentUser() {
@@ -148,7 +163,7 @@ if(! function_exists('getStatusRole'))
 		switch($status)
 		{
 			case 0:
-				$statusText='Administrator';
+				$statusText='Admin';
 				break;
 			default:
 				//code
@@ -517,6 +532,8 @@ if(!function_exists('APIcreatevps_post'))
 		return $post;
 	}
 }
+
+
 
 
 

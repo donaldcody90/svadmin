@@ -8,6 +8,7 @@ class Servers extends CI_Controller
 	{
 		parent::__construct();
 		vkt_checkAuth();
+		vkt_checkAdmin();
 		$this->load->model('servers_model');
 		$this->load->helper('server_helper');
 	}

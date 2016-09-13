@@ -29,16 +29,16 @@
                 </tr>
                 <?php foreach ($result as $key => $value) { ?>
 					<tr>
-						<td class="center"><?php echo $value->id ; ?></td>
-						<td><?php echo $value->username ; ?></td>
-						<td><?php echo $value->fullname ; ?></td>
-						<td><?php echo $value->email ; ?></td>
+						<td class="center"><?php echo $value['id'] ; ?></td>
+						<td><?php echo $value['username'] ; ?></td>
+						<td><?php echo $value['fullname'] ; ?></td>
+						<td><?php echo $value['email'] ; ?></td>
 						<td>
-							<a class="edit" href="<?php echo site_url('customers/edit/'. $value->id); ?>">Edit</a>
-							<a class="delete" href="<?php echo site_url('customers/delete/' . $value->id); ?>" onclick="return confirm('Are you sure you want to delete?')">
+							<a class="edit" href="<?php echo site_url('customers/edit/'. $value['id']); ?>">Edit</a>
+							<a class="delete" href="<?php echo site_url('customers/delete/' . $value['id']); ?>" onclick="return confirm('Are you sure you want to delete?')">
 								Delete
 							</a>
-							<button class="link_ajax" onclick="openPopup('<?php echo site_url('customers/changepassword'); ?>',{cid:<?php echo  $value->id; ?>},600,500)">
+							<button class="link_ajax" onclick="openPopup('<?php echo site_url('customers/changepassword'); ?>',{cid:<?php echo  $value['id']; ?>},600,500)">
 								Change password
 							</button>
 						</td>
@@ -49,6 +49,13 @@
     </div>
     <?php echo $this->pagination->create_links(); ?>
     <p><strong>Total: <span class="green"><?php if( isset($total_rows) && count($total_rows)>0 ){ echo $total_rows; } ?></span> (Items)</strong></p>
+	<form action="<?php echo site_url('customers/exporttoExcel'); ?>">
+		<input type="hidden" name="filter_id" value="<?php echo isset($_GET['filter_id'])?$_GET['filter_id']:''; ?>" />
+		<input type="hidden" name="filter_username" value="<?php echo isset($_GET['filter_username'])?$_GET['filter_username']:''; ?>" />
+		<input type="hidden" name="filter_fullname" value="<?php echo isset($_GET['filter_fullname'])?$_GET['filter_fullname']:''; ?>" />
+		<input type="hidden" name="filter_email" value="<?php echo isset($_GET['filter_email'])?$_GET['filter_email']:''; ?>" />
+		<input class="export" type="submit" value="Export">
+	</form>
 </div>
 
 <?php $this->load->view('_base/footer'); ?>
