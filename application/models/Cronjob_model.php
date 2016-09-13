@@ -62,6 +62,19 @@ class Cronjob_model extends MY_Model
 		return $result;
 	}
 	
+	function createInvoiceID($key, $month, $year)
+	{
+		$sql= "INSERT INTO invoices (cid, invoiceid, month, year)
+				SELECT cid, concat(cid, ?) as invoiceid, month, year
+				FROM vps_lifetime
+				WHERE month= ? AND year= ?
+				GROUP BY cid";
+		
+		$this->db->query($sql, array($key, $month, $year));
+		$result= $this->db->affected_rows();
+		return $result;
+	}
+	
 	function noteservercharge($month, $year, $date){
 		$sql= "INSERT INTO billing_history (cid, description, created_date, amount, balance, type, ref_id)
 				SELECT vl.cid, concat('Invoice#', i.invoiceid), ? as 'created_date', sum(vl.amount), b.amount, '0' as 'type', i.id

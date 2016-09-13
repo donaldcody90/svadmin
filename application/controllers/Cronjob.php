@@ -45,12 +45,19 @@ class Cronjob extends CI_Controller
 		$month= date("m");
 		$year= date("Y");
 		$date= date("Y-m-d");
-		$result= $this->cronjob_model->noteservercharge($month, $year, $date);
-		if($result==true){
-			$date_time= date("Y-m-d h:i:s");
-			$result_2= $this->cronjob_model->resetservercharge($month, $year, $date_time);
-			if($result_2==false){
-				echo "Failed";
+		$last_month= date('m',strtotime("-1 days"));
+		$last_year= date('Y',strtotime("-1 days"));
+		$key= str_replace('-', '', $date);
+		$create_invoiceid= $this->cronjob_model->createInvoiceID($key, $last_month, $last_year);
+		if($create_invoiceid == true)
+		{
+			$result= $this->cronjob_model->noteservercharge($last_month, $last_year, $date);
+			if($result==true){
+				$date_time= date("Y-m-d h:i:s");
+				$result_2= $this->cronjob_model->resetservercharge($month, $year, $date_time);
+				if($result_2==false){
+					echo "Failed";
+				}
 			}
 		}
 	}
