@@ -16,10 +16,13 @@ class Cronjob extends CI_Controller
 		$date= date("Y-m-d h:i:s");
 		$month= date("m");
 		$year= date("Y");
-		$price= $this->cronjob_model->getVpsprice($vpsid)['price'];
+		$price= $this->cronjob_model->getVpsprice($vpsid)['price']/720;
 		$result= $this->cronjob_model->vpscharge($vpsid, $price, $date, $month, $year);
-		if($result==0){
-			die('failed');
+		if($result==1){
+			echo 'Updated VPS#'.$vpsid.'--> Month: '.$month.'-'.$year.'   End date: '.$date.'   Amount: $'.$price."<br>";
+		}
+		else{
+			echo 'Failed';
 		}
 	}
 	

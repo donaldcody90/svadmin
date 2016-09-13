@@ -40,7 +40,7 @@ class Cronjob_model extends MY_Model
 				// SET vl.amount= vl.amount + p.price/720, vl.end_date= ?";
 				
 		$sql= "UPDATE vps_lifetime
-				SET amount= amount + ?/720 , end_date= ?
+				SET amount= amount + ? , end_date= ?
 				WHERE vps_id= ? AND month= ? AND year= ?";
 		
 		$this->db->query($sql, array($price, $date, $vpsid, $month, $year));
